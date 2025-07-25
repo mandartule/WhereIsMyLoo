@@ -1,0 +1,24 @@
+{
+  "name": "whereismyloo",
+  "version": "1.0.0",
+  "description": "Final Year College Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mandartule/WhereIsMyLoo.git"
+  },
+  "author": "mandar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mandartule/WhereIsMyLoo/issues"
+  },
+  "homepage": "https://github.com/mandartule/WhereIsMyLoo#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.5"
+  }
+}
