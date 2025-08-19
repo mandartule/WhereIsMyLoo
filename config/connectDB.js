@@ -1,12 +1,9 @@
-
 const mongoose = require('mongoose');
-
-
 
 const connectDb = async () =>  {
     try {
         await mongoose.connect(process.env.MONGO_URL);
-        console.log(`Server running on ${mongoose.connection.host}`)
+        console.log(`DB connected successfull on ${mongoose.connection.host}`)
     }catch (err) {
         console.log(`An error occured while connecting databse : ${err}`);
     } 

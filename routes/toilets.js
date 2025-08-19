@@ -7,6 +7,7 @@ const Toilet = require('../models/toilet');
 router.get('/', async (req, res) => {
     const toilets = await Toilet.find({});
     console.log(toilets);
+    console.log("toilets shown");
 });
 
 // Show form to create new toilet
