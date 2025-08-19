@@ -1,0 +1,57 @@
+<% layout('layouts/boilerplate') %>
+
+<h1 class="mb-4">Nearby Toilets</h1>
+
+<form method="GET" action="/toilets" class="mb-4">
+  <div class="row">
+    <!-- Paid/Free dropdown -->
+    <div class="col-md-3">
+      <label class="form-label">Paid or Free</label>
+      <select name="paid" class="form-select">
+        <option value="">All</option>
+        <option value="true" <%= paid === "true" ? "selected" : "" %>>Paid</option>
+        <option value="false" <%= paid === "false" ? "selected" : "" %>>Free</option>
+      </select>
+    </div>
+
+    <!-- Min rating dropdown -->
+    <div class="col-md-3">
+      <label class="form-label">Minimum Rating</label>
+      <select name="minRating" class="form-select">
+        <option value="">Any</option>
+        <option value="1" <%= minRating === "1" ? "selected" : "" %>>1+</option>
+        <option value="2" <%= minRating === "2" ? "selected" : "" %>>2+</option>
+        <option value="3" <%= minRating === "3" ? "selected" : "" %>>3+</option>
+        <option value="4" <%= minRating === "4" ? "selected" : "" %>>4+</option>
+      </select>
+    </div>
+
+    <!-- Buttons -->
+    <div class="col-md-3 d-flex align-items-end">
+      <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+    </div>
+    <div class="col-md-3 d-flex align-items-end">
+      <a href="/toilets" class="btn btn-secondary w-100">Clear Filters</a>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <% if (toilets.length === 0) { %>
+    <p class="text-muted">No toilets found matching your filters.</p>
+  <% } else { %>
+    <% toilets.forEach(toilet => { %>
+      <div class="col-md-4 mb-3">
+        <div class="card shadow">
+          <img src="<%= toilet.images.length ? toilet.images[0].url : 'https://placehold.co/600x400' %>" 
+               class="card-img-top" alt="Toilet image">
+          <div class="card-body">
+            <h5 class="card-title"><%= toilet.title %></h5>
+            <p class="card-text"><%= toilet.location %></p>
+            <a href="/toilets/<%= toilet._id %>" class="btn btn-primary">View</a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  <% } %>
+</div>

@@ -9,9 +9,9 @@ const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+
 const User = require('./models/user');
 const ejsMate = require('ejs-mate')
-const toiletRoutes = require('./routes/toilets');
 
 
 //config dot env file
@@ -78,6 +78,9 @@ app.use('/', authRoutes);
 
 const indexRoutes = require('./routes/index');
 app.use('/', indexRoutes);
+
+const toiletRoutes = require('./routes/toilets')
+app.use('/toilets',toiletRoutes);
 
 app.listen(3000, () => {
     console.log("Listening on port 3000");
