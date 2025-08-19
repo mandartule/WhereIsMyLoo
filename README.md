@@ -54,71 +54,9 @@ Find nearby public restrooms. Node.js + Express + MongoDB backend with EJS views
 ## Setup
 <!-- Steps to get a local dev environment -->
 1) Install dependencies
-```bash
-npm install./C:/Users/91749/AppData/Local/Programs/Microsoft VS Code/<!--
-README.md for your Node.js + Express + MongoDB + EJS project.
-Every major section includes comments to explain intent or customization points.
-Change project name, routes, and fields to match your actual code.
--->
-
-# WhereIsMyLoo
-<!-- Brief, human-friendly summary of the project -->
-Find nearby public restrooms. Node.js + Express + MongoDB backend with EJS views.
-
----
-
-## Table of Contents
-<!-- Helps quick navigation for longer READMEs -->
-- Features
-- Tech Stack
-- Prerequisites
-- Setup
-- Environment Variables
-- Running the App
-- Project Structure
-- API and Routes
-- Data Model (Example)
-- Views and EJS Notes
-- Method-Override Usage
-- Scripts
-- Troubleshooting
-- License
-
----
-
-## Features
-<!-- List core capabilities. Adjust as your app grows. -->
-- RESTful CRUD for toilets
-- MongoDB via Mongoose
-- EJS templating
-- method-override for PUT/DELETE via HTML forms
-- dotenv-based configuration
-
----
-
-## Tech Stack
-<!-- Name the primary tools to set expectations for contributors -->
-- Node.js, Express
-- MongoDB, Mongoose
-- EJS templating
-- dotenv, method-override
-
----
-
-## Prerequisites
-<!-- Required software before installing -->
-- Node.js 18+ and npm
-- MongoDB (local or Atlas)
-
----
-
-## Setup
-<!-- Steps to get a local dev environment -->
-1) Install dependencies
-```bash
-npm install
 
 ```
+npm instll
 ```
 
 2) Configure env 🔐
