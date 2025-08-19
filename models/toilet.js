@@ -60,13 +60,10 @@ const ToiletSchema = new Schema({
         default: Date.now
     },
 
-    author: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
     reviews: [{
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Review'
     }]
 });
