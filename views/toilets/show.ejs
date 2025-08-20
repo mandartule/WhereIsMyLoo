@@ -1,0 +1,68 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-4">
+  <div class="row">
+    <!-- Left column: Toilet details card -->
+    <div class="col-md-6">
+      <div class="card shadow-sm mb-4" style="border-radius: 15px;">
+        <img src="<%= toilet.images.length ? toilet.images[0].url : 'https://placehold.co/600x300' %>"
+             class="card-img-top" alt="Toilet image" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+
+        <div class="card-body">
+          <h4 class="card-title mb-3">🚻 <%= toilet.title %></h4>
+          <p><strong>📍 Location:</strong> <%= toilet.location %></p>
+          <p><strong>📝 Description:</strong> <%= toilet.description %></p>
+
+          <p><strong>💰 Price:</strong> 
+            <%= toilet.isPaid ? `₹${toilet.price}` : 'Free 🚫' %>
+          </p>
+
+          <p><strong>🚹🚺 Gender Access:</strong> <%= toilet.genderAccess %></p>
+          <p><strong>♿ Wheelchair Accessible:</strong> <%= toilet.isAccessible ? 'Yes ✅' : 'No ❌' %></p>
+          <p><strong>🩸 Sanitary Pad Disposal:</strong> <%= toilet.hasSanitaryPadDisposal ? 'Available ✅' : 'Not Available ❌' %></p>
+          <p><strong>✨ Cleanliness Rating:</strong> 
+            <% if (toilet.cleanlinessRating) { %>
+              <%= '⭐'.repeat(toilet.cleanlinessRating) %> (<%= toilet.cleanlinessRating %>/5)
+            <% } else { %>
+              Not Rated
+            <% } %>
+          </p>
+        </div>
+
+        <div class="card-footer text-center">
+          <a href="/toilets" class="btn btn-secondary btn-sm">🔙 Back to List</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right column -->
+    <div class="col-md-6">
+      <!-- Map placeholder -->
+      <div id="map" style="height: 300px; border-radius: 15px; margin-bottom: 20px;"></div>
+
+      <!-- Review section placeholder -->
+      <div class="card shadow-sm" style="border-radius: 15px;">
+        <div class="card-body">
+          <h5 class="card-title">💬 Reviews</h5>
+          <p class="text-muted">Review system coming soon...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Map script (uses Leaflet for demo, you can switch to Mapbox later) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([<%= toilet.geometry.coordinates[1] %>, <%= toilet.geometry.coordinates[0] %>], 15);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+
+  L.marker([<%= toilet.geometry.coordinates[1] %>, <%= toilet.geometry.coordinates[0] %>])
+    .addTo(map)
+    .bindPopup('<b><%= toilet.title %></b><br><%= toilet.location %>')
+    .openPopup();
+</script>
