@@ -1,0 +1,69 @@
+<% layout('layouts/boilerplate') %>
+
+<h1>Add new Toilet</h1>
+<form action="/toilets/new" method="POST">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" id="title" name="toilet[title]" required>
+  </div>
+
+<div class="mb-3"></div>
+    <label for="longitude" class="form-label">Longitude</label>
+    <input type="number" class="form-control" id="longitude" name="toilet[geometry][coordinates][]" step="any" required>
+</div>
+<div class="mb-3">
+    <label for="latitude" class="form-label">Latitude</label>
+    <input type="number" class="form-control" id="latitude" name="toilet[geometry][coordinates][]" step="any" required>
+</div>
+<input type="hidden" name="toilet[geometry][type]" value="Point">
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea class="form-control" id="description" name="toilet[description]" rows="3"></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="isPaid" class="form-label">Is it Paid?</label>
+    <select class="form-select" id="isPaid" name="toilet[isPaid]" required>
+      <option value="">Select</option>
+      <option value="true">Paid</option>
+      <option value="false">Free</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="price" class="form-label">Price (if paid)</label>
+    <input type="number" class="form-control" id="price" name="toilet[price]" min="0" step="0.01">
+  </div>
+
+  <div class="mb-3">
+    <label for="genderAccess" class="form-label">Gender Access</label>
+    <select class="form-select" id="genderAccess" name="toilet[genderAccess]" required>
+      <option value="">Select</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Unisex">Unisex</option>
+    </select>
+  </div>
+    <div class="mb-3">
+        <label for="isAccessible" class="form-label">Wheelchair Accessible?</label>
+        <select class="form-select" id="isAccessible" name="toilet[isAccessible]" required>
+        <option value="">Select</option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="hasSanitaryPadDisposal" class="form-label">Sanitary Pad Disposal Available?</label>
+        <select class="form-select" id="hasSanitaryPadDisposal" name="toilet[hasSanitaryPadDisposal]" required>
+        <option value="">Select</option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+        </select>
+    </div> 
+    <div class="mb-3">
+        <label for="cleanlinessRating" class="form-label">Cleanliness Rating (1-5)</label>
+        <input type="number" class="form-control" id="cleanlinessRating" name="toilet[cleanlinessRating]" min="1" max="5" step="1"> 
+    </div>
+    <button type="submit" class="btn btn-primary">Add Toilet</button>
+</form>

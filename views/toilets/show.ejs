@@ -27,10 +27,17 @@
               Not Rated
             <% } %>
           </p>
+          <p class="text-muted" style="font-size: 0.95em;">
+            Added by: <%= toilet.author && toilet.author.username ? toilet.author.username : 'Unknown' %>
+          </p>
         </div>
 
         <div class="card-footer text-center">
           <a href="/toilets" class="btn btn-secondary btn-sm">🔙 Back to List</a>
+          <a href="/toilets/<%= toilet._id %>/edit" class="btn btn-primary btn-sm mx-2">Update ✏️</a>
+          <form action="/toilets/<%= toilet._id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger btn-sm">Delete 🚽</button>
+          </form>
         </div>
       </div>
     </div>
