@@ -2,6 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const Toilet = require('../models/toilet');
+const { Types } = require('mongoose');
+const { isLoggedIn, isAuthor } = require('../middleware');
 
 router.get('/api', async (req, res) => {
     try {
@@ -49,20 +51,32 @@ router.get('/', async (req, res) => {
   });
   
   
-  
-
 // Show form to create new toilet
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
+    res.render('toilets/new');
     console.log("New toilet form");
 });
 
 // POST new toilet
-router.post('/', async (req, res) => {
+router.post('/new', isLoggedIn, async (req, res) => {
+  try {
+    console.log("Incoming toilet data:", req.body);
+
     const toilet = new Toilet(req.body.toilet);
+
+    // attach author only if logged in
+    if (req.user) {
+      toilet.author = req.user._id;
+    }
+
     await toilet.save();
     console.log("Toilet created:", toilet);
+    res.redirect(`/toilets/${toilet._id}`);
+  } catch (err) {
+    console.error("Error creating toilet:", err);
+    res.status(500).json({ error: err.message });
+  }
 });
-
 
 // Show page - details for one toilet
 router.get('/:id', async (req, res) => {
@@ -79,20 +93,38 @@ router.get('/:id', async (req, res) => {
 // Edit form
 router.get('/:id/edit', async (req, res) => {
     const toilet = await Toilet.findById(req.params.id);
+    if (!toilet) {
+      req.flash('error', 'Toilet not found');
+      return res.redirect('/toilets');
+    }
+    res.render('toilets/edit', { toilet });
     console.log("Edit toilet form for:", toilet);
 });
 
 // PUT update toilet
-router.put('/:id', async (req, res) => {
+router.put('/:id', isLoggedIn, isAuthor, async (req, res) => {
     const { id } = req.params;
-    await Toilet.findByIdAndUpdate(id, req.body.toilet);
-    console.log("Toilet updated:", { id, ...req.body.toilet });
+    if (!Types.ObjectId.isValid(id)) {
+        req.flash('error', 'Invalid toilet ID!');
+        return res.redirect('/toilets');
+    }
+
+    const toilet = await Toilet.findByIdAndUpdate(id, { ...req.body.toilet }, { new: true, runValidators: true });
+    req.flash('success', 'Successfully updated toilet');
+    res.redirect(`/toilets/${toilet._id}`);
 });
 
 // DELETE toilet
-router.delete('/:id', async (req, res) => {
-    await Toilet.findByIdAndDelete(req.params.id);
-    console.log("Toilet deleted:", req.params.id);
+router.delete('/:id', isLoggedIn, isAuthor, async (req, res) => {
+    const { id } = req.params;
+    if (!Types.ObjectId.isValid(id)) {
+        req.flash('error', 'Invalid toilet ID!');
+        return res.redirect('/toilets');
+    }
+
+    await Toilet.findByIdAndDelete(id)
+    req.flash('success', 'Successfully deleted toilet')
+    res.redirect('/toilets')
 });
 
 module.exports = router;

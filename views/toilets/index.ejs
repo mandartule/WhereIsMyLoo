@@ -1,11 +1,11 @@
-<% layout('layouts/boilerplate') %>
+<% layout('layouts/boilerplate') %><% layout('layouts/boilerplate') %>
 
 <h1 class="mb-4">Nearby Toilets</h1>
 
 <form method="GET" action="/toilets" class="mb-4">
   <div class="row">
     <!-- Paid/Free dropdown -->
-    <div class="col-md-3">
+    <div class="col-md-2">
       <label class="form-label">Paid or Free</label>
       <select name="paid" class="form-select">
         <option value="">All</option>
@@ -15,7 +15,7 @@
     </div>
 
     <!-- Min rating dropdown -->
-    <div class="col-md-3">
+    <div class="col-md-2">
       <label class="form-label">Minimum Rating</label>
       <select name="minRating" class="form-select">
         <option value="">Any</option>
@@ -27,11 +27,14 @@
     </div>
 
     <!-- Buttons -->
-    <div class="col-md-3 d-flex align-items-end">
+    <div class="col-md-2 d-flex align-items-end">
       <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
     </div>
-    <div class="col-md-3 d-flex align-items-end">
+    <div class="col-md-2 d-flex align-items-end">
       <a href="/toilets" class="btn btn-secondary w-100">Clear Filters</a>
+    </div>
+    <div class="col-md-2 d-flex align-items-end">
+      <a href="/toilets/new" class="btn btn-secondary w-100">New Toilet</a>
     </div>
   </div>
 </form>
