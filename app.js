@@ -82,6 +82,10 @@ app.use('/', indexRoutes);
 const toiletRoutes = require('./routes/toilets')
 app.use('/toilets',toiletRoutes);
 
+
+const reviewRoutes = require('./routes/reviews');
+app.use('/toilets/:id/reviews', reviewRoutes);
+
 app.listen(3000, () => {
     console.log("Listening on port 3000");
 })

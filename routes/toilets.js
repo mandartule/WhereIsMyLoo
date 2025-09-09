@@ -4,7 +4,9 @@ const router = express.Router();
 const Toilet = require('../models/toilet');
 const { Types } = require('mongoose');
 const { isLoggedIn, isAuthor } = require('../middleware');
+const axios = require('axios');
 
+//filter toilets
 router.get('/api', async (req, res) => {
     try {
       const { paid, minRating } = req.query;
@@ -62,26 +64,53 @@ router.post('/new', isLoggedIn, async (req, res) => {
   try {
     console.log("Incoming toilet data:", req.body);
 
-    const toilet = new Toilet(req.body.toilet);
-
-    // attach author only if logged in
-    if (req.user) {
-      toilet.author = req.user._id;
+    const address = req.body.toilet.location;
+    const geocodeUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${process.env.MAPBOX_TOKEN}`;
+    
+    const geoResponse = await axios.get(geocodeUrl);
+    
+    if (!geoResponse.data.features || geoResponse.data.features.length === 0) {
+      req.flash('error', 'Could not find location. Please enter a more specific address.');
+      return res.redirect('/toilets/new');
     }
+
+    // Get coordinates from Mapbox response
+    const coordinates = geoResponse.data.features[0].center; // [lng, lat]
+    
+    const toilet = new Toilet(req.body.toilet);
+    
+    // Set the geometry with geocoded coordinates
+    toilet.geometry = {
+      type: "Point",
+      coordinates: coordinates
+    };
+
+    toilet.author = req.user._id;
+    
 
     await toilet.save();
     console.log("Toilet created:", toilet);
+    req.flash('success', 'Toilet added successfully!');
     res.redirect(`/toilets/${toilet._id}`);
   } catch (err) {
     console.error("Error creating toilet:", err);
-    res.status(500).json({ error: err.message });
+    req.flash('error', 'Error creating toilet. Please try again.');
+    res.redirect('/toilets/new');
   }
 });
 
 // Show page - details for one toilet
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
-    const toilet = await Toilet.findById(id);
+    const toilet = await Toilet.findById(id)
+          .populate('author')
+          .populate({
+            path : 'reviews',
+            populate: {
+              path: 'author'
+            }
+          });
+
     if (!toilet) {
       req.flash('error', 'Toilet not found');
       return res.redirect('/toilets');

@@ -7,15 +7,11 @@
     <input type="text" class="form-control" id="title" name="toilet[title]" required>
   </div>
 
-<div class="mb-3"></div>
-    <label for="longitude" class="form-label">Longitude</label>
-    <input type="number" class="form-control" id="longitude" name="toilet[geometry][coordinates][]" step="any" required>
-</div>
-<div class="mb-3">
-    <label for="latitude" class="form-label">Latitude</label>
-    <input type="number" class="form-control" id="latitude" name="toilet[geometry][coordinates][]" step="any" required>
-</div>
-<input type="hidden" name="toilet[geometry][type]" value="Point">
+  <div class="mb-3">
+    <label for="location" class="form-label">Address</label>
+    <input type="text" class="form-control" id="location" name="toilet[location]" 
+           placeholder="Enter full address (e.g., Central Park, Nagpur, Maharashtra)" required>
+  </div>
 
   <div class="mb-3">
     <label for="description" class="form-label">Description</label>

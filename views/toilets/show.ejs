@@ -1,75 +1,211 @@
 <% layout('layouts/boilerplate') %>
 
-<div class="container mt-4">
-  <div class="row">
-    <!-- Left column: Toilet details card -->
-    <div class="col-md-6">
-      <div class="card shadow-sm mb-4" style="border-radius: 15px;">
-        <img src="<%= toilet.images.length ? toilet.images[0].url : 'https://placehold.co/600x300' %>"
-             class="card-img-top" alt="Toilet image" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+  <div class="container mt-4">
+    <div class="row">
+      <!-- Left column: Toilet details card -->
+      <div class="col-md-6">
+        <div class="card shadow-sm mb-4" style="border-radius: 15px;">
+          <img src="<%= toilet.images.length ? toilet.images[0].url : 'https://placehold.co/600x300' %>"
+            class="card-img-top" alt="Toilet image"
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+          <div class="card-body">
+            <h4 class="card-title mb-3">🚻 <%= toilet.title %>
+            </h4>
+            <p><strong>📍 Location:</strong>
+              <%= toilet.location %>
+            </p>
+            <p><strong>📝 Description:</strong>
+              <%= toilet.description %>
+            </p>
+            <p><strong>💰 Price:</strong>
+              <%= toilet.isPaid ? `₹${toilet.price}` : 'Free 🚫' %>
+            </p>
+            <p><strong>🚹🚺 Gender Access:</strong>
+              <%= toilet.genderAccess %>
+            </p>
+            <p><strong>♿ Wheelchair Accessible:</strong>
+              <%= toilet.isAccessible ? 'Yes ✅' : 'No ❌' %>
+            </p>
+            <p><strong>🩸 Sanitary Pad Disposal:</strong>
+              <%= toilet.hasSanitaryPadDisposal ? 'Available ✅' : 'Not Available ❌' %>
+            </p>
+            <p><strong>✨ Cleanliness Rating:</strong>
+              <% if (toilet.cleanlinessRating) { %>
+                <%= '⭐' .repeat(toilet.cleanlinessRating) %> (<%= toilet.cleanlinessRating %>/5)
+                    <% } else { %>
+                      Not Rated
+                      <% } %>
+            </p>
+            <p class="text-muted" style="font-size: 0.95em;">
+              Added by: <%= toilet.author && toilet.author.username ? toilet.author.username : 'Unknown' %>
+            </p>
+          </div>
+          <div class="card-footer text-center">
+            <a href="/toilets" class="btn btn-secondary btn-sm">🔙 Back to List</a>
+            <% if (currentUser && toilet.author && toilet.author.equals(currentUser._id)) { %>
+              <a href="/toilets/<%= toilet._id %>/edit" class="btn btn-primary btn-sm mx-2">Update ✏️</a>
+              <form action="/toilets/<%= toilet._id %>?_method=DELETE" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-danger btn-sm">Delete 🚽</button>
+              </form>
+              <% } %>
+          </div>
+        </div>
+      </div>
 
-        <div class="card-body">
-          <h4 class="card-title mb-3">🚻 <%= toilet.title %></h4>
-          <p><strong>📍 Location:</strong> <%= toilet.location %></p>
-          <p><strong>📝 Description:</strong> <%= toilet.description %></p>
-
-          <p><strong>💰 Price:</strong> 
-            <%= toilet.isPaid ? `₹${toilet.price}` : 'Free 🚫' %>
-          </p>
-
-          <p><strong>🚹🚺 Gender Access:</strong> <%= toilet.genderAccess %></p>
-          <p><strong>♿ Wheelchair Accessible:</strong> <%= toilet.isAccessible ? 'Yes ✅' : 'No ❌' %></p>
-          <p><strong>🩸 Sanitary Pad Disposal:</strong> <%= toilet.hasSanitaryPadDisposal ? 'Available ✅' : 'Not Available ❌' %></p>
-          <p><strong>✨ Cleanliness Rating:</strong> 
-            <% if (toilet.cleanlinessRating) { %>
-              <%= '⭐'.repeat(toilet.cleanlinessRating) %> (<%= toilet.cleanlinessRating %>/5)
-            <% } else { %>
-              Not Rated
-            <% } %>
-          </p>
-          <p class="text-muted" style="font-size: 0.95em;">
-            Added by: <%= toilet.author && toilet.author.username ? toilet.author.username : 'Unknown' %>
-          </p>
+      <!-- Right column -->
+      <div class="col-md-6">
+        <!-- Map placeholder -->
+        <div id="map"
+          style="height: 300px; border-radius: 15px; margin-bottom: 20px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center; border: 2px dashed #6c757d;">
+          <div class="text-center text-muted">
+            <i class="bi bi-geo-alt-fill" style="font-size: 2rem;"></i>
+            <p class="mb-0 mt-2">Map Coming Soon</p>
+            <small>Location: <%= toilet.location %></small>
+            <br>
+            <small>Coordinates: <%= toilet.geometry.coordinates[1] %>, <%= toilet.geometry.coordinates[0] %></small>
+          </div>
         </div>
 
-        <div class="card-footer text-center">
-          <a href="/toilets" class="btn btn-secondary btn-sm">🔙 Back to List</a>
-          <a href="/toilets/<%= toilet._id %>/edit" class="btn btn-primary btn-sm mx-2">Update ✏️</a>
-          <form action="/toilets/<%= toilet._id %>?_method=DELETE" method="POST" class="d-inline">
-            <button type="submit" class="btn btn-danger btn-sm">Delete 🚽</button>
-          </form>
+        <!-- Reviews section -->
+        <div class="card shadow-sm" style="border-radius: 15px;">
+          <div class="card-body">
+            <h5 class="card-title">💬 Reviews
+              <% if (toilet.reviewCount && toilet.reviewCount> 0) { %>
+                <small class="text-muted">(<%= toilet.reviewCount %> reviews)</small>
+                <% } %>
+            </h5>
+
+            <!-- Average Rating Display -->
+            <% if (toilet.averageRating && toilet.averageRating> 0) { %>
+              <p class="mb-3">
+                <strong>Average Rating:</strong>
+                <%= '⭐' .repeat(Math.floor(toilet.averageRating)) %>
+                  <%= toilet.averageRating %>/5
+              </p>
+              <% } %>
+
+                <!-- Add Review Form (if logged in and haven't reviewed) -->
+                <% if (currentUser) { %>
+                  <% let userReview=toilet.reviews && toilet.reviews.find(r=> r.author && r.author.equals &&
+                    r.author.equals(currentUser._id)) %>
+                    <% if (!userReview) { %>
+                      <form action="/toilets/<%= toilet._id %>/reviews" method="POST" class="mb-4">
+                        <div class="mb-3">
+                          <label for="rating" class="form-label">Rating</label>
+                          <select class="form-select" name="review[rating]" required>
+                            <option value="">Select Rating</option>
+                            <option value="5">⭐⭐⭐⭐⭐ (5 - Excellent)</option>
+                            <option value="4">⭐⭐⭐⭐ (4 - Good)</option>
+                            <option value="3">⭐⭐⭐ (3 - Average)</option>
+                            <option value="2">⭐⭐ (2 - Poor)</option>
+                            <option value="1">⭐ (1 - Terrible)</option>
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                          <label for="body" class="form-label">Review</label>
+                          <textarea class="form-control" name="review[body]" rows="3"
+                            placeholder="Share your experience..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm">Add Review</button>
+                      </form>
+                      <% } else { %>
+                        <p class="text-success mb-3">✅ You have already reviewed this toilet</p>
+                        <% } %>
+                          <% } else { %>
+                            <p class="text-muted mb-3"><a href="/login">Login</a> to add a review</p>
+                            <% } %>
+
+                              <!-- Display Reviews -->
+                              <% if (toilet.reviews && toilet.reviews.length> 0) { %>
+                                <% for (let review of toilet.reviews) { %>
+                                  <div class="border-bottom mb-3 pb-3">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                      <div>
+                                        <strong>
+                                          <%= review.author && review.author.username ? review.author.username
+                                            : 'Anonymous' %>
+                                        </strong>
+                                        <div>
+                                          <%= '⭐' .repeat(review.rating) %> (<%= review.rating %>/5)
+                                        </div>
+                                        <p class="mb-1">
+                                          <%= review.body %>
+                                        </p>
+                                        <small class="text-muted">
+                                          <%= review.datePosted ? new Date(review.datePosted).toLocaleDateString()
+                                            : 'Unknown date' %>
+                                        </small>
+                                      </div>
+                                      <!-- Edit/Delete buttons for review author -->
+                                      <% if (currentUser && review.author && review.author.equals &&
+                                        review.author.equals(currentUser._id)) { %>
+                                        <div>
+                                          <form
+                                            action="/toilets/<%= toilet._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                            method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger"
+                                              onclick="return confirm('Delete this review?')">Delete</button>
+                                          </form>
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                  </div>
+                                  <% } %>
+                                    <% } else { %>
+                                      <p class="text-muted">No reviews yet. Be the first to review!</p>
+                                      <% } %>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Right column -->
-    <div class="col-md-6">
-      <!-- Map placeholder -->
-      <div id="map" style="height: 300px; border-radius: 15px; margin-bottom: 20px;"></div>
+    <!-- Add this before closing </div> at the very end -->
 
-      <!-- Review section placeholder -->
-      <div class="card shadow-sm" style="border-radius: 15px;">
-        <div class="card-body">
-          <h5 class="card-title">💬 Reviews</h5>
-          <p class="text-muted">Review system coming soon...</p>
-        </div>
-      </div>
-    </div>
+    <!-- Mapbox CSS and JS -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+
+    <script>
+      mapboxgl.accessToken = '<%= process.env.MAPBOX_TOKEN %>';
+
+      const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/satellite-streets-v12', // 3D satellite view
+        center: [<%= toilet.geometry.coordinates[0] %>, <%= toilet.geometry.coordinates[1] %>],
+        zoom: 16,
+        pitch: 60, // Tilt the map for 3D effect (0-60 degrees)
+        bearing: 0, // Rotation
+        antialias: true // For smooth 3D rendering
+      });
+
+      // Add 3D buildings layer
+      map.on('load', () => {
+        map.addLayer({
+          'id': '3d-buildings',
+          'source': 'composite',
+          'source-layer': 'building',
+          'filter': ['==', 'extrude', 'true'],
+          'type': 'fill-extrusion',
+          'minzoom': 15,
+          'paint': {
+            'fill-extrusion-color': '#aaa',
+            'fill-extrusion-height': ['get', 'height'],
+            'fill-extrusion-base': ['get', 'min_height'],
+            'fill-extrusion-opacity': 0.8
+          }
+        });
+      });
+
+      // Add marker for toilet location
+      const marker = new mapboxgl.Marker({ color: 'red', scale: 1.2 })
+        .setLngLat([<%= toilet.geometry.coordinates[0] %>, <%= toilet.geometry.coordinates[1] %>])
+        .setPopup(new mapboxgl.Popup().setHTML('<h6><%= toilet.title %></h6><p><%= toilet.location %></p>'))
+        .addTo(map);
+
+      // Add navigation controls
+      map.addControl(new mapboxgl.NavigationControl());
+    </script>
+
   </div>
-</div>
 
-<!-- Map script (uses Leaflet for demo, you can switch to Mapbox later) -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
-  const map = L.map('map').setView([<%= toilet.geometry.coordinates[1] %>, <%= toilet.geometry.coordinates[0] %>], 15);
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap'
-  }).addTo(map);
-
-  L.marker([<%= toilet.geometry.coordinates[1] %>, <%= toilet.geometry.coordinates[0] %>])
-    .addTo(map)
-    .bindPopup('<b><%= toilet.title %></b><br><%= toilet.location %>')
-    .openPopup();
-</script>
+ 

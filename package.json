@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mandartule/WhereIsMyLoo#readme",
   "dependencies": {
+    "axios": "^1.11.0",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^5.1.0",
     "dotenv": "^17.2.1",

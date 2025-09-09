@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Review = require('./review');
 
 const ImageSchema = new Schema({
     url: String,
@@ -65,7 +66,34 @@ const ToiletSchema = new Schema({
     reviews: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Review'
-    }]
+    }],
+
+    averageRating: {
+        type: Number,
+        default: 0
+    },
+    reviewCount: {
+        type: Number,
+        default: 0
+    }
+
+
+
 });
+
+//average rating calculations 
+
+ToiletSchema.methods.calculateAverageRating = async function() {
+    const reviews = await Review.find({ toilet: this._id });
+    if (reviews.length === 0) {
+        this.averageRating = 0;
+        this.reviewCount = 0;
+    } else {
+        const total = reviews.reduce((sum, review) => sum + review.rating, 0);
+        this.averageRating = Math.round((total / reviews.length) * 10) / 10; // Round to 1 decimal
+        this.reviewCount = reviews.length;
+    }
+    await this.save();
+};
 
 module.exports = mongoose.model('Toilet', ToiletSchema);

@@ -1,11 +1,12 @@
+
+require('dotenv').config();
 const mongoose = require('mongoose');
+const connectDb = require('../config/connectDB');
 const Toilet = require('../models/toilet');
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.log(err));
+// Use your existing connectDb function instead of hardcoded connection
+connectDb();
 
-// Sample data
 const sampleToilets = [
   {
     title: "Central Park Toilet",
@@ -66,9 +67,15 @@ for (let i = 4; i <= 10; i++) {
 }
 
 const seedDB = async () => {
-  await Toilet.deleteMany({});
-  await Toilet.insertMany(sampleToilets);
-  console.log("10 toilets seeded!");
-};
+  try {
+    await Toilet.deleteMany({});
+    await Toilet.insertMany(sampleToilets);
+    console.log("10 toilets seeded!");
+  } catch (err) {
+    console.error("Seeding error:", err);
+  } finally {
+    await mongoose.connection.close();
+  }
+}
 
 seedDB().then(() => mongoose.connection.close());
