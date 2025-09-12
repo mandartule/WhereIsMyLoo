@@ -5,9 +5,36 @@
       <!-- Left column: Toilet details card -->
       <div class="col-md-6">
         <div class="card shadow-sm mb-4" style="border-radius: 15px;">
-          <img src="<%= toilet.images.length ? toilet.images[0].url : 'https://placehold.co/600x300' %>"
-            class="card-img-top" alt="Toilet image"
-            style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+            <!-- Image Carousel (YelpCamp style) -->
+            <div id="toiletImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <% if (toilet.images && toilet.images.length > 0) { %>
+              <% toilet.images.forEach(function(image, idx) { %>
+                <div class="carousel-item <%= idx === 0 ? 'active' : '' %>">
+                <img src="<%= image.url %>" class="d-block w-100"
+                  alt="Toilet image <%= idx + 1 %>"
+                  style="height: 300px; object-fit: cover; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                </div>
+              <% }); %>
+              <% } else { %>
+              <div class="carousel-item active">
+                <img src="https://placehold.co/600x300" class="d-block w-100"
+                alt="Placeholder image"
+                style="height: 300px; object-fit: cover; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+              </div>
+              <% } %>
+            </div>
+            <% if (toilet.images && toilet.images.length > 1) { %>
+              <button class="carousel-control-prev" type="button" data-bs-target="#toiletImagesCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#toiletImagesCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+              </button>
+            <% } %>
+            </div>
           <div class="card-body">
             <h4 class="card-title mb-3">🚻 <%= toilet.title %>
             </h4>
