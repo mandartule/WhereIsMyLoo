@@ -1,60 +1,264 @@
-<% layout('layouts/boilerplate') %><% layout('layouts/boilerplate') %>
+<% layout('layouts/boilerplate') %>
+  <h1 class="mb-4">Find Nearby Toilets</h1>
 
-<h1 class="mb-4">Nearby Toilets</h1>
-
-<form method="GET" action="/toilets" class="mb-4">
-  <div class="row">
-    <!-- Paid/Free dropdown -->
-    <div class="col-md-2">
-      <label class="form-label">Paid or Free</label>
-      <select name="paid" class="form-select">
-        <option value="">All</option>
-        <option value="true" <%= paid === "true" ? "selected" : "" %>>Paid</option>
-        <option value="false" <%= paid === "false" ? "selected" : "" %>>Free</option>
-      </select>
-    </div>
-
-    <!-- Min rating dropdown -->
-    <div class="col-md-2">
-      <label class="form-label">Minimum Rating</label>
-      <select name="minRating" class="form-select">
-        <option value="">Any</option>
-        <option value="1" <%= minRating === "1" ? "selected" : "" %>>1+</option>
-        <option value="2" <%= minRating === "2" ? "selected" : "" %>>2+</option>
-        <option value="3" <%= minRating === "3" ? "selected" : "" %>>3+</option>
-        <option value="4" <%= minRating === "4" ? "selected" : "" %>>4+</option>
-      </select>
-    </div>
-
-    <!-- Buttons -->
-    <div class="col-md-2 d-flex align-items-end">
-      <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
-    </div>
-    <div class="col-md-2 d-flex align-items-end">
-      <a href="/toilets" class="btn btn-secondary w-100">Clear Filters</a>
-    </div>
-    <div class="col-md-2 d-flex align-items-end">
-      <a href="/toilets/new" class="btn btn-secondary w-100">New Toilet</a>
-    </div>
-  </div>
-</form>
-
-<div class="row">
-  <% if (toilets.length === 0) { %>
-    <p class="text-muted">No toilets found matching your filters.</p>
-  <% } else { %>
-    <% toilets.forEach(toilet => { %>
-      <div class="col-md-4 mb-3">
-        <div class="card shadow">
-          <img src="<%= toilet.images.length ? toilet.images[0].url : 'https://placehold.co/600x400' %>" 
-               class="card-img-top" alt="Toilet image">
-          <div class="card-body">
-            <h5 class="card-title"><%= toilet.title %></h5>
-            <p class="card-text"><%= toilet.location %></p>
-            <a href="/toilets/<%= toilet._id %>" class="btn btn-primary">View</a>
+  <!-- Location Search Section -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">🔍 Find toilets near you</h5>
+      <form method="GET" action="/toilets" class="mb-3" id="location-form">
+        <div class="row">
+          <div class="col-md-6">
+            <label class="form-label">Find toilets near:</label>
+            <div class="position-relative">
+              <input type="text" name="location" id="location-input" class="form-control"
+                placeholder="Enter address or use current location" value="<%= location || '' %>" autocomplete="off">
+              <!-- Auto-suggestions dropdown -->
+              <div id="suggestions" class="position-absolute w-100 bg-white border rounded shadow"
+                style="top: 100%; z-index: 1000; display: none;">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 d-flex align-items-end">
+            <button type="button" id="use-location" class="btn btn-success w-100">
+              <i class="bi bi-geo-alt-fill"></i> Use My Location
+            </button>
+          </div>
+          <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">
+              <i class="bi bi-search"></i> Search
+            </button>
           </div>
         </div>
+
+        <!-- Keep existing filters as hidden inputs -->
+        <input type="hidden" name="paid" value="<%= paid || '' %>">
+        <input type="hidden" name="minRating" value="<%= minRating || '' %>">
+      </form>
+    </div>
+  </div>
+
+  <!-- Existing Filters Section -->
+  <form method="GET" action="/toilets" class="mb-4">
+    <div class="row">
+      <!-- Keep location if it exists -->
+      <% if (location) { %>
+        <input type="hidden" name="location" value="<%= location %>">
+        <% } %>
+
+          <!-- Paid/Free dropdown -->
+          <div class="col-md-2">
+            <label class="form-label">Paid or Free</label>
+            <select name="paid" class="form-select">
+              <option value="">All</option>
+              <option value="true" <%=paid==="true" ? "selected" : "" %>>Paid</option>
+              <option value="false" <%=paid==="false" ? "selected" : "" %>>Free</option>
+            </select>
+          </div>
+
+          <!-- Min rating dropdown -->
+          <div class="col-md-2">
+            <label class="form-label">Minimum Rating</label>
+            <select name="minRating" class="form-select">
+              <option value="">Any</option>
+              <option value="1" <%=minRating==="1" ? "selected" : "" %>>1+</option>
+              <option value="2" <%=minRating==="2" ? "selected" : "" %>>2+</option>
+              <option value="3" <%=minRating==="3" ? "selected" : "" %>>3+</option>
+              <option value="4" <%=minRating==="4" ? "selected" : "" %>>4+</option>
+            </select>
+          </div>
+
+          <!-- Buttons -->
+          <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-secondary w-100">Apply Filters</button>
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <a href="/toilets" class="btn btn-outline-secondary w-100">Clear All</a>
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <a href="/toilets/new" class="btn btn-success w-100">Add Toilet</a>
+          </div>
+    </div>
+  </form>
+
+  <!-- Display current search info -->
+  <% if (location) { %>
+    <div class="alert alert-info">
+      <i class="bi bi-geo-alt-fill"></i> Showing toilets near: <strong>
+        <%= location %>
+      </strong>
+      <% if (toilets.length> 0) { %>
+        <small class="text-muted"> - <%= toilets.length %> found</small>
+        <% } %>
+    </div>
+    <% } %>
+      <!-- Toilet Cards Display -->
+      <div class="row">
+        <% if (toilets.length===0) { %>
+          <div class="col-12">
+            <div class="text-center p-5">
+              <% if (location) { %>
+                <!-- Funny message for location search with no results -->
+                <div class="alert alert-warning">
+                  <h4>🚽 Oops! No toilets found within 100 km of "<%= location %>"</h4>
+                  <p class="mb-3">Looks like nature is calling but civilization isn't answering! 😅</p>
+                  <p class="text-muted">Don't worry, we're not suggesting you go "open air" - try searching a different
+                    location or <a href="/toilets/new" class="alert-link">add a toilet</a> to help fellow travelers!</p>
+                  <div class="mt-3">
+                    <a href="/toilets" class="btn btn-primary me-2">View All Toilets</a>
+                    <a href="/toilets/new" class="btn btn-success">Add a Toilet</a>
+                  </div>
+                </div>
+                <% } else { %>
+                  <!-- Regular no toilets message -->
+                  <p class="text-muted">No toilets found matching your criteria.</p>
+                  <a href="/toilets/new" class="btn btn-success">Add the First Toilet</a>
+                  <% } %>
+            </div>
+          </div>
+          <% } else { %>
+            <% toilets.forEach(toilet=> { %>
+              <div class="col-md-4 mb-3">
+                <div class="card shadow">
+                  <img src="<%= toilet.images.length ? toilet.images[0].url : 'https://placehold.co/600x400' %>"
+                    class="card-img-top" alt="Toilet image">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <%= toilet.title %>
+                    </h5>
+                    <p class="card-text">
+                      <%= toilet.location %>
+                    </p>
+                    <% if (toilet.distance) { %>
+                      <small class="text-success">📍 <%= toilet.distance %> km away</small>
+                      <br>
+                      <% } %>
+                        <a href="/toilets/<%= toilet._id %>" class="btn btn-primary mt-2">View</a>
+                  </div>
+                </div>
+              </div>
+              <% }) %>
+                <% } %>
       </div>
-    <% }) %>
-  <% } %>
-</div>
+
+
+
+      <script>
+        // City selection functionality
+        document.querySelectorAll('.city-option').forEach(option => {
+          option.addEventListener('click', function (e) {
+            e.preventDefault();
+            const city = this.getAttribute('data-city');
+            document.getElementById('selected-city').textContent = this.textContent;
+            document.getElementById('location-input').value = city;
+          });
+        });
+
+        // GPS Location functionality
+        document.getElementById('use-location').addEventListener('click', function () {
+          if (navigator.geolocation) {
+            this.innerHTML = '<i class="spinner-border spinner-border-sm"></i> Getting location...';
+            this.disabled = true;
+
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+
+                // Reverse geocode to get address
+                fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=<%= process.env.MAPBOX_TOKEN %>`)
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.features && data.features.length > 0) {
+                      const address = data.features[0].place_name;
+                      document.getElementById('location-input').value = address;
+                      document.getElementById('location-form').submit();
+                    }
+                  })
+                  .catch(err => {
+                    console.error('Error getting address:', err);
+                    alert('Could not get your location address');
+                  })
+                  .finally(() => {
+                    this.innerHTML = '<i class="bi bi-geo-alt-fill"></i> Use My Location';
+                    this.disabled = false;
+                  });
+              },
+              (error) => {
+                console.error('Location error:', error);
+                alert('Location access denied. Please use the city dropdown or enter an address manually.');
+                this.innerHTML = '<i class="bi bi-geo-alt-fill"></i> Use My Location';
+                this.disabled = false;
+              }
+            );
+          } else {
+            alert('Geolocation is not supported by this browser.');
+          }
+        });
+
+        // Auto-suggestions functionality
+        let debounceTimer;
+        document.getElementById('location-input').addEventListener('input', function () {
+          const query = this.value;
+          const suggestionsDiv = document.getElementById('suggestions');
+
+          clearTimeout(debounceTimer);
+
+          if (query.length < 3) {
+            suggestionsDiv.style.display = 'none';
+            return;
+          }
+
+
+          // Enhanced auto-suggestions with better place types
+          debounceTimer = setTimeout(() => {
+            fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?country=IN&types=poi,place,address,neighborhood&proximity=79.0882,21.1458&limit=8&access_token=<%= process.env.MAPBOX_TOKEN %>`)
+              .then(response => response.json())
+              .then(data => {
+                suggestionsDiv.innerHTML = '';
+
+                if (data.features && data.features.length > 0) {
+                  data.features.forEach(feature => {
+                    const suggestion = document.createElement('div');
+                    suggestion.className = 'p-2 border-bottom suggestion-item';
+                    suggestion.style.cursor = 'pointer';
+
+                    // Better formatting with place type
+                    const placeType = feature.properties.category || feature.place_type[0] || '';
+                    const displayText = `${feature.place_name}${placeType ? ` (${placeType})` : ''}`;
+                    suggestion.textContent = displayText;
+
+                    suggestion.addEventListener('click', () => {
+                      document.getElementById('location-input').value = feature.place_name;
+                      suggestionsDiv.style.display = 'none';
+                    });
+
+                    suggestion.addEventListener('mouseenter', () => {
+                      suggestion.style.backgroundColor = '#f8f9fa';
+                    });
+
+                    suggestion.addEventListener('mouseleave', () => {
+                      suggestion.style.backgroundColor = 'white';
+                    });
+
+                    suggestionsDiv.appendChild(suggestion);
+                  });
+
+                  suggestionsDiv.style.display = 'block';
+                } else {
+                  suggestionsDiv.style.display = 'none';
+                }
+              })
+              .catch(err => {
+                console.error('Error fetching suggestions:', err);
+                suggestionsDiv.style.display = 'none';
+              });
+          }, 300);
+        });
+
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function (e) {
+          if (!document.getElementById('location-input').contains(e.target)) {
+            document.getElementById('suggestions').style.display = 'none';
+          }
+        });
+      </script>
