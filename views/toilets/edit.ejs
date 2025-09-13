@@ -1,76 +1,77 @@
 <% layout('layouts/boilerplate') %>
     <h1 class="mb-4">Edit Toilet</h1>
-    <form action="/toilets/<%= toilet._id %>?_method=PUT" method="POST">
+    <form action="/toilets/<%= toilet._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control" id="title" name="toilet[title]" value="<%= toilet.title %>"
                 required>
         </div>
         <div class="mb-3">
-            <label for="longitude" class="form-label">Longitude</label>
-            <input type="number" class="form-control" id="longitude" name="toilet[geometry][coordinates][]" step="any"
-                value="<%= toilet.geometry.coordinates[0] %>" required>
-        </div>
-        <div class="mb-3">
-            <label for="latitude" class="form-label">Latitude</label>
-            <input type="number" class="form-control" id="latitude" name="toilet[geometry][coordinates][]" step="any"
-                value="<%= toilet.geometry.coordinates[1] %>" required>
-        </div>
-        <input type="hidden" name="toilet[geometry][type]" value="Point">
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea class="form-control" id="description" name="toilet[description]"
-                rows="3"><%= toilet.description %></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="isPaid" class="form-label">Is it Paid?</label>
-            <select class="form-select" id="isPaid" name="toilet[isPaid]" required>
-                <option value="">Select</option>
-                <option value="true" <%=toilet.isPaid ? 'selected' : '' %>>Paid</option>
-                <option value="false" <%=!toilet.isPaid ? 'selected' : '' %>>Free</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="price" class="form-label">Price (if paid)</label>
-            <input type="number" class="form-control" id="price" name="toilet[price]" min="0" step="0.01"
-                value="<%= toilet.price %>">
-        </div>
-        <div class="mb-3">
-            <label for="genderAccess" class="form-label">Gender Access</label>
-            <select class="form-select" id="genderAccess" name="toilet[genderAccess]" required>
-                <option value="">Select</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Unisex">Unisex</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="isAccessible" class="form-label">Wheelchair Accessible?</label>
-            <select class="form-select" id="isAccessible" name="toilet[isAccessible]" required>
-                <option value="">Select</option>
-                <option value="true" <%=toilet.isAccessible ? 'selected' : '' %>>Yes</option>
-                <option value="false" <%=!toilet.isAccessible ? 'selected' : '' %>>No</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="hasSanitaryPadDisposal" class="form-label">Sanitary Pad Disposal Available?</label>
-            <select class="form-select" id="hasSanitaryPadDisposal" name="toilet[hasSanitaryPadDisposal]" required>
-                <option value="">Select</option>
-                <option value="true" <%=toilet.hasSanitaryPadDisposal ? 'selected' : '' %>>Yes</option>
-                <option value="false" <%=!toilet.hasSanitaryPadDisposal ? 'selected' : '' %>>No</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="cleanlinessRating" class="form-label">Cleanliness Rating</label>
-            <select class="form-select" id="cleanlinessRating" name="toilet[cleanlinessRating]">
-                <option value="">Select</option>
-                <option value="1" <%=toilet.cleanlinessRating===1 ? 'selected' : '' %>>1</option>
-                <option value="2" <%=toilet.cleanlinessRating===2 ? 'selected' : '' %>>2</option>
-                <option value="3" <%=toilet.cleanlinessRating===3 ? 'selected' : '' %>>3</option>
-                <option value="4" <%=toilet.cleanlinessRating===4 ? 'selected' : '' %>>4</option>
-                <option value="5" <%=toilet.cleanlinessRating===5 ? 'selected' : '' %>>5</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Update Toilet</button>
-        <a href="/toilets/<%= toilet._id %>" class="btn btn-secondary">Cancel</a>
+            <div class="mb-3">
+                <label for="location" class="form-label">Address</label>
+                <input type="text" class="form-control" id="location" name="toilet[location]"
+                    placeholder="Enter full address (e.g., Central Park, Nagpur, Maharashtra)" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" id="imageLabel" for="image">Add Images</label>
+                <input class="form-control" type="file" name="image" id="image" multiple>
+            </div>
+            <input type="hidden" name="toilet[geometry][type]" value="Point">
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="toilet[description]"
+                    rows="3"><%= toilet.description %></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="isPaid" class="form-label">Is it Paid?</label>
+                <select class="form-select" id="isPaid" name="toilet[isPaid]" required>
+                    <option value="">Select</option>
+                    <option value="true" <%=toilet.isPaid ? 'selected' : '' %>>Paid</option>
+                    <option value="false" <%=!toilet.isPaid ? 'selected' : '' %>>Free</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price (if paid)</label>
+                <input type="number" class="form-control" id="price" name="toilet[price]" min="0" step="0.01"
+                    value="<%= toilet.price %>">
+            </div>
+            <div class="mb-3">
+                <label for="genderAccess" class="form-label">Gender Access</label>
+                <select class="form-select" id="genderAccess" name="toilet[genderAccess]" required>
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Unisex">Unisex</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="isAccessible" class="form-label">Wheelchair Accessible?</label>
+                <select class="form-select" id="isAccessible" name="toilet[isAccessible]" required>
+                    <option value="">Select</option>
+                    <option value="true" <%=toilet.isAccessible ? 'selected' : '' %>>Yes</option>
+                    <option value="false" <%=!toilet.isAccessible ? 'selected' : '' %>>No</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="hasSanitaryPadDisposal" class="form-label">Sanitary Pad Disposal Available?</label>
+                <select class="form-select" id="hasSanitaryPadDisposal" name="toilet[hasSanitaryPadDisposal]" required>
+                    <option value="">Select</option>
+                    <option value="true" <%=toilet.hasSanitaryPadDisposal ? 'selected' : '' %>>Yes</option>
+                    <option value="false" <%=!toilet.hasSanitaryPadDisposal ? 'selected' : '' %>>No</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="cleanlinessRating" class="form-label">Cleanliness Rating</label>
+                <select class="form-select" id="cleanlinessRating" name="toilet[cleanlinessRating]">
+                    <option value="">Select</option>
+                    <option value="1" <%=toilet.cleanlinessRating===1 ? 'selected' : '' %>>1</option>
+                    <option value="2" <%=toilet.cleanlinessRating===2 ? 'selected' : '' %>>2</option>
+                    <option value="3" <%=toilet.cleanlinessRating===3 ? 'selected' : '' %>>3</option>
+                    <option value="4" <%=toilet.cleanlinessRating===4 ? 'selected' : '' %>>4</option>
+                    <option value="5" <%=toilet.cleanlinessRating===5 ? 'selected' : '' %>>5</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Toilet</button>
+            <a href="/toilets/<%= toilet._id %>" class="btn btn-secondary">Cancel</a>
     </form>

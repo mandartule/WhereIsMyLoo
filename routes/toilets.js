@@ -5,6 +5,10 @@ const Toilet = require('../models/toilet');
 const { Types } = require('mongoose');
 const { isLoggedIn, isAuthor } = require('../middleware');
 const axios = require('axios');
+const multer = require('multer')
+const { storage , cloudinary} = require('../cloudinary')
+const upload = multer({ storage })
+
 
 //filter toilets
 router.get('/api', async (req, res) => {
@@ -107,7 +111,7 @@ router.get('/new', isLoggedIn, (req, res) => {
 });
 
 // POST new toilet
-router.post('/new', isLoggedIn, async (req, res) => {
+router.post('/new', isLoggedIn, upload.array('image'), async (req, res) => {
   try {
     console.log("Incoming toilet data:", req.body);
 
@@ -133,8 +137,7 @@ router.post('/new', isLoggedIn, async (req, res) => {
     };
 
     toilet.author = req.user._id;
-
-
+    toilet.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
     await toilet.save();
     console.log("Toilet created:", toilet);
     req.flash('success', 'Toilet added successfully!');
@@ -167,28 +170,77 @@ router.get('/:id', async (req, res) => {
 
 
 // Edit form
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', isLoggedIn, isAuthor, async (req, res) => {
   const toilet = await Toilet.findById(req.params.id);
   if (!toilet) {
     req.flash('error', 'Toilet not found');
     return res.redirect('/toilets');
   }
   res.render('toilets/edit', { toilet });
-  console.log("Edit toilet form for:", toilet);
 });
 
 // PUT update toilet
-router.put('/:id', isLoggedIn, isAuthor, async (req, res) => {
-  const { id } = req.params;
-  if (!Types.ObjectId.isValid(id)) {
-    req.flash('error', 'Invalid toilet ID!');
-    return res.redirect('/toilets');
-  }
+router.put('/:id', isLoggedIn, isAuthor, upload.array('image'), async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!Types.ObjectId.isValid(id)) {
+      req.flash('error', 'Invalid toilet ID!');
+      return res.redirect('/toilets');
+    }
 
-  const toilet = await Toilet.findByIdAndUpdate(id, { ...req.body.toilet }, { new: true, runValidators: true });
-  req.flash('success', 'Successfully updated toilet');
-  res.redirect(`/toilets/${toilet._id}`);
+    // Geocode new address
+    const address = req.body.toilet.location;
+    const geocodeUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${process.env.MAPBOX_TOKEN}`;
+    const geoResponse = await axios.get(geocodeUrl);
+
+    if (!geoResponse.data.features || geoResponse.data.features.length === 0) {
+      req.flash('error', 'Could not find location. Please enter a more specific address.');
+      return res.redirect('/toilets/new');
+    }
+
+    const coordinates = geoResponse.data.features[0].center; // [lng, lat]
+
+    // Find toilet
+    const toilet = await Toilet.findById(id);
+    if (!toilet) {
+      req.flash('error', 'Toilet not found!');
+      return res.redirect('/toilets');
+    }
+
+    // Update fields
+    toilet.set({
+      ...req.body.toilet,
+      geometry: { type: "Point", coordinates }
+    });
+
+    // Delete selected images
+    if (req.body.deleteImages) {
+      // Ensure deleteImages is always an array
+      const deleteImages = Array.isArray(req.body.deleteImages) ? req.body.deleteImages : [req.body.deleteImages];
+      for (let filename of deleteImages) {
+        await cloudinary.uploader.destroy(filename); 
+      }
+      toilet.images = toilet.images.filter(img => !deleteImages.includes(img.filename));
+    }
+
+    
+    // Add new images
+    if (req.files && req.files.length > 0) {
+      const images = req.files.map(f => ({ url: f.path, filename: f.filename }));
+      toilet.images.push(...images);
+    }
+
+    await toilet.save();
+    req.flash('success', 'Successfully updated toilet');
+    res.redirect(`/toilets/${toilet._id}`);
+  } catch (err) {
+    console.error("Error updating toilet:", err);
+    req.flash('error', 'Error updating toilet');
+    res.redirect('/toilets');
+  }
 });
+
+
 
 // DELETE toilet
 router.delete('/:id', isLoggedIn, isAuthor, async (req, res) => {
