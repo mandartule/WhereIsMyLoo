@@ -10,8 +10,19 @@
 
     <div class="mb-3">
       <label for="location" class="form-label">Address</label>
-      <input type="text" class="form-control" id="location" name="toilet[location]"
-        placeholder="Enter full address (e.g., Central Park, Nagpur, Maharashtra)" required>
+      <div class="position-relative">
+        <div class="input-group">
+          <input type="text" class="form-control" id="location" name="toilet[location]"
+            placeholder="Enter full address or use current location" required autocomplete="off">
+          <button type="button" id="use-current-location" class="btn btn-success">
+            <i class="bi bi-geo-alt-fill"></i> Use My Location
+          </button>
+        </div>
+        <!-- Auto-suggestions dropdown -->
+        <div id="location-suggestions" class="position-absolute w-100 bg-white border rounded shadow"
+          style="top: 100%; z-index: 1000; display: none;">
+        </div>
+      </div>
     </div>
 
     <div class="mb-3">
@@ -69,4 +80,13 @@
         step="1">
     </div>
     <button type="submit" class="btn btn-primary">Add Toilet</button>
+
+
+    <script src="/js/location-helper.js"></script>
+    <script>
+      // Initialize location helper for new toilet form
+      const locationHelper = new LocationHelper('location', 'location-suggestions', 'use-current-location');
+    </script>
+
+
   </form>

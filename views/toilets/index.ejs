@@ -91,6 +91,7 @@
         <% } %>
     </div>
     <% } %>
+
       <!-- Toilet Cards Display -->
       <div class="row">
         <% if (toilets.length===0) { %>
@@ -140,8 +141,7 @@
                 <% } %>
       </div>
 
-
-
+      <script src="/js/location-helper.js"></script>
       <script>
         // City selection functionality
         document.querySelectorAll('.city-option').forEach(option => {
@@ -153,112 +153,16 @@
           });
         });
 
-        // GPS Location functionality
-        document.getElementById('use-location').addEventListener('click', function () {
-          if (navigator.geolocation) {
-            this.innerHTML = '<i class="spinner-border spinner-border-sm"></i> Getting location...';
-            this.disabled = true;
+        // Initialize location helper for search
+        const locationHelper = new LocationHelper('location-input', 'suggestions', 'use-location');
 
-            navigator.geolocation.getCurrentPosition(
-              (position) => {
-                const lat = position.coords.latitude;
-                const lng = position.coords.longitude;
-
-                // Reverse geocode to get address
-                fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=<%= process.env.MAPBOX_TOKEN %>`)
-                  .then(response => response.json())
-                  .then(data => {
-                    if (data.features && data.features.length > 0) {
-                      const address = data.features[0].place_name;
-                      document.getElementById('location-input').value = address;
-                      document.getElementById('location-form').submit();
-                    }
-                  })
-                  .catch(err => {
-                    console.error('Error getting address:', err);
-                    alert('Could not get your location address');
-                  })
-                  .finally(() => {
-                    this.innerHTML = '<i class="bi bi-geo-alt-fill"></i> Use My Location';
-                    this.disabled = false;
-                  });
-              },
-              (error) => {
-                console.error('Location error:', error);
-                alert('Location access denied. Please use the city dropdown or enter an address manually.');
-                this.innerHTML = '<i class="bi bi-geo-alt-fill"></i> Use My Location';
-                this.disabled = false;
-              }
-            );
-          } else {
-            alert('Geolocation is not supported by this browser.');
+        // Override the reverseGeocode method to auto-submit after getting location
+        const originalReverseGeocode = locationHelper.reverseGeocode.bind(locationHelper);
+        locationHelper.reverseGeocode = async function (lat, lng) {
+          await originalReverseGeocode(lat, lng);
+          // Auto-submit form after location is set
+          if (this.inputElement.value) {
+            document.getElementById('location-form').submit();
           }
-        });
-
-        // Auto-suggestions functionality
-        let debounceTimer;
-        document.getElementById('location-input').addEventListener('input', function () {
-          const query = this.value;
-          const suggestionsDiv = document.getElementById('suggestions');
-
-          clearTimeout(debounceTimer);
-
-          if (query.length < 3) {
-            suggestionsDiv.style.display = 'none';
-            return;
-          }
-
-
-          // Enhanced auto-suggestions with better place types
-          debounceTimer = setTimeout(() => {
-            fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?country=IN&types=poi,place,address,neighborhood&proximity=79.0882,21.1458&limit=8&access_token=<%= process.env.MAPBOX_TOKEN %>`)
-              .then(response => response.json())
-              .then(data => {
-                suggestionsDiv.innerHTML = '';
-
-                if (data.features && data.features.length > 0) {
-                  data.features.forEach(feature => {
-                    const suggestion = document.createElement('div');
-                    suggestion.className = 'p-2 border-bottom suggestion-item';
-                    suggestion.style.cursor = 'pointer';
-
-                    // Better formatting with place type
-                    const placeType = feature.properties.category || feature.place_type[0] || '';
-                    const displayText = `${feature.place_name}${placeType ? ` (${placeType})` : ''}`;
-                    suggestion.textContent = displayText;
-
-                    suggestion.addEventListener('click', () => {
-                      document.getElementById('location-input').value = feature.place_name;
-                      suggestionsDiv.style.display = 'none';
-                    });
-
-                    suggestion.addEventListener('mouseenter', () => {
-                      suggestion.style.backgroundColor = '#f8f9fa';
-                    });
-
-                    suggestion.addEventListener('mouseleave', () => {
-                      suggestion.style.backgroundColor = 'white';
-                    });
-
-                    suggestionsDiv.appendChild(suggestion);
-                  });
-
-                  suggestionsDiv.style.display = 'block';
-                } else {
-                  suggestionsDiv.style.display = 'none';
-                }
-              })
-              .catch(err => {
-                console.error('Error fetching suggestions:', err);
-                suggestionsDiv.style.display = 'none';
-              });
-          }, 300);
-        });
-
-        // Hide suggestions when clicking outside
-        document.addEventListener('click', function (e) {
-          if (!document.getElementById('location-input').contains(e.target)) {
-            document.getElementById('suggestions').style.display = 'none';
-          }
-        });
+        };
       </script>
