@@ -30,7 +30,17 @@
                 <label class="form-label" id="imageLabel" for="image">Add Images</label>
                 <input class="form-control" type="file" name="image" id="image" multiple>
             </div>
-            <input type="hidden" name="toilet[geometry][type]" value="Point">
+            <div class="mb-3 d-flex flex-wrap gap-3">
+                <% toilet.images.forEach(function(img, i) { %>
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="<%= img.thumbnail %>" class="img-thumbnail" alt="" style="width: 100px; height: auto;">
+                        <div class="form-check">
+                            <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
+                            <label for="image-<%= i %>">Delete?</label>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control" id="description" name="toilet[description]"
