@@ -9,36 +9,6 @@ const multer = require('multer')
 const { storage , cloudinary} = require('../cloudinary')
 const upload = multer({ storage })
 
-
-//filter toilets
-router.get('/api', async (req, res) => {
-  try {
-    const { paid, minRating } = req.query;
-    let filter = {};
-
-    // Apply paid filter if user selected it
-    if (paid === "true") filter.isPaid = true;
-    if (paid === "false") filter.isPaid = false;
-
-    // Apply rating filter if user selected it
-    if (minRating && !isNaN(minRating)) {
-      filter.cleanlinessRating = { $gte: parseInt(minRating) };
-    }
-
-    // Fetch toilets from DB
-    const toilets = await Toilet.find(filter);
-
-    // Send JSON response
-    res.json(toilets);
-
-    //res.render('toilets/index', { toilets, paid, minRating }); 
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
-
-
 // GET all toilets
 router.get('/', async (req, res) => {
   const { paid, minRating, location } = req.query;
