@@ -1,0 +1,38 @@
+/* ========================================
+   FLASH MESSAGES & ALERTS STYLING
+======================================== */
+
+.alert {
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 1rem 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    font-weight: 500 !important;
+    box-shadow: var(--shadow-soft) !important;
+  }
+  
+  .alert-success {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0) !important;
+    color: #065f46 !important;
+    border-left: 4px solid var(--toilet-clean) !important;
+  }
+  
+  .alert-danger {
+    background: linear-gradient(135deg, #fee2e2, #fecaca) !important;
+    color: #991b1b !important;
+    border-left: 4px solid #ef4444 !important;
+  }
+  
+  .alert-info {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe) !important;
+    color: #1e40af !important;
+    border-left: 4px solid var(--primary-blue) !important;
+  }
+  
+  .btn-close {
+    opacity: 0.6 !important;
+  }
+  
+  .btn-close:hover {
+    opacity: 1 !important;
+  }
