@@ -1,124 +1,207 @@
 <% layout('layouts/boilerplate') %>
+  <!-- Load show page CSS -->
+  <link rel="stylesheet" href="/css/show.css">
 
-  <div class="container mt-4">
-    <div class="row">
-      <!-- Left column: Toilet details card -->
-      <div class="col-md-6">
-        <div class="card shadow-sm mb-4" style="border-radius: 15px;">
-            <!-- Image Carousel (YelpCamp style) -->
+  <div class="show-container">
+    <!-- Page Header -->
+    <div class="show-header">
+      <h1 class="show-title">🚻 <%= toilet.title %>
+      </h1>
+      <p class="show-location">
+        <i class="bi bi-geo-alt"></i>
+        <%= toilet.location %>
+      </p>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="show-content">
+      <!-- Left Column: Details -->
+      <div class="details-card">
+        <!-- Image Carousel -->
+        <div class="image-carousel">
+          <% if (toilet.images && toilet.images.length> 0) { %>
             <div id="toiletImagesCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <% if (toilet.images && toilet.images.length > 0) { %>
-              <% toilet.images.forEach(function(image, idx) { %>
-                <div class="carousel-item <%= idx === 0 ? 'active' : '' %>">
-                <img src="<%= image.url %>" class="d-block w-100"
-                  alt="Toilet image <%= idx + 1 %>"
-                  style="height: 300px; object-fit: cover; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+              <div class="carousel-inner">
+                <% toilet.images.forEach(function(image, idx) { %>
+                  <div class="carousel-item <%= idx === 0 ? 'active' : '' %>">
+                    <img src="<%= image.url %>" class="carousel-image" alt="Toilet image <%= idx + 1 %>">
+                  </div>
+                  <% }); %>
+              </div>
+              <% if (toilet.images.length> 1) { %>
+                <button class="carousel-control-prev" type="button" data-bs-target="#toiletImagesCarousel"
+                  data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#toiletImagesCarousel"
+                  data-bs-slide="next">
+                  <span class="carousel-control-next-icon"></span>
+                </button>
+                <% } %>
+            </div>
+            <% } else { %>
+              <div class="carousel-image"
+                style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f3f4f6, #e5e7eb);">
+                <div class="text-center">
+                  <i class="bi bi-image" style="font-size: 3rem; color: var(--text-muted);"></i>
+                  <p style="color: var(--text-muted); margin-top: 1rem;">No images available</p>
                 </div>
-              <% }); %>
-              <% } else { %>
-              <div class="carousel-item active">
-                <img src="https://placehold.co/600x300" class="d-block w-100"
-                alt="Placeholder image"
-                style="height: 300px; object-fit: cover; border-top-left-radius: 15px; border-top-right-radius: 15px;">
               </div>
               <% } %>
+        </div>
+
+        <!-- Details Content -->
+        <div class="details-content">
+          <!-- Description -->
+          <div class="detail-item">
+            <div class="detail-icon">📝</div>
+            <div class="detail-content">
+              <div class="detail-label">Description</div>
+              <div class="detail-value">
+                <%= toilet.description || 'No description provided' %>
+              </div>
             </div>
-            <% if (toilet.images && toilet.images.length > 1) { %>
-              <button class="carousel-control-prev" type="button" data-bs-target="#toiletImagesCarousel" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#toiletImagesCarousel" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-              </button>
-            <% } %>
-            </div>
-          <div class="card-body">
-            <h4 class="card-title mb-3">🚻 <%= toilet.title %>
-            </h4>
-            <p><strong>📍 Location:</strong>
-              <%= toilet.location %>
-            </p>
-            <p><strong>📝 Description:</strong>
-              <%= toilet.description %>
-            </p>
-            <p><strong>💰 Price:</strong>
-              <%= toilet.isPaid ? `₹${toilet.price}` : 'Free 🚫' %>
-            </p>
-            <p><strong>🚹🚺 Gender Access:</strong>
-              <%= toilet.genderAccess %>
-            </p>
-            <p><strong>♿ Wheelchair Accessible:</strong>
-              <%= toilet.isAccessible ? 'Yes ✅' : 'No ❌' %>
-            </p>
-            <p><strong>🩸 Sanitary Pad Disposal:</strong>
-              <%= toilet.hasSanitaryPadDisposal ? 'Available ✅' : 'Not Available ❌' %>
-            </p>
-            <p><strong>✨ Cleanliness Rating:</strong>
-              <% if (toilet.cleanlinessRating) { %>
-                <%= '⭐' .repeat(toilet.cleanlinessRating) %> (<%= toilet.cleanlinessRating %>/5)
-                    <% } else { %>
-                      Not Rated
-                      <% } %>
-            </p>
-            <p class="text-muted" style="font-size: 0.95em;">
-              Added by: <%= toilet.author && toilet.author.username ? toilet.author.username : 'Unknown' %>
-            </p>
           </div>
-          <div class="card-footer text-center">
-            <a href="/toilets" class="btn btn-secondary btn-sm">🔙 Back to List</a>
-            <% if (currentUser && toilet.author && toilet.author.equals(currentUser._id)) { %>
-              <a href="/toilets/<%= toilet._id %>/edit" class="btn btn-primary btn-sm mx-2">Update ✏️</a>
-              <form action="/toilets/<%= toilet._id %>?_method=DELETE" method="POST" class="d-inline">
-                <button type="submit" class="btn btn-danger btn-sm">Delete 🚽</button>
-              </form>
+
+          <!-- Price -->
+          <div class="detail-item">
+            <div class="detail-icon">💰</div>
+            <div class="detail-content">
+              <div class="detail-label">Price</div>
+              <div class="detail-value">
+                <%= toilet.isPaid ? `₹${toilet.price}` : 'Free' %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gender Access -->
+          <div class="detail-item">
+            <div class="detail-icon">🚹🚺</div>
+            <div class="detail-content">
+              <div class="detail-label">Gender Access</div>
+              <div class="detail-value">
+                <%= toilet.genderAccess %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accessibility -->
+          <div class="detail-item">
+            <div class="detail-icon">♿</div>
+            <div class="detail-content">
+              <div class="detail-label">Wheelchair Accessible</div>
+              <div class="detail-value">
+                <%= toilet.isAccessible ? 'Yes' : 'No' %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sanitary Facilities -->
+          <div class="detail-item">
+            <div class="detail-icon">🩸</div>
+            <div class="detail-content">
+              <div class="detail-label">Sanitary Pad Disposal</div>
+              <div class="detail-value">
+                <%= toilet.hasSanitaryPadDisposal ? 'Available' : 'Not Available' %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cleanliness Rating -->
+          <div class="detail-item">
+            <div class="detail-icon">✨</div>
+            <div class="detail-content">
+              <div class="detail-label">Cleanliness Rating</div>
+              <div class="detail-value">
+                <% if (toilet.cleanlinessRating) { %>
+                  <%= '⭐' .repeat(toilet.cleanlinessRating) %> (<%= toilet.cleanlinessRating %>/5)
+                      <% } else { %>
+                        Not rated yet
+                        <% } %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature Tags -->
+          <div class="feature-tags">
+            <span class="feature-tag <%= toilet.isPaid ? 'paid' : 'free' %>">
+              <%= toilet.isPaid ? `₹${toilet.price}` : 'Free' %>
+            </span>
+            <span class="feature-tag">
+              <%= toilet.genderAccess %>
+            </span>
+            <% if (toilet.isAccessible) { %>
+              <span class="feature-tag accessible">♿ Accessible</span>
               <% } %>
           </div>
+
+          <!-- Added By -->
+          <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center; margin-top: 1rem;">
+            Added by: <%= toilet.author && toilet.author.username ? toilet.author.username : 'Unknown' %>
+          </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <a href="/toilets" class="action-btn btn-back">
+            <i class="bi bi-arrow-left"></i> Back to List
+          </a>
+          <% if (currentUser && toilet.author && toilet.author.equals(currentUser._id)) { %>
+            <a href="/toilets/<%= toilet._id %>/edit" class="action-btn btn-edit">
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form action="/toilets/<%= toilet._id %>?_method=DELETE" method="POST" style="display: inline;">
+              <button type="submit" class="action-btn btn-delete"
+                onclick="return confirm('Are you sure you want to delete this toilet?')">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+            <% } %>
         </div>
       </div>
 
-      <!-- Right column -->
-      <div class="col-md-6">
-        <!-- Map placeholder -->
-        <div id="map"
-          style="height: 300px; border-radius: 15px; margin-bottom: 20px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center; border: 2px dashed #6c757d;">
-          <div class="text-center text-muted">
-            <i class="bi bi-geo-alt-fill" style="font-size: 2rem;"></i>
-            <p class="mb-0 mt-2">Map Coming Soon</p>
-            <small>Location: <%= toilet.location %></small>
-            <br>
-            <small>Coordinates: <%= toilet.geometry.coordinates[1] %>, <%= toilet.geometry.coordinates[0] %></small>
-          </div>
+      <!-- Right Column: Map & Reviews -->
+      <div class="map-reviews-section">
+
+        <!-- Map Container -->
+        <div class="map-container">
+          <div id="map" style="height: 100%; width: 100%;"></div>
         </div>
 
-        <!-- Reviews section -->
-        <div class="card shadow-sm" style="border-radius: 15px;">
-          <div class="card-body">
-            <h5 class="card-title">💬 Reviews
-              <% if (toilet.reviewCount && toilet.reviewCount> 0) { %>
-                <small class="text-muted">(<%= toilet.reviewCount %> reviews)</small>
-                <% } %>
-            </h5>
-
-            <!-- Average Rating Display -->
-            <% if (toilet.averageRating && toilet.averageRating> 0) { %>
-              <p class="mb-3">
-                <strong>Average Rating:</strong>
-                <%= '⭐' .repeat(Math.floor(toilet.averageRating)) %>
-                  <%= toilet.averageRating %>/5
-              </p>
+        <!-- Reviews Section -->
+        <div class="reviews-container">
+          <div class="reviews-header">
+            <h3 class="reviews-title">💬 Reviews</h3>
+            <% if (toilet.reviewCount && toilet.reviewCount> 0) { %>
+              <span class="reviews-count">
+                <%= toilet.reviewCount %>
+              </span>
               <% } %>
+          </div>
 
-                <!-- Add Review Form (if logged in and haven't reviewed) -->
-                <% if (currentUser) { %>
-                  <% let userReview=toilet.reviews && toilet.reviews.find(r=> r.author && r.author.equals &&
-                    r.author.equals(currentUser._id)) %>
-                    <% if (!userReview) { %>
-                      <form action="/toilets/<%= toilet._id %>/reviews" method="POST" class="mb-4">
-                        <div class="mb-3">
-                          <label for="rating" class="form-label">Rating</label>
+          <!-- Average Rating -->
+          <% if (toilet.averageRating && toilet.averageRating> 0) { %>
+            <div
+              style="text-align: center; margin-bottom: 2rem; padding: 1rem; background: var(--background); border-radius: 12px;">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">
+                <%= '⭐' .repeat(Math.floor(toilet.averageRating)) %>
+              </div>
+              <div style="font-weight: 600; color: var(--text-primary);">
+                <%= toilet.averageRating %>/5 Average Rating
+              </div>
+            </div>
+            <% } %>
+
+              <!-- Add Review Form -->
+              <% if (currentUser) { %>
+                <% let userReview=toilet.reviews && toilet.reviews.find(r=> r.author && r.author.equals &&
+                  r.author.equals(currentUser._id)) %>
+                  <% if (!userReview) { %>
+                    <div class="review-form">
+                      <h4 style="margin-bottom: 1rem;">Add Your Review</h4>
+                      <form action="/toilets/<%= toilet._id %>/reviews" method="POST">
+                        <div style="margin-bottom: 1rem;">
+                          <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Rating</label>
                           <select class="form-select" name="review[rating]" required>
                             <option value="">Select Rating</option>
                             <option value="5">⭐⭐⭐⭐⭐ (5 - Excellent)</option>
@@ -128,111 +211,109 @@
                             <option value="1">⭐ (1 - Terrible)</option>
                           </select>
                         </div>
-                        <div class="mb-3">
-                          <label for="body" class="form-label">Review</label>
+                        <div style="margin-bottom: 1rem;">
+                          <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Review</label>
                           <textarea class="form-control" name="review[body]" rows="3"
                             placeholder="Share your experience..." required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-sm">Add Review</button>
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
                       </form>
-                      <% } else { %>
-                        <p class="text-success mb-3">✅ You have already reviewed this toilet</p>
-                        <% } %>
-                          <% } else { %>
-                            <p class="text-muted mb-3"><a href="/login">Login</a> to add a review</p>
-                            <% } %>
+                    </div>
+                    <% } else { %>
+                      <p
+                        style="color: var(--toilet-clean); font-weight: 600; text-align: center; padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 12px;">
+                        ✅ You have already reviewed this toilet
+                      </p>
+                      <% } %>
+                        <% } else { %>
+                          <p
+                            style="text-align: center; padding: 1rem; background: var(--background); border-radius: 12px;">
+                            <a href="/login" style="color: var(--primary-blue); font-weight: 600;">Login</a> to add a
+                            review
+                          </p>
+                          <% } %>
 
-                              <!-- Display Reviews -->
+                            <!-- Display Reviews -->
+                            <div style="margin-top: 2rem;">
                               <% if (toilet.reviews && toilet.reviews.length> 0) { %>
                                 <% for (let review of toilet.reviews) { %>
-                                  <div class="border-bottom mb-3 pb-3">
-                                    <div class="d-flex justify-content-between align-items-start">
+                                  <div class="review-item">
+                                    <div class="review-header">
                                       <div>
-                                        <strong>
+                                        <div class="review-author">
                                           <%= review.author && review.author.username ? review.author.username
                                             : 'Anonymous' %>
-                                        </strong>
-                                        <div>
+                                        </div>
+                                        <div class="review-rating">
                                           <%= '⭐' .repeat(review.rating) %> (<%= review.rating %>/5)
                                         </div>
-                                        <p class="mb-1">
-                                          <%= review.body %>
-                                        </p>
-                                        <small class="text-muted">
-                                          <%= review.datePosted ? new Date(review.datePosted).toLocaleDateString()
-                                            : 'Unknown date' %>
-                                        </small>
                                       </div>
-                                      <!-- Edit/Delete buttons for review author -->
                                       <% if (currentUser && review.author && review.author.equals &&
                                         review.author.equals(currentUser._id)) { %>
-                                        <div>
-                                          <form
-                                            action="/toilets/<%= toilet._id %>/reviews/<%= review._id %>?_method=DELETE"
-                                            method="POST" class="d-inline">
-                                            <button type="submit" class="btn btn-sm btn-outline-danger"
-                                              onclick="return confirm('Delete this review?')">Delete</button>
-                                          </form>
-                                        </div>
+                                        <form
+                                          action="/toilets/<%= toilet._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                          method="POST" style="display: inline;">
+                                          <button type="submit" class="btn btn-sm btn-outline-danger"
+                                            onclick="return confirm('Delete this review?')">
+                                            <i class="bi bi-trash"></i>
+                                          </button>
+                                        </form>
                                         <% } %>
+                                    </div>
+                                    <p class="review-text">
+                                      <%= review.body %>
+                                    </p>
+                                    <div class="review-date">
+                                      <%= review.datePosted ? new Date(review.datePosted).toLocaleDateString()
+                                        : 'Unknown date' %>
                                     </div>
                                   </div>
                                   <% } %>
                                     <% } else { %>
-                                      <p class="text-muted">No reviews yet. Be the first to review!</p>
+                                      <p style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                                        No reviews yet. Be the first to review! 🌟
+                                      </p>
                                       <% } %>
-          </div>
+                            </div>
         </div>
       </div>
     </div>
-
-    <!-- Add this before closing </div> at the very end -->
-
-    <!-- Mapbox CSS and JS -->
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
-
-    <script>
-      mapboxgl.accessToken = '<%= process.env.MAPBOX_TOKEN %>';
-
-      const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/satellite-streets-v12', // 3D satellite view
-        center: [<%= toilet.geometry.coordinates[0] %>, <%= toilet.geometry.coordinates[1] %>],
-        zoom: 16,
-        pitch: 60, // Tilt the map for 3D effect (0-60 degrees)
-        bearing: 0, // Rotation
-        antialias: true // For smooth 3D rendering
-      });
-
-      // Add 3D buildings layer
-      map.on('load', () => {
-        map.addLayer({
-          'id': '3d-buildings',
-          'source': 'composite',
-          'source-layer': 'building',
-          'filter': ['==', 'extrude', 'true'],
-          'type': 'fill-extrusion',
-          'minzoom': 15,
-          'paint': {
-            'fill-extrusion-color': '#aaa',
-            'fill-extrusion-height': ['get', 'height'],
-            'fill-extrusion-base': ['get', 'min_height'],
-            'fill-extrusion-opacity': 0.8
-          }
-        });
-      });
-
-      // Add marker for toilet location
-      const marker = new mapboxgl.Marker({ color: 'red', scale: 1.2 })
-        .setLngLat([<%= toilet.geometry.coordinates[0] %>, <%= toilet.geometry.coordinates[1] %>])
-        .setPopup(new mapboxgl.Popup().setHTML('<h6><%= toilet.title %></h6><p><%= toilet.location %></p>'))
-        .addTo(map);
-
-      // Add navigation controls
-      map.addControl(new mapboxgl.NavigationControl());
-    </script>
-
   </div>
 
+  <!-- Mapbox CSS and JS -->
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+
+<script>
+  mapboxgl.accessToken = '<%= process.env.MAPBOX_TOKEN %>';
   
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v12',
+    center: [<%= toilet.geometry.coordinates[0] %>, <%= toilet.geometry.coordinates[1] %>],
+    zoom: 15
+  });
+
+  // Add marker for toilet location
+  const marker = new mapboxgl.Marker({ 
+    color: '#2563eb', 
+    scale: 1.2 
+  })
+  .setLngLat([<%= toilet.geometry.coordinates[0] %>, <%= toilet.geometry.coordinates[1] %>])
+  .setPopup(
+    new mapboxgl.Popup({ offset: 25 })
+    .setHTML(`
+      <div style="padding: 0.5rem;">
+        <h6 style="margin: 0 0 0.5rem 0; color: #111827;">🚻 <%= toilet.title %></h6>
+        <p style="margin: 0; color: #6b7280; font-size: 0.85rem;"><%= toilet.location %></p>
+      </div>
+    `)
+  )
+  .addTo(map);
+
+  // Add navigation controls
+  map.addControl(new mapboxgl.NavigationControl());
+  
+  // Add fullscreen control
+  map.addControl(new mapboxgl.FullscreenControl());
+</script>

@@ -1,6 +1,107 @@
 <% layout('layouts/boilerplate') %>
-<div class="container mt-4">
-  <h1>🚻 Welcome to Where Is My Loo</h1>
-  <p>Find and share public toilets around you.</p>
-  <a href="/toilets" class="btn btn-primary">View Toilets</a>
+<!-- Load home page CSS -->
+<link rel="stylesheet" href="/css/home.css">
+
+<!-- Hero Section -->
+<div class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <span class="hero-emoji">🚻</span>
+      <h1 class="hero-title">Where Is My Loo</h1>
+      <p class="hero-subtitle">
+        Find clean, accessible public toilets near you. No more worrying about finding facilities when you're out and about!
+      </p>
+      
+      <div class="hero-buttons">
+        <a href="/toilets" class="hero-btn">
+          🔍 Find Toilets Now
+        </a>
+        <a href="/toilets/new" class="hero-btn hero-btn-secondary">
+          ➕ Add a Toilet
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Features Section -->
+<div class="features-section">
+  <div class="container">
+    <h2 class="text-center mb-4">Why Choose Our Service?</h2>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">📍</span>
+        <h3 class="feature-title">Location Based</h3>
+        <p class="feature-description">
+          Find toilets near your current location with GPS integration and distance tracking.
+        </p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">⭐</span>
+        <h3 class="feature-title">User Reviews</h3>
+        <p class="feature-description">
+          Read real reviews from other users about cleanliness, accessibility, and facilities.
+        </p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">♿</span>
+        <h3 class="feature-title">Accessibility Info</h3>
+        <p class="feature-description">
+          Clear information about wheelchair accessibility and special facilities available.
+        </p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">💰</span>
+        <h3 class="feature-title">Free & Paid Options</h3>
+        <p class="feature-description">
+          Filter between free and paid facilities to find options that suit your budget.
+        </p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">🔒</span>
+        <h3 class="feature-title">Safe & Clean</h3>
+        <p class="feature-description">
+          Community-verified locations with cleanliness ratings and safety information.
+        </p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">📱</span>
+        <h3 class="feature-title">Mobile Friendly</h3>
+        <p class="feature-description">
+          Works perfectly on your phone for when you're on the go and need quick access.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats Section -->
+<div class="container">
+  <div class="stats-section">
+    <h2>Join Our Growing Community</h2>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number">1000+</span>
+        <span class="stat-label">Toilets Listed</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">5000+</span>
+        <span class="stat-label">Happy Users</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">50+</span>
+        <span class="stat-label">Cities Covered</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">24/7</span>
+        <span class="stat-label">Available</span>
+      </div>
+    </div>
+  </div>
 </div>

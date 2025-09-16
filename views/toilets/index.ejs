@@ -1,168 +1,88 @@
 <% layout('layouts/boilerplate') %>
-  <h1 class="mb-4">Find Nearby Toilets</h1>
 
-  <!-- Location Search Section -->
-  <div class="card mb-4">
-    <div class="card-body">
-      <h5 class="card-title">🔍 Find toilets near you</h5>
-      <form method="GET" action="/toilets" class="mb-3" id="location-form">
-        <div class="row">
-          <div class="col-md-6">
-            <label class="form-label">Find toilets near:</label>
-            <div class="position-relative">
-              <input type="text" name="location" id="location-input" class="form-control"
-                placeholder="Enter address or use current location" value="<%= location || '' %>" autocomplete="off">
-              <!-- Auto-suggestions dropdown -->
-              <div id="suggestions" class="position-absolute w-100 bg-white border rounded shadow"
-                style="top: 100%; z-index: 1000; display: none;">
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex align-items-end">
-            <button type="button" id="use-location" class="btn btn-success w-100">
-              <i class="bi bi-geo-alt-fill"></i> Use My Location
+<!-- Load page-specific CSS -->
+<link rel="stylesheet" href="/css/index.css">
+<!-- Search Section -->
+<div class="search-card">
+  <h3>🔍 Find toilets near you</h3>
+  <form method="GET" action="/toilets" id="location-form">
+    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+      <input type="text" 
+       name="location" 
+       id="location-input"
+       placeholder="Enter address or use current location" 
+       value="<%= location || '' %>" 
+       class="search-input">
+      
+             <button type="button" id="use-location" class="gps-button">
+              📍 Use My Location
             </button>
-          </div>
-          <div class="col-md-3 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary w-100">
-              <i class="bi bi-search"></i> Search
+            
+            <button type="submit" class="search-button">
+              🔍 Search
             </button>
-          </div>
-        </div>
-
-        <!-- Keep existing filters as hidden inputs -->
-        <input type="hidden" name="paid" value="<%= paid || '' %>">
-        <input type="hidden" name="minRating" value="<%= minRating || '' %>">
-      </form>
     </div>
-  </div>
-
-  <!-- Existing Filters Section -->
-  <form method="GET" action="/toilets" class="mb-4">
-    <div class="row">
-      <!-- Keep location if it exists -->
-      <% if (location) { %>
-        <input type="hidden" name="location" value="<%= location %>">
-        <% } %>
-
-          <!-- Paid/Free dropdown -->
-          <div class="col-md-2">
-            <label class="form-label">Paid or Free</label>
-            <select name="paid" class="form-select">
-              <option value="">All</option>
-              <option value="true" <%=paid==="true" ? "selected" : "" %>>Paid</option>
-              <option value="false" <%=paid==="false" ? "selected" : "" %>>Free</option>
-            </select>
-          </div>
-
-          <!-- Min rating dropdown -->
-          <div class="col-md-2">
-            <label class="form-label">Minimum Rating</label>
-            <select name="minRating" class="form-select">
-              <option value="">Any</option>
-              <option value="1" <%=minRating==="1" ? "selected" : "" %>>1+</option>
-              <option value="2" <%=minRating==="2" ? "selected" : "" %>>2+</option>
-              <option value="3" <%=minRating==="3" ? "selected" : "" %>>3+</option>
-              <option value="4" <%=minRating==="4" ? "selected" : "" %>>4+</option>
-            </select>
-          </div>
-
-          <!-- Buttons -->
-          <div class="col-md-2 d-flex align-items-end">
-            <button type="submit" class="btn btn-secondary w-100">Apply Filters</button>
-          </div>
-          <div class="col-md-2 d-flex align-items-end">
-            <a href="/toilets" class="btn btn-outline-secondary w-100">Clear All</a>
-          </div>
-          <div class="col-md-2 d-flex align-items-end">
-            <a href="/toilets/new" class="btn btn-success w-100">Add Toilet</a>
-          </div>
+    
+    <!-- Auto-suggestions dropdown -->
+    <div id="suggestions" style="display: none; background: white; border: 1px solid #ccc; border-radius: 4px; margin-top: 0.5rem;">
     </div>
   </form>
+</div>
 
-  <!-- Display current search info -->
-  <% if (location) { %>
-    <div class="alert alert-info">
-      <i class="bi bi-geo-alt-fill"></i> Showing toilets near: <strong>
-        <%= location %>
-      </strong>
-      <% if (toilets.length> 0) { %>
-        <small class="text-muted"> - <%= toilets.length %> found</small>
-        <% } %>
+<!-- Results -->
+<div class="toilet-grid">
+  <% if (toilets.length === 0) { %>
+    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+      <p>No toilets found. <a href="/toilets/new">Add the first one!</a></p>
     </div>
-    <% } %>
-
-      <!-- Toilet Cards Display -->
-      <div class="row">
-        <% if (toilets.length===0) { %>
-          <div class="col-12">
-            <div class="text-center p-5">
-              <% if (location) { %>
-                <!-- Funny message for location search with no results -->
-                <div class="alert alert-warning">
-                  <h4>🚽 Oops! No toilets found within 100 km of "<%= location %>"</h4>
-                  <p class="mb-3">Looks like nature is calling but civilization isn't answering! 😅</p>
-                  <p class="text-muted">Don't worry, we're not suggesting you go "open air" - try searching a different
-                    location or <a href="/toilets/new" class="alert-link">add a toilet</a> to help fellow travelers!</p>
-                  <div class="mt-3">
-                    <a href="/toilets" class="btn btn-primary me-2">View All Toilets</a>
-                    <a href="/toilets/new" class="btn btn-success">Add a Toilet</a>
-                  </div>
-                </div>
-                <% } else { %>
-                  <!-- Regular no toilets message -->
-                  <p class="text-muted">No toilets found matching your criteria.</p>
-                  <a href="/toilets/new" class="btn btn-success">Add the First Toilet</a>
-                  <% } %>
-            </div>
+  <% } else { %>
+    <% toilets.forEach(toilet => { %>
+      <div class="toilet-card">
+        <img src="<%= toilet.images.length ? toilet.images[0].url : 'https://placehold.co/600x400' %>" 
+             class="toilet-image" alt="<%= toilet.title %>">
+        
+        <div class="toilet-card-content">
+          <h3 class="toilet-title"><%= toilet.title %></h3>
+          
+          <p class="toilet-location">
+            <i class="bi bi-geo-alt"></i> <%= toilet.location %>
+          </p>
+          
+          <% if (toilet.distance) { %>
+            <p class="toilet-distance">
+              <i class="bi bi-pin-map"></i> <%= toilet.distance %> km away
+            </p>
+          <% } %>
+          
+          <div class="toilet-features">
+            <span class="feature-badge <%= toilet.isPaid ? 'paid' : 'free' %>">
+              <%= toilet.isPaid ? `₹${toilet.price}` : 'Free' %>
+            </span>
+            <span class="feature-badge"><%= toilet.genderAccess %></span>
+            <% if (toilet.isAccessible) { %>
+              <span class="feature-badge">♿ Accessible</span>
+            <% } %>
           </div>
-          <% } else { %>
-            <% toilets.forEach(toilet=> { %>
-              <div class="col-md-4 mb-3">
-                <div class="card shadow">
-                  <img src="<%= toilet.images.length ? toilet.images[0].url : 'https://placehold.co/600x400' %>"
-                    class="card-img-top" alt="Toilet image">
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <%= toilet.title %>
-                    </h5>
-                    <p class="card-text">
-                      <%= toilet.location %>
-                    </p>
-                    <% if (toilet.distance) { %>
-                      <small class="text-success">📍 <%= toilet.distance %> km away</small>
-                      <br>
-                      <% } %>
-                        <a href="/toilets/<%= toilet._id %>" class="btn btn-primary mt-2">View</a>
-                  </div>
-                </div>
-              </div>
-              <% }) %>
-                <% } %>
+          
+          <a href="/toilets/<%= toilet._id %>" class="view-button">
+            View Details
+          </a>
+        </div>
       </div>
+    <% }) %>
+  <% } %>
+</div>
 
-      <script src="/js/location-helper.js"></script>
-      <script>
-        // City selection functionality
-        document.querySelectorAll('.city-option').forEach(option => {
-          option.addEventListener('click', function (e) {
-            e.preventDefault();
-            const city = this.getAttribute('data-city');
-            document.getElementById('selected-city').textContent = this.textContent;
-            document.getElementById('location-input').value = city;
-          });
-        });
-
-        // Initialize location helper for search
-        const locationHelper = new LocationHelper('location-input', 'suggestions', 'use-location');
-
-        // Override the reverseGeocode method to auto-submit after getting location
-        const originalReverseGeocode = locationHelper.reverseGeocode.bind(locationHelper);
-        locationHelper.reverseGeocode = async function (lat, lng) {
-          await originalReverseGeocode(lat, lng);
-          // Auto-submit form after location is set
-          if (this.inputElement.value) {
-            document.getElementById('location-form').submit();
-          }
-        };
-      </script>
+<!-- Load JavaScript -->
+<script src="/js/location-helper.js"></script>
+<script>
+  const locationHelper = new LocationHelper('location-input', 'suggestions', 'use-location');
+  
+  const originalReverseGeocode = locationHelper.reverseGeocode.bind(locationHelper);
+  locationHelper.reverseGeocode = async function(lat, lng) {
+    await originalReverseGeocode(lat, lng);
+    if (this.inputElement.value) {
+      document.getElementById('location-form').submit();
+    }
+  };
+</script>

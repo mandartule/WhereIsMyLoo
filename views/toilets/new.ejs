@@ -1,92 +1,153 @@
 <% layout('layouts/boilerplate') %>
+<!-- Load forms CSS -->
+<link rel="stylesheet" href="/css/forms.css">
 
-  <h1>Add new Toilet</h1>
-  <form action="/toilets/new" method="POST" enctype="multipart/form-data">
+<div class="form-container">
+  <div class="form-header">
+    <span class="form-header-icon">🚻</span>
+    <h1 class="form-title">Add New Toilet</h1>
+    <p class="form-subtitle">Help others by adding a public toilet location</p>
+  </div>
 
-    <div class="mb-3">
-      <label for="title" class="form-label">Title</label>
-      <input type="text" class="form-control" id="title" name="toilet[title]" required>
-    </div>
+  <form action="/toilets/new" method="POST" enctype="multipart/form-data" class="toilet-form">
+    
+    <!-- Basic Info Row -->
+    <div class="form-row">
+      <!-- Title -->
+      <div class="form-group">
+        <label for="title" class="form-label">
+          <i class="bi bi-type"></i> Toilet Name
+        </label>
+        <input type="text" class="form-control" id="title" name="toilet[title]" 
+               placeholder="e.g., Central Mall Restroom" required>
+      </div>
 
-    <div class="mb-3">
-      <label for="location" class="form-label">Address</label>
-      <div class="position-relative">
-        <div class="input-group">
-          <input type="text" class="form-control" id="location" name="toilet[location]"
-            placeholder="Enter full address or use current location" required autocomplete="off">
-          <button type="button" id="use-current-location" class="btn btn-success">
-            <i class="bi bi-geo-alt-fill"></i> Use My Location
-          </button>
-        </div>
-        <!-- Auto-suggestions dropdown -->
-        <div id="location-suggestions" class="position-absolute w-100 bg-white border rounded shadow"
-          style="top: 100%; z-index: 1000; display: none;">
-        </div>
+      <!-- Gender Access -->
+      <div class="form-group">
+        <label for="genderAccess" class="form-label">
+          <i class="bi bi-people"></i> Gender Access
+        </label>
+        <select class="form-select" id="genderAccess" name="toilet[genderAccess]" required>
+          <option value="">Select Access Type</option>
+          <option value="Male">Male Only</option>
+          <option value="Female">Female Only</option>
+          <option value="Unisex">Unisex</option>
+        </select>
       </div>
     </div>
 
-    <div class="mb-3">
-      <label class="form-label" id="imageLabel" for="image">Add Images</label>
-      <input class="form-control" type="file" name="image" id="image" multiple>
+    <!-- Location -->
+    <div class="form-group">
+      <label for="location" class="form-label">
+        <i class="bi bi-geo-alt"></i> Address
+      </label>
+      <div class="input-group-enhanced">
+        <input type="text" class="form-control" id="location" name="toilet[location]"
+               placeholder="Enter full address or use current location" required autocomplete="off">
+        <button type="button" id="use-current-location" class="btn btn-success">
+          <i class="bi bi-geo-alt-fill"></i> Use My Location
+        </button>
+      </div>
+      <!-- Auto-suggestions dropdown -->
+      <div id="location-suggestions" class="suggestions-dropdown" style="display: none;"></div>
     </div>
 
-    <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
-      <textarea class="form-control" id="description" name="toilet[description]" rows="3"></textarea>
+    <!-- Description -->
+    <div class="form-group">
+      <label for="description" class="form-label">
+        <i class="bi bi-card-text"></i> Description
+      </label>
+      <textarea class="form-control" id="description" name="toilet[description]" rows="3"
+                placeholder="Describe the facilities, cleanliness, or any special features..."></textarea>
     </div>
 
-    <div class="mb-3">
-      <label for="isPaid" class="form-label">Is it Paid?</label>
-      <select class="form-select" id="isPaid" name="toilet[isPaid]" required>
-        <option value="">Select</option>
-        <option value="true">Paid</option>
-        <option value="false">Free</option>
+    <!-- Images -->
+    <div class="form-group">
+      <label for="image" class="form-label">
+        <i class="bi bi-camera"></i> Add Photos
+      </label>
+      <input class="form-control" type="file" name="image" id="image" multiple accept="image/*">
+      <small class="form-text">Upload photos to help others identify the location</small>
+    </div>
+
+    <!-- Payment & Price Row -->
+    <div class="form-row">
+      <!-- Is Paid -->
+      <div class="form-group">
+        <label for="isPaid" class="form-label">
+          <i class="bi bi-currency-rupee"></i> Is it Paid?
+        </label>
+        <select class="form-select" id="isPaid" name="toilet[isPaid]" required>
+          <option value="">Select</option>
+          <option value="false">Free</option>
+          <option value="true">Paid</option>
+        </select>
+      </div>
+
+      <!-- Price -->
+      <div class="form-group">
+        <label for="price" class="form-label">
+          <i class="bi bi-tag"></i> Price (if paid)
+        </label>
+        <input type="number" class="form-control" id="price" name="toilet[price]" 
+               min="0" step="0.01" placeholder="0.00">
+      </div>
+    </div>
+
+    <!-- Accessibility Row -->
+    <div class="form-row">
+      <!-- Wheelchair Accessible -->
+      <div class="form-group">
+        <label for="isAccessible" class="form-label">
+          <i class="bi bi-universal-access"></i> Wheelchair Accessible?
+        </label>
+        <select class="form-select" id="isAccessible" name="toilet[isAccessible]" required>
+          <option value="">Select</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+
+      <!-- Sanitary Pad Disposal -->
+      <div class="form-group">
+        <label for="hasSanitaryPadDisposal" class="form-label">
+          <i class="bi bi-trash"></i> Sanitary Pad Disposal?
+        </label>
+        <select class="form-select" id="hasSanitaryPadDisposal" name="toilet[hasSanitaryPadDisposal]" required>
+          <option value="">Select</option>
+          <option value="true">Available</option>
+          <option value="false">Not Available</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Cleanliness Rating -->
+    <div class="form-group">
+      <label for="cleanlinessRating" class="form-label">
+        <i class="bi bi-star"></i> Cleanliness Rating (1-5)
+      </label>
+      <select class="form-select" id="cleanlinessRating" name="toilet[cleanlinessRating]">
+        <option value="">Rate the cleanliness</option>
+        <option value="5">⭐⭐⭐⭐⭐ (5 - Excellent)</option>
+        <option value="4">⭐⭐⭐⭐ (4 - Good)</option>
+        <option value="3">⭐⭐⭐ (3 - Average)</option>
+        <option value="2">⭐⭐ (2 - Poor)</option>
+        <option value="1">⭐ (1 - Terrible)</option>
       </select>
     </div>
 
-    <div class="mb-3">
-      <label for="price" class="form-label">Price (if paid)</label>
-      <input type="number" class="form-control" id="price" name="toilet[price]" min="0" step="0.01">
+    <!-- Submit Button -->
+    <div class="form-actions">
+      <button type="submit" class="form-submit-btn">
+        <i class="bi bi-plus-circle"></i> Add Toilet
+      </button>
     </div>
-
-    <div class="mb-3">
-      <label for="genderAccess" class="form-label">Gender Access</label>
-      <select class="form-select" id="genderAccess" name="toilet[genderAccess]" required>
-        <option value="">Select</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Unisex">Unisex</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="isAccessible" class="form-label">Wheelchair Accessible?</label>
-      <select class="form-select" id="isAccessible" name="toilet[isAccessible]" required>
-        <option value="">Select</option>
-        <option value="true">Yes</option>
-        <option value="false">No</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="hasSanitaryPadDisposal" class="form-label">Sanitary Pad Disposal Available?</label>
-      <select class="form-select" id="hasSanitaryPadDisposal" name="toilet[hasSanitaryPadDisposal]" required>
-        <option value="">Select</option>
-        <option value="true">Yes</option>
-        <option value="false">No</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="cleanlinessRating" class="form-label">Cleanliness Rating (1-5)</label>
-      <input type="number" class="form-control" id="cleanlinessRating" name="toilet[cleanlinessRating]" min="1" max="5"
-        step="1">
-    </div>
-    <button type="submit" class="btn btn-primary">Add Toilet</button>
-
-
-    <script src="/js/location-helper.js"></script>
-    <script>
-      // Initialize location helper for new toilet form
-      const locationHelper = new LocationHelper('location', 'location-suggestions', 'use-current-location');
-    </script>
-
-
   </form>
+</div>
+
+<!-- JavaScript -->
+<script src="/js/location-helper.js"></script>
+<script>
+  // Initialize location helper for new toilet form
+  const locationHelper = new LocationHelper('location', 'location-suggestions', 'use-current-location');
+</script>

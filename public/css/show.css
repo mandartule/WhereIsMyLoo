@@ -1,0 +1,322 @@
+/* ========================================
+   TOILET SHOW/DETAIL PAGE STYLING
+======================================== */
+
+/* Main Container */
+.show-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  
+  /* Page Header */
+  .show-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .show-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+  }
+  
+  .show-location {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  /* Two Column Layout */
+  .show-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  
+  /* Left Column - Details Card */
+  .details-card {
+    background: var(--card-white);
+    border: 1px solid var(--border-soft);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+  }
+  
+  /* Image Carousel */
+  .image-carousel {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+  }
+  
+  .carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Details Content */
+  .details-content {
+    padding: 2rem;
+  }
+  
+  .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--background);
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-blue);
+  }
+  
+  .detail-icon {
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+    min-width: 30px;
+  }
+  
+  .detail-content {
+    flex: 1;
+  }
+  
+  .detail-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+  }
+  
+  .detail-value {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  
+  /* Feature Badges */
+  .feature-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+  }
+  
+  .feature-tag {
+    background: linear-gradient(135deg, var(--primary-blue), #1d4ed8);
+    color: var(--card-white);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .feature-tag.free {
+    background: linear-gradient(135deg, var(--toilet-clean), #059669);
+  }
+  
+  .feature-tag.paid {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+  }
+  
+  .feature-tag.accessible {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  }
+  
+  /* Action Buttons */
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    padding: 2rem;
+    background: var(--background);
+    border-top: 1px solid var(--border-soft);
+  }
+  
+  .action-btn {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn-back {
+    background: var(--background);
+    color: var(--text-secondary);
+    border: 2px solid var(--border-soft);
+  }
+  
+  .btn-back:hover {
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+    transform: translateY(-2px);
+  }
+  
+  .btn-edit {
+    background: linear-gradient(135deg, var(--primary-blue), #1d4ed8);
+    color: var(--card-white);
+  }
+  
+  .btn-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+    color: var(--card-white);
+    text-decoration: none;
+  }
+  
+  .btn-delete {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: var(--card-white);
+  }
+  
+  .btn-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+  }
+  
+  /* Right Column - Map & Reviews */
+  .map-reviews-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  /* Map Container */
+  .map-container {
+    background: var(--card-white);
+    border: 1px solid var(--border-soft);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    height: 350px;
+  }
+  
+  .map-placeholder {
+    height: 100%;
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--text-secondary);
+  }
+  
+  .map-placeholder i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-blue);
+  }
+  
+  /* Reviews Section */
+  .reviews-container {
+    background: var(--card-white);
+    border: 1px solid var(--border-soft);
+    border-radius: 20px;
+    box-shadow: var(--shadow-medium);
+    padding: 2rem;
+  }
+  
+  .reviews-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-soft);
+  }
+  
+  .reviews-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  .reviews-count {
+    background: var(--primary-blue);
+    color: var(--card-white);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  
+  /* Review Form */
+  .review-form {
+    background: var(--background);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+  }
+  
+  /* Review Items */
+  .review-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  
+  .review-item:last-child {
+    border-bottom: none;
+  }
+  
+  .review-header {
+    display: flex;
+    justify-content: between;
+    align-items: start;
+    margin-bottom: 1rem;
+  }
+  
+  .review-author {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  .review-rating {
+    color: #f59e0b;
+    margin: 0.5rem 0;
+  }
+  
+  .review-text {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+  
+  .review-date {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .show-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .show-title {
+      font-size: 2rem;
+    }
+    
+    .action-buttons {
+      flex-direction: column;
+    }
+    
+    .details-content {
+      padding: 1.5rem;
+    }
+  }

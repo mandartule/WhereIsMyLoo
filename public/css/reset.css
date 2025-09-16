@@ -1,0 +1,46 @@
+/* Smart CSS Reset - Remove only problematic Bootstrap defaults */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Reset only specific Bootstrap components, not ALL buttons */
+  .card {
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: white !important;
+  }
+  
+  /* Don't reset ALL buttons, only Bootstrap button classes */
+  .btn:not(.view-button):not([style]) {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  
+  /* Reset forms but keep functionality */
+  .form-control, .form-select {
+    border-radius: 8px !important;
+    border: 1px solid #ddd !important;
+    box-shadow: none !important;
+  }
+  
+  /* Reset navbar to white */
+  .navbar {
+    background: #ffffff !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    padding: 1rem 0 !important;
+  }
+  
+  /* Keep body clean */
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+    background-color: #f8f9fa !important;
+    line-height: 1.6 !important;
+  }
+  
+  /* Remove all transitions only from Bootstrap components */
+  .card, .btn, .alert {
+    transition: none !important;
+  }
