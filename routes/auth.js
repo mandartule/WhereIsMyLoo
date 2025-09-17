@@ -3,6 +3,17 @@ const router = express.Router();
 const passport = require('passport');
 const User = require('../models/user');
 
+router.get('/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+router.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (req, res) => {
+    // Successful login
+    res.redirect('/toilets');
+  }
+);
 // Register form
 router.get('/register', (req, res) => {
   res.render('auth/register');

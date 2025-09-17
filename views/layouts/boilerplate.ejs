@@ -67,16 +67,18 @@
           <% if (!currentUser) { %>
             <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
             <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-          <% } else { %>
-            <li class="nav-item">
-              <span class="navbar-text me-2">Hi, <%= currentUser.username %></span>
-            </li>
-            <li class="nav-item">
-              <form action="/logout" method="POST" class="d-inline">
-                <button class="btn btn-outline-light btn-sm">Logout</button>
-              </form>
-            </li>
-          <% } %>
+            <% } else { %>
+              <li class="nav-item">
+                <span class="navbar-text me-2"><img src="<%= currentUser.profilePic %>"
+                    alt="<%= currentUser.username %>'s profile picture" class="rounded-circle" width="30"
+                    height="30">Hi, <%= currentUser.username %></span>
+              </li>
+              <li class="nav-item">
+                <form action="/logout" method="POST" class="d-inline">
+                  <button class="btn btn-outline-light btn-sm">Logout</button>
+                </form>
+              </li>
+              <% } %>
         </ul>
 
       </div>
