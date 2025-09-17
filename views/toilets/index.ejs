@@ -2,32 +2,48 @@
 
 <!-- Load page-specific CSS -->
 <link rel="stylesheet" href="/css/index.css">
-<!-- Search Section -->
-<div class="search-card">
+<!-- Search Section --><div class="search-card">
   <h3>🔍 Find toilets near you</h3>
   <form method="GET" action="/toilets" id="location-form">
-    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-      <input type="text" 
-       name="location" 
-       id="location-input"
-       placeholder="Enter address or use current location" 
-       value="<%= location || '' %>" 
-       class="search-input">
-            <select name="paid" id="paid-filter" class="search-input" onchange="document.getElementById('location-form').submit()">
-              <option value="">All</option>
-              <option value="true" <%= paid === "true" ? "selected" : "" %>>Paid</option>
-              <option value="false" <%= paid === "false" ? "selected" : "" %>>Free</option>
-            </select>
-            <input type="number" name="minRating" id="min-rating-filter" class="search-input" min="1" max="5" step="1" placeholder="Min Cleanliness Rating" value="<%= minRating || '' %>" oninput="document.getElementById('location-form').submit()">
-            <button type="button" id="use-location" class="gps-button">
-              📍 Use My Location
-            </button>
-            
-            <button type="submit" class="search-button">
-              🔍 Search
-            </button>
+    <div class="search-row">
+
+       <input type="text" 
+        name="location" 
+        id="location-input"
+        placeholder="Enter address or use current location" 
+        value="<%= location || '' %>" 
+        class="search-input elongated-search-input">
+
+      <button type="button" id="use-location" class="gps-button" style="margin-right:0.5rem;">
+        📍Use My Location
+      </button>
+      <button type="submit" class="search-button" style="margin-right:0.5rem;">
+        🔍 Search
+      </button>
+     
     </div>
-    
+
+    <div class="search-filters-row">
+      <!-- Paid/Free/All toggle -->
+      <div class="paid-toggle-group">
+        <input type="radio" id="paid-all" name="paid" value="" <%= !paid ? "checked" : "" %> onchange="this.form.submit()">
+        <label for="paid-all">All</label>
+        <input type="radio" id="paid-true" name="paid" value="true" <%= paid === "true" ? "checked" : "" %> onchange="this.form.submit()">
+        <label for="paid-true">Paid</label>
+        <input type="radio" id="paid-false" name="paid" value="false" <%= paid === "false" ? "checked" : "" %> onchange="this.form.submit()">
+        <label for="paid-false">Free</label>
+      </div>
+      <!-- Review filter -->
+      <div class="review-filter-group">
+        <select name="minRating" id="min-rating-filter" class="search-input" style="width:auto; min-width:120px;" onchange="this.form.submit()">
+          <option value="">All Reviews</option>
+          <option value="4" <%= minRating == 4 ? "selected" : "" %>>4★ & up</option>
+          <option value="3" <%= minRating == 3 ? "selected" : "" %>>3★ & up</option>
+          <option value="2" <%= minRating == 2 ? "selected" : "" %>>2★ & up</option>
+        </select>
+      </div>
+    </div>
+
     <!-- Auto-suggestions dropdown -->
     <div id="suggestions" style="display: none; background: white; border: 1px solid #ccc; border-radius: 4px; margin-top: 0.5rem;">
     </div>
