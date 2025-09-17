@@ -162,6 +162,54 @@
     z-index: 1;
     pointer-events: none;
   }
+
+  .auth-divider {
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+}
+
+.auth-divider span {
+  background: #fff;
+  padding: 0 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.auth-divider:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: #ddd;
+  z-index: 0;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #db4437;
+  color: #fff;
+  border-radius: 6px;
+  padding: 10px 15px;
+  font-weight: 500;
+  transition: background 0.3s;
+  text-decoration: none;
+}
+
+.google-btn:hover {
+  background-color: #c1351d;
+  color: #fff;
+}
+
+.google-btn i {
+  font-size: 18px;
+}
+
   
   /* Responsive Design */
   @media (max-width: 768px) {

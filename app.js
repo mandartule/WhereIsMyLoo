@@ -2,20 +2,22 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const dotenv = require('dotenv');
+//config dot env file
+dotenv.config();
 const connectDb = require('./config/connectDB');
 const methodOverride = require('method-override');  // Required for PUT & DELETE via POST
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
-const passport = require('passport');
 const LocalStrategy = require('passport-local');
+
+
+const passport = require('./config/passportConfig');
 
 const User = require('./models/user');
 const ejsMate = require('ejs-mate')
 
 
-//config dot env file
-dotenv.config();
 
 //connect database
 connectDb();
@@ -29,6 +31,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // To parse form data
 app.use(methodOverride('_method'));              // Enable method override
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files
+
+// Passport setup
+app.use(session({
+  secret: 'notagoodsecret',
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // ----- sessions -----
 const store = MongoStore.create({
