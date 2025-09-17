@@ -36,12 +36,6 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/toilets">Toilets</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/toilets/new">Add Toilet</a>
-          </li>
           <!--  City Selector -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -58,22 +52,31 @@
               <li><a class="dropdown-item city-option" href="#" data-city="Hyderabad, Telangana">Hyderabad</a></li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/toilets">Toilets</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/toilets/new">Add Toilet</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a> <!-- Added About link -->
+          </li>
         </ul>
 
         <ul class="navbar-nav ms-auto">
           <% if (!currentUser) { %>
             <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
             <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-            <% } else { %>
-              <li class="nav-item">
-                <span class="navbar-text me-2">Hi, <%= currentUser.username %></span>
-              </li>
-              <li class="nav-item">
-                <form action="/logout" method="POST" class="d-inline">
-                  <button class="btn btn-outline-light btn-sm">Logout</button>
-                </form>
-              </li>
-              <% } %>
+          <% } else { %>
+            <li class="nav-item">
+              <span class="navbar-text me-2">Hi, <%= currentUser.username %></span>
+            </li>
+            <li class="nav-item">
+              <form action="/logout" method="POST" class="d-inline">
+                <button class="btn btn-outline-light btn-sm">Logout</button>
+              </form>
+            </li>
+          <% } %>
         </ul>
 
       </div>
@@ -86,16 +89,16 @@
     <% if (success && success.length) { %>
       <div class="alert alert-success alert-dismissible fade show" role="alert">
         <%= success %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       </div>
-      <% } %>
+    <% } %>
 
-        <% if (error && error.length) { %>
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <%= error %>
-              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          </div>
-          <% } %>
+    <% if (error && error.length) { %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    <% } %>
   </div>
 
   <!-- Page content -->

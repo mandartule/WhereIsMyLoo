@@ -86,6 +86,12 @@ app.use('/toilets',toiletRoutes);
 const reviewRoutes = require('./routes/reviews');
 app.use('/toilets/:id/reviews', reviewRoutes);
 
+app.get('/about', (req, res) => {
+  res.render('about'); 
+});
+app.use(express.static('public'));
+
+
 app.listen(3000, () => {
     console.log("Listening on port 3000");
 })
