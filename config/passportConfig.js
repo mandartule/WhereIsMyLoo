@@ -3,7 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/user'); 
 
 // Debugging: Log the Google Client ID to ensure it's being read correctly
-console.log("Google Client ID:", process.env.GOOGLE_CLIENT_ID);
+// console.log("Google Client ID:", process.env.GOOGLE_CLIENT_ID);
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,

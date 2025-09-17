@@ -13,8 +13,13 @@
        placeholder="Enter address or use current location" 
        value="<%= location || '' %>" 
        class="search-input">
-      
-             <button type="button" id="use-location" class="gps-button">
+            <select name="paid" id="paid-filter" class="search-input" onchange="document.getElementById('location-form').submit()">
+              <option value="">All</option>
+              <option value="true" <%= paid === "true" ? "selected" : "" %>>Paid</option>
+              <option value="false" <%= paid === "false" ? "selected" : "" %>>Free</option>
+            </select>
+            <input type="number" name="minRating" id="min-rating-filter" class="search-input" min="1" max="5" step="1" placeholder="Min Cleanliness Rating" value="<%= minRating || '' %>" oninput="document.getElementById('location-form').submit()">
+            <button type="button" id="use-location" class="gps-button">
               📍 Use My Location
             </button>
             
@@ -32,8 +37,11 @@
 <!-- Results -->
 <div class="toilet-grid">
   <% if (toilets.length === 0) { %>
-    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
-      <p>No toilets found. <a href="/toilets/new">Add the first one!</a></p>
+    <div class="no-toilets">
+      <p>
+      🚫 No toilets found.<br>
+      <a href="/toilets/new" class="add-link">Add the first one!</a>
+      </p>
     </div>
   <% } else { %>
     <% toilets.forEach(toilet => { %>
