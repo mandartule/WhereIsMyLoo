@@ -36,12 +36,6 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/toilets">Toilets</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/toilets/new">Add Toilet</a>
-          </li>
           <!--  City Selector -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -57,6 +51,15 @@
               <li><a class="dropdown-item city-option" href="#" data-city="Kolkata, West Bengal">Kolkata</a></li>
               <li><a class="dropdown-item city-option" href="#" data-city="Hyderabad, Telangana">Hyderabad</a></li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/toilets">Toilets</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/toilets/new">Add Toilet</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a> <!-- Added About link -->
           </li>
         </ul>
 
@@ -88,16 +91,16 @@
     <% if (success && success.length) { %>
       <div class="alert alert-success alert-dismissible fade show" role="alert">
         <%= success %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       </div>
-      <% } %>
+    <% } %>
 
-        <% if (error && error.length) { %>
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <%= error %>
-              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          </div>
-          <% } %>
+    <% if (error && error.length) { %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    <% } %>
   </div>
 
   <!-- Page content -->

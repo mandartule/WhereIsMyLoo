@@ -32,6 +32,7 @@ Find nearby public restrooms. Node.js + Express + MongoDB backend with EJS views
 - EJS templating
 - method-override for PUT/DELETE via HTML forms
 - dotenv-based configuration
+- location access
 
 ---
 
