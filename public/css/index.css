@@ -151,3 +151,53 @@
   text-decoration: underline;
   font-weight: bold;
 }
+
+/* Elongated search bar with buttons to the left */
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.elongated-search-input {
+  flex: 1 1 300px;
+  min-width: 0;
+}
+
+/* Paid/Free/All toggle and review filter row */
+.search-filters-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  justify-content: flex-start;
+}
+
+/* Paid/Free/All radio group styling */
+.paid-toggle-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 0.3rem 0.8rem;
+}
+.paid-toggle-group input[type="radio"] {
+  accent-color: #2563eb;
+  margin-right: 0.2rem;
+}
+.paid-toggle-group label {
+  margin-right: 0.7rem;
+  font-weight: 500;
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* Review filter group */
+.review-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
