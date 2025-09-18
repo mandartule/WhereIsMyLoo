@@ -201,3 +201,87 @@
   align-items: center;
   gap: 0.5rem;
 }
+
+
+
+/* Mobile-first responsive design for search section */
+@media (max-width: 768px) {
+  .search-card {
+    padding: 1rem !important;
+    margin: 1rem !important;
+  }
+  
+  .search-card h3 {
+    font-size: 1.25rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Stack search elements vertically on mobile */
+  .search-row {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .elongated-search-input {
+    width: 100% !important;
+    flex: none !important;
+    order: 1;
+  }
+  
+  /* Button row for mobile */
+  .mobile-button-row {
+    display: flex !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+    order: 2;
+  }
+  
+  .gps-button,
+  .search-button {
+    flex: 1 !important;
+    margin: 0 !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 0.9rem !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Stack filters vertically on mobile */
+  .search-filters-row {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    align-items: stretch !important;
+  }
+  
+  .paid-toggle-group {
+    justify-content: center !important;
+    padding: 0.75rem !important;
+    width: 100% !important;
+  }
+  
+  .review-filter-group {
+    width: 100% !important;
+  }
+  
+  .review-filter-group select {
+    width: 100% !important;
+    min-width: auto !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-card {
+    margin: 0.5rem !important;
+    padding: 0.75rem !important;
+  }
+  
+  .gps-button,
+  .search-button {
+    font-size: 0.85rem !important;
+    padding: 0.65rem 0.75rem !important;
+  }
+  
+  .paid-toggle-group label {
+    font-size: 0.9rem !important;
+  }
+}
