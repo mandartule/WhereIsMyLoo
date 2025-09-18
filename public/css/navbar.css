@@ -2,12 +2,23 @@
    NAVBAR COMPONENT STYLING ONLY
 ======================================== */
 
-/* Custom Navbar Styling */
+/* Custom Navbar Styling - FIXED */
 .navbar {
   background: linear-gradient(135deg, #ffffff, #f8fafc) !important;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08) !important;
   padding: 1rem 0 !important;
   border-bottom: 1px solid #e5e7eb !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1030 !important;
+  width: 100% !important;
+}
+
+/* Add body padding to compensate for fixed navbar */
+body {
+  padding-top: 76px !important; /* Adjust based on your navbar height */
 }
 
 .navbar .navbar-brand {
