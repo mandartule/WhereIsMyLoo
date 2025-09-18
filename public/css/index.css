@@ -6,13 +6,169 @@
     text-align: center;
   }
   
-  .search-card {
-    background: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+/* Search Card Improvements */
+.search-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.search-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* Title */
+.search-card h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  text-align: center;
+  color: #1e293b;
+}
+
+/* Search Row */
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.elongated-search-input {
+  flex: 1;
+  border-radius: 12px !important;
+  border: 2px solid #e5e7eb !important;
+  padding: 0.9rem 1rem !important;
+  font-size: 1rem !important;
+  background: #f9fafb !important;
+  transition: all 0.3s ease !important;
+}
+
+.elongated-search-input:focus {
+  border-color: #2563eb !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15) !important;
+}
+
+/* Modern Buttons */
+.gps-button,
+.search-button {
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  padding: 0.85rem 1.25rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.gps-button {
+  background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+  box-shadow: 0 3px 8px rgba(34,197,94,0.25) !important;
+}
+
+.search-button {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+  box-shadow: 0 3px 8px rgba(37,99,235,0.25) !important;
+}
+
+.gps-button:hover,
+.search-button:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  opacity: 0.95 !important;
+}
+
+/* Filters Row */
+.search-filters-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+/* Paid/Free/All Toggle -> pill style */
+.paid-toggle-group {
+  display: flex;
+  gap: 0.5rem;
+  background: #f1f5f9;
+  border-radius: 50px;
+  padding: 0.4rem;
+}
+
+.paid-toggle-group input[type="radio"] {
+  display: none;
+}
+
+.paid-toggle-group label {
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #475569;
+  transition: all 0.3s ease;
+}
+
+.paid-toggle-group input[type="radio"]:checked + label {
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Review Filter Dropdown */
+.review-filter-group select {
+  border-radius: 10px;
+  border: 2px solid #e5e7eb;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.95rem;
+  transition: 0.3s ease;
+  background: #fff;
+}
+
+.review-filter-group select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  outline: none;
+}
+
+/* Suggestions Dropdown */
+#suggestions {
+  margin-top: 0.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+#suggestions div {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#suggestions div:hover {
+  background: #f1f5f9;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .search-row {
+    flex-direction: column;
   }
+
+  .mobile-button-row {
+    width: 100%;
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .gps-button,
+  .search-button {
+    flex: 1;
+  }
+}
+
   
   .toilet-grid {
     display: grid;
