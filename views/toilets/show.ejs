@@ -290,7 +290,7 @@
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v12',
-    center: [<%= toilet.geometry.coordinates[0] %>, <%= toilet.geometry.coordinates[1] %>],
+    center: [(toilet.geometry && toilet.geometry.coordinates) ? toilet.geometry.coordinates[0] : 0, (toilet.geometry && toilet.geometry.coordinates) ? toilet.geometry.coordinates[1] : 0],
     zoom: 15
   });
 
@@ -299,7 +299,7 @@
     color: '#2563eb', 
     scale: 1.2 
   })
-  .setLngLat([<%= toilet.geometry.coordinates[0] %>, <%= toilet.geometry.coordinates[1] %>])
+  .setLngLat([(toilet.geometry && toilet.geometry.coordinates) ? toilet.geometry.coordinates[0] : 0, (toilet.geometry && toilet.geometry.coordinates) ? toilet.geometry.coordinates[1] : 0])
   .setPopup(
     new mapboxgl.Popup({ offset: 25 })
     .setHTML(`

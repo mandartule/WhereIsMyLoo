@@ -147,7 +147,7 @@
   /* Features Section */
   .features-section {
     padding: 3rem 0;
-    background: linear-gradient(90deg, #E0F3F7 0%, #DAF1FE 100%);
+    background: white;
   }
   
   .features-grid {
