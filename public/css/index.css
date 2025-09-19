@@ -261,40 +261,88 @@
 
 .toilet-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Corrected grid-template-columns */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
 }
 
 .toilet-card {
-  background: var(--professional-blue-2); /* Changed to a slightly darker blue shade */
-  border: 1px solid var(--sky-2); /* Changed border to sky blue */
-  border-radius: 8px; /* Corrected border-radius */
-  box-shadow: 0 2px 8px var(--aqua-2); /* Corrected box-shadow */
+  background: var(--card-white); /* Card white background */
+  border: 1px solid #C0C8D9; /* Soft border */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.toilet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 .toilet-image {
-  width: 100%; /* Corrected width */
-  height: 200px; /* Added height for consistency */
-  object-fit: cover; /* Ensures image covers the area */
-  border-radius: 8px 8px 0 0; /* Rounded top corners */
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+
+.toilet-info {
+  padding: 1.25rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.toilet-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #000000; /* Black text */
+  margin-bottom: 0.5rem;
+}
+
+.toilet-location {
+  font-size: 0.95rem;
+  color: #000000; /* Black text */
+  margin-bottom: 1rem;
+}
+
+.toilet-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto; /* Pushes features to the bottom */
+}
+
+.feature-tag {
+  background-color: #E2EDEB; /* Light Aqua background */
+  color: #000000; /* Black text */
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid #C0C8D9; /* Soft border */
 }
 
 .view-button {
   display: block;
   width: 100%;
-  padding: 0.75rem;
+  padding: 1rem;
   text-align: center;
   text-decoration: none;
   font-weight: 600;
-  border-radius: 0 0 8px 8px; /* Rounded bottom corners */
-  background: linear-gradient(90deg, var(--sky-3), var(--teal-1)); /* Professional blue gradient */
-  color: var(--card-white);
-  transition: background 0.3s ease;
+  border-radius: 0 0 12px 12px;
+  background: #5986e8; /* Updated to solid color */
+  color: #000000; /* Black text */
+  transition: all 0.3s ease;
+  margin-top: 1rem; /* Space above the button */
 }
 
 .view-button:hover {
-  background: linear-gradient(90deg, var(--teal-2), var(--sky-4));
+  background: #4a70c0; /* Slightly darker on hover */
+  box-shadow: 0 4px 10px rgba(89, 134, 232, 0.4);
 }
 
 .no-toilets {

@@ -8,20 +8,20 @@
 ======================================== */
 :root {
     /* Primary Theme Colors */
-    --primary-blue: #2563eb;        /* Clean, trustworthy blue */
+    --primary-blue: #7FC6D7;        /* Soft Teal */
     --toilet-clean: #10b981;        /* Fresh green for clean/available */
     --toilet-premium: #f59e0b;      /* Warm amber for paid/premium */
     --toilet-accent: #8b5cf6;       /* Soft purple for special features */
     
     /* Background Colors */
-    --background: #fafbfc;          /* Very light background */
-    --card-white: #40E0D0; /* Changed to teal color */
-    --border-soft: #e5e7eb;
+    --background: #E2EDEB;          /* Very light background */
+    --card-white: #FFFFFF; /* Changed to pure white */
+    --border-soft: #C0C8D9;
     
     /* Text Colors */
-    --text-primary: #111827;
-    --text-secondary: #6b7280;
-    --text-muted: #9ca3af;
+    --text-primary: #000000;
+    --text-secondary: #000000;
+    --text-muted: #000000;
     
     /* Shadow Effects */
     --shadow-soft: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
@@ -41,7 +41,7 @@
   ======================================== */
   body {
     font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background-color: var(--background);
+    background-color: #E2EDEB; /* Light Aqua */
     line-height: 1.6;
     color: var(--text-primary);
   }
@@ -59,12 +59,12 @@
      3. SEARCH CARD SECTION
   ======================================== */
   .search-card {
-    background: var(--card-white);
-    border: 1px solid var(--border-soft);
+    background: var(--card-white); /* Changed to pure white */
+    border: 1px solid #C0C8D9; /* Misty Blue */
     border-radius: 12px;
     padding: 2rem;
     margin-bottom: 2rem;
-    box-shadow: var(--shadow-soft);
+    box-shadow: 0 2px 8px #E0F3F7;
     transition: box-shadow 0.3s ease;
   }
   
@@ -86,12 +86,12 @@
      5. TOILET CARDS - Main Design
   ======================================== */
   .toilet-card {
-    background: var(--card-white);
-    border: 1px solid var(--border-soft);
+    background: var(--card-white); /* Changed to pure white */
+    border: 1px solid #C0C8D9; /* Misty Blue */
     border-radius: 20px;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: var(--shadow-soft);
+    box-shadow: 0 2px 8px #E0F3F7;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -179,13 +179,13 @@
   }
   
   .feature-badge {
-    background: var(--background);
+    background: #E2EDEB; /* Light Aqua */
     color: var(--text-secondary);
     padding: 0.5rem 1rem;
     border-radius: 25px;
     font-size: 0.8rem;
     font-weight: 600;
-    border: 1px solid var(--border-soft);
+    border: 1px solid #C0C8D9; /* Misty Blue */
     transition: all 0.2s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -214,8 +214,8 @@
      9. VIEW BUTTON - Primary CTA
   ======================================== */
   .view-button {
-    background: linear-gradient(135deg, var(--primary-blue), #1d4ed8);
-    color: var(--card-white);
+    background: linear-gradient(135deg, #7FC6D7, #66C0DC);
+    color: #000000; /* Changed to black */
     padding: 1rem 1.5rem;
     border-radius: 12px;
     text-decoration: none;
@@ -258,25 +258,25 @@
      10. FORM INPUT STYLING
   ======================================== */
   input[type="text"] {
-    border: 2px solid var(--border-soft) !important;
+    border: 2px solid #C0C8D9 !important;
     border-radius: 8px !important;
     padding: 0.875rem 1rem !important;
     font-size: 1rem !important;
     transition: all 0.3s ease !important;
-    background: var(--card-white) !important;
+    background: #DAF1FE !important;
   }
   
   input[type="text"]:focus {
-    border-color: var(--primary-blue) !important;
+    border-color: #7FC6D7 !important;
     outline: none !important;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+    box-shadow: 0 0 0 3px rgba(127, 198, 215, 0.3) !important;
   }
   
   /* ========================================
      11. SEARCH BUTTONS
   ======================================== */
   button[style*="background: #28a745"] {
-    background: var(--toilet-clean) !important;
+    background: #10b981 !important;
     padding: 0.875rem 1.5rem !important;
     border-radius: 8px !important;
     font-weight: 500 !important;
@@ -284,7 +284,7 @@
   }
   
   button[style*="background: #007bff"] {
-    background: var(--primary-blue) !important;
+    background: #7FC6D7 !important;
     padding: 0.875rem 1.5rem !important;
     border-radius: 8px !important;
     font-weight: 500 !important;

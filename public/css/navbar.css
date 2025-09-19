@@ -4,10 +4,10 @@
 
 /* Custom Navbar Styling - FIXED */
 .navbar {
-  background: linear-gradient(135deg, #66C0DC, #7FC6D7, #9BC7EC) !important; /* Darker Soft Teal to Sky Blue gradient */
-  box-shadow: 0 2px 10px #C5D9DF !important; /* Darker Misty Blue shadow */
+  background: linear-gradient(135deg, #E2EDEB, #DAF1FE) !important; /* Light gradient from background to card white */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important; /* Subtle shadow */
   padding: 1rem 0 !important;
-  border-bottom: 1px solid #8792AE !important; /* Darker Ice Blue/Grey border */
+  border-bottom: 1px solid #C0C8D9 !important; /* Soft border */
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
@@ -22,18 +22,18 @@ body {
 }
 
 .navbar .navbar-brand {
-  color: #2B5C7B !important; /* Even darker blue for strong contrast */
+  color: #000000 !important; /* Black for brand text */
   font-weight: 700 !important;
   font-size: 1.5rem !important;
   letter-spacing: -0.5px !important;
-  background: linear-gradient(90deg, #66C0DC, #8792AE, #9BC7EC); /* Darker blue gradient */
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background: none !important; /* Remove gradient for brand text */
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: #000000 !important; /* Ensure black text */
 }
 
 .navbar .navbar-nav .nav-link {
-  color: #2B5C7B !important; /* Darker blue */
+  color: #000000 !important; /* Black for nav links */
   font-weight: 500 !important;
   margin: 0 0.5rem !important;
   padding: 0.5rem 1rem !important;
@@ -42,18 +42,17 @@ body {
 }
 
 .navbar .navbar-nav .nav-link:hover {
-  color: #66C0DC !important; /* Soft Teal (darker) */
-  background: #BBD7F0 !important; /* Powder Blue */
+  color: #7FC6D7 !important; /* Soft Teal on hover */
+  background: #E0F3F7 !important; /* Lighter background on hover */
 }
 
 .navbar .navbar-text {
-  color: #010c12 !important; /* Darker blue */
+  color: #000000 !important; /* Black for navbar text */
   font-weight: 600 !important;
   font-size: 0.95rem !important;
-  background: #04285b !important; /* Misty Blue */
-  padding: 0.5rem 1rem !important;
-  border-radius: 20px !important;
-  border: 1px solid #031238 !important; /* Darker Ice Blue/Grey */
+  background: none !important; /* Remove background */
+  padding: 0 !important;
+  border: none !important;
   margin: 0 !important;
   display: inline-flex !important;
   align-items: center !important;
@@ -61,8 +60,8 @@ body {
 }
 
 .navbar .btn-outline-light {
-  border: 2px solid #8792AE !important; /* Darker Ice Blue/Grey */
-  color: #2B5C7B !important; /* Darker blue */
+  border: 2px solid #7FC6D7 !important; /* Soft Teal border */
+  color: #7FC6D7 !important; /* Soft Teal text */
   background: transparent !important;
   border-radius: 8px !important;
   font-weight: 500 !important;
@@ -70,46 +69,46 @@ body {
 }
 
 .navbar .btn-outline-light:hover {
-  border-color: #66C0DC !important; /* Soft Teal (darker) */
-  color: #66C0DC !important;
-  background: #BBD7F0 !important; /* Powder Blue */
+  border-color: #66C0DC !important; /* Darker Soft Teal on hover */
+  color: #000000 !important; /* Black text on hover */
+  background: #7FC6D7 !important; /* Soft Teal background on hover */
 }
 
 .navbar .dropdown-menu {
-  border: 1px solid #8792AE !important; /* Darker Ice Blue/Grey */
-  box-shadow: 0 4px 6px #C5D9DF, 0 2px 4px #8792AE !important; /* Misty Blue & Ice Blue/Grey shadows */
+  border: 1px solid #C0C8D9 !important; /* Soft border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06) !important; /* Subtle shadows */
   border-radius: 12px !important;
   padding: 0.5rem !important;
-  background: #E4ECFC !important; /* Ice Blue */
+  background: #DAF1FE !important; /* Card white background */
 }
 
 .navbar .dropdown-item {
   border-radius: 8px !important;
-  color: #2B5C7B !important; /* Darker blue */
+  color: #000000 !important; /* Black for dropdown items */
   font-weight: 500 !important;
   padding: 0.75rem 1rem !important;
 }
 
 .navbar .dropdown-item:hover {
-  background: #BBD7F0 !important; /* Powder Blue */
-  color: #66C0DC !important; /* Soft Teal (darker) */
+  background: #E0F3F7 !important; /* Lighter background on hover */
+  color: #7FC6D7 !important; /* Soft Teal on hover */
 }
 
 /* Navbar Toggler for Mobile */
 .navbar .navbar-toggler {
-  border: 2px solid #8792AE !important; /* Darker Ice Blue/Grey */
+  border: 2px solid #7FC6D7 !important; /* Soft Teal border */
   padding: 0.4rem 0.6rem !important;
-  background: #CEEDED !important; /* Light Aqua (darker) */
+  background: #E2EDEB !important; /* Light Aqua background */
 }
 
 .navbar .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(43,92,123,0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0,0,0,0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important; /* Black icon */
 }
 
 /* Logout Button Enhancement */
 .navbar .btn-outline-light.btn-sm {
-  border: 2px solid #8792AE !important; /* Darker Ice Blue/Grey */
-  color: #2B5C7B !important; /* Darker blue */
+  border: 2px solid #C0C8D9 !important; /* Soft border */
+  color: #000000 !important; /* Black text */
   background: transparent !important;
   border-radius: 20px !important;
   font-weight: 500 !important;
