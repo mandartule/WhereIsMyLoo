@@ -2,7 +2,9 @@
 
 # WhereIsMyLoo
 <!-- Brief, human-friendly summary of the project -->
-Find nearby public restrooms. Node.js + Express + MongoDB backend with EJS views.
+🚻 WhereIsMyLoo
+ 
+   A simple and user-friendly web app to find, add, and review public toilets for better hygiene & accessibility. Node.js + Express + MongoDB backend with EJS views.
 
 ---
 

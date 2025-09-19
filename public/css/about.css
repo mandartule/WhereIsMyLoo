@@ -1,12 +1,12 @@
 /* Improved About Page Style with Blue #2563eb (Refined) */
 
 .about-container {
-  max-width: 600px;
+  max-width: 900px;
   margin: 5rem auto;
-  background-color: #fff;
+  background-color: #d2e8ee;
   border-radius: 14px; /* slightly rounder */
   padding: 3.5rem 4rem; /* more breathing room */
-  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.15); /* subtle stronger shadow */
+  box-shadow: 0 10px 30px rgba(1, 9, 26, 0.15); /* subtle stronger shadow */
   text-align: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
@@ -14,11 +14,11 @@
 }
 
 .about-container:hover {
-  box-shadow: 0 14px 40px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 14px 40px rgba(3, 6, 14, 0.3);
 }
 
 .about-container h1 {
-  color: #2563eb;
+  color: #195ae6;
   font-size: 3.2rem; /* slightly bigger */
   margin-bottom: 1.8rem;
   font-weight: 700;
@@ -39,7 +39,7 @@
 
 .about-container a.button {
   display: inline-block;
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  background: linear-gradient(135deg, #385fb4, #1d4ed8);
   color: white;
   padding: 15px 40px;
   border-radius: 30px;
@@ -54,7 +54,7 @@
 }
 
 .about-container a.button:hover {
-  background: linear-gradient(135deg, #1d4ed8, #1a40c9);
+  background: linear-gradient(135deg, #1d3b8f, #1a40c9);
   box-shadow: 0 12px 25px rgba(29, 78, 216, 0.5);
   transform: translateY(-3px);
 }
