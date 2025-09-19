@@ -20,7 +20,7 @@
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(135deg, #E2EDEB, #E0F3F7, #CEEDED);
+  background: #FFFFFF;
   padding: 4rem 0;
   text-align: center;
   margin: 0rem -15px 3rem -15px;
@@ -93,7 +93,7 @@
   }
   
   .hero-btn {
-    background: linear-gradient(135deg, #7FC6D7, #66C0DC, #DAF1FE);
+    background: #5986e8;
     color: #000000; /* Changed to black */
     padding: 1rem 2rem;
     border-radius: 50px;
@@ -127,17 +127,18 @@
     box-shadow: 0 8px 25px #24496a;
     color: #000000; /* Changed to black */
     text-decoration: none;
+    background: #4a70c0;
   }
   
   .hero-btn-secondary {
-    background: transparent;
+    background: #5986e8;
     color: #000000; /* Changed to black */
-    border: 2px solid var(--primary-blue-dark);
+    border: 2px solid #5986e8;
     box-shadow: none;
   }
   
   .hero-btn-secondary:hover {
-    background: var(--primary-blue-dark);
+    background: #4a70c0;
     color: #000000; /* Changed to black */
     transform: translateY(-3px) scale(1.05);
     box-shadow: 0 8px 25px #BBD7F0;

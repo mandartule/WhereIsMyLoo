@@ -289,6 +289,37 @@
   border-radius: 12px 12px 0 0;
 }
 
+.toilet-image-container {
+  position: relative;
+}
+
+.toilet-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+  color: white;
+  padding: 1.25rem;
+  border-radius: 0 0 12px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.toilet-card-overlay .toilet-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0;
+}
+
+.toilet-card-overlay .toilet-rating {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+}
+
 .toilet-info {
   padding: 1.25rem;
   flex-grow: 1;
@@ -296,34 +327,78 @@
   flex-direction: column;
 }
 
-.toilet-name {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #000000; /* Black text */
+.toilet-details-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
   margin-bottom: 0.5rem;
 }
 
+.toilet-cuisine-type {
+  font-size: 1rem;
+  color: #333333;
+  margin-bottom: 0;
+}
+
+.toilet-price {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 0;
+}
+
 .toilet-location {
-  font-size: 0.95rem;
-  color: #000000; /* Black text */
+  font-size: 0.9rem;
+  color: #666666;
+  margin-bottom: 0.5rem;
+}
+
+.toilet-distance {
+  font-size: 0.9rem;
+  color: #666666;
   margin-bottom: 1rem;
 }
 
-.toilet-features {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: auto; /* Pushes features to the bottom */
+.table-booking-tag {
+  display: inline-flex;
+  align-items: center;
+  background-color: #F0F8FF; /* AliceBlue */
+  color: #4682B4; /* SteelBlue */
+  padding: 0.3rem 0.7rem;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  border: 1px solid #ADD8E6; /* LightBlue */
 }
 
-.feature-tag {
-  background-color: #E2EDEB; /* Light Aqua background */
-  color: #000000; /* Black text */
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
+.table-booking-tag i {
+  margin-right: 0.4rem;
+  color: #28A745; /* Green for checkmark */
+}
+
+.offer-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.offer-tag {
+  background-color: #28A745; /* Green */
+  color: #FFFFFF; /* White text */
+  padding: 0.5rem 0.8rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
   font-weight: 500;
-  border: 1px solid #C0C8D9; /* Soft border */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.offer-tag:last-child {
+  background-color: #E6F7D9; /* Lighter green for the last offer */
+  color: #28A745; /* Green text */
 }
 
 .view-button {

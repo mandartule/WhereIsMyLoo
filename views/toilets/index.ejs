@@ -68,31 +68,50 @@
   <% } else { %>
     <% toilets.forEach(toilet => { %>
       <div class="toilet-card">
-        <img src="<%= toilet.images.length ? toilet.images[0].url : 'https://placehold.co/600x400' %>" 
-             class="toilet-image" alt="<%= toilet.title %>">
+        <div class="toilet-image-container">
+          <img src="<%= toilet.images.length ? toilet.images[0].url : 'https://placehold.co/600x400' %>" 
+               class="toilet-image" alt="<%= toilet.title %>">
+          <div class="toilet-card-overlay">
+            <h3 class="toilet-title"><%= toilet.title %></h3>
+            <% if (toilet.averageRating) { %>
+              <span class="toilet-rating"><%= toilet.averageRating.toFixed(1) %> ★</span>
+            <% } %>
+          </div>
+        </div>
         
         <div class="toilet-card-content">
-          <h3 class="toilet-title"><%= toilet.title %></h3>
+          <div class="toilet-details-row">
+            <p class="toilet-cuisine-type">
+              <%= toilet.cuisine %> • <%= toilet.genderAccess %>
+            </p>
+            <p class="toilet-price">
+              ₹<%= toilet.price %> for two
+            </p>
+          </div>
           
           <p class="toilet-location">
-            <i class="bi bi-geo-alt"></i> <%= toilet.location %>
+            <%= toilet.location %>
           </p>
           
           <% if (toilet.distance) { %>
             <p class="toilet-distance">
-              <i class="bi bi-pin-map"></i> <%= toilet.distance %> km away
+              <%= toilet.distance %> km
             </p>
           <% } %>
-          
-          <div class="toilet-features">
-            <span class="feature-badge <%= toilet.isPaid ? 'paid' : 'free' %>">
-              <%= toilet.isPaid ? `₹${toilet.price}` : 'Free' %>
-            </span>
-            <span class="feature-badge"><%= toilet.genderAccess %></span>
-            <% if (toilet.isAccessible) { %>
-              <span class="feature-badge">♿ Accessible</span>
-            <% } %>
-          </div>
+
+          <% if (toilet.tableBooking) { %>
+            <div class="table-booking-tag">
+              <i class="bi bi-check-circle-fill"></i> Table booking
+            </div>
+          <% } %>
+
+          <% if (toilet.offers && toilet.offers.length > 0) { %>
+            <div class="offer-tags">
+              <% toilet.offers.forEach(offer => { %>
+                <div class="offer-tag"><%= offer %></div>
+              <% }) %>
+            </div>
+          <% } %>
           
           <a href="/toilets/<%= toilet._id %>" class="view-button">
             View Details
