@@ -3,6 +3,15 @@
    New & Edit Toilet Forms
 ======================================== */
 
+/* Color Variables */
+:root {
+  --calm-sky: #006ba4;
+  --soft-blue: #0095ff;
+  --powder-blue: #103852;
+  --steel-blue: #6A9CC4;
+  --midnight-blue: #1A344A;
+}
+
 /* Form Container */
 .form-container {
     max-width: 800px;

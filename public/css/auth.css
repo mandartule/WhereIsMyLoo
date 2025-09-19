@@ -1,3 +1,11 @@
+:root {
+  --calm-sky: #A3D8F5;
+  --soft-blue: #C5E2F7;
+  --powder-blue: #EAF3F9;
+  --steel-blue: #6A9CC4;
+  --midnight-blue: #1A344A;
+}
+
 /* ========================================
    AUTHENTICATION PAGES STYLING
 ======================================== */
@@ -6,7 +14,7 @@
 .auth-container {
     max-width: 450px;
     margin: 3rem auto;
-    background: var(--card-white);
+    background: var(--card-blue);
     border: 1px solid var(--border-soft);
     border-radius: 20px;
     padding: 3rem 2.5rem;
@@ -222,3 +230,34 @@
       font-size: 1.75rem;
     }
   }
+
+/* Style the entire page background */
+body {
+  background-color: var(--powder-blue); /* powder-blue */
+  color: var(--midnight-blue); /* midnight-blue */
+}
+
+/* Style the form container */
+.login-form {
+  background-color: var(--soft-blue); /* soft-blue */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the heading */
+.login-form h2 {
+  color: var(--steel-blue); /* steel-blue */
+}
+
+/* Style the primary button */
+.btn-submit {
+  background-color: var(--calm-sky); /* calm-sky */
+  color: var(--midnight-blue); /* midnight-blue */
+}
+
+/* Style the links */
+.register-link {
+  color: var(--steel-blue); /* steel-blue */
+  text-decoration: none;
+}

@@ -1,56 +1,132 @@
-/* Toilets Index Page Styling */
+/* Toilets */
+
+/* Color Palette Variables */
+:root {
+  --professional-blue-1: #F0F8FF; /* AliceBlue - very light blue */
+  --professional-blue-2: #E0FFFF; /* LightCyan - light blue */
+  --professional-blue-3: #ADD8E6; /* LightBlue - soft blue */
+  --professional-blue-4: #87CEEB; /* SkyBlue - medium blue */
+  --professional-blue-5: #6495ED; /* CornflowerBlue - slightly darker blue */
+  --professional-blue-6: #4682B4; /* SteelBlue - strong blue */
+  --professional-blue-7: #4169E1; /* RoyalBlue - vibrant blue */
+  --professional-blue-8: #1E90FF; /* DodgerBlue - bright blue */
+  --professional-blue-shadow: rgba(70, 130, 180, 0.3); /* SteelBlue with transparency */
+  --professional-blue-gradient-start: #6495ED; /* CornflowerBlue */
+  --professional-blue-gradient-end: #4169E1; /* RoyalBlue */
+  --professional-blue-hover-gradient-start: #4169E1; /* RoyalBlue */
+  --professional-blue-hover-gradient-end: #1E90FF; /* DodgerBlue */
+  --professional-blue-border: #ADD8E6; /* LightBlue */
+  --professional-blue-text: #4682B4; /* SteelBlue */
+  --professional-blue-input-bg: #F8F8FF; /* GhostWhite - very light off-white */
+  --professional-blue-input-border: #D3D3D3; /* LightGrey */
+  --professional-blue-input-focus-border: #6495ED; /* CornflowerBlue */
+  --professional-blue-toggle-bg: #E6E6FA; /* Lavender */
+  --professional-blue-toggle-checked-bg: linear-gradient(90deg, #6495ED, #4169E1); /* CornflowerBlue to RoyalBlue */
+  --professional-blue-toggle-checked-text: #FFFFFF; /* White */
+  --professional-blue-dropdown-border: #D3D3D3; /* LightGrey */
+  --professional-blue-dropdown-bg: #F8F8FF; /* GhostWhite */
+  --professional-blue-dropdown-hover-bg: #E6E6FA; /* Lavender */
+  --card-white: #FFFFFF; /* Pure White for cards */
+
+  --aqua-1: #E2EDEB;
+  --aqua-2: #E0F3F7;
+  --aqua-3: #CEEDED;
+
+  --sky-1: #ABD8E2;
+  --sky-2: #CEEAF6;
+  --sky-3: #9BC7EC;
+  --sky-4: #AFD6F8;
+
+  --teal-1: #7FC6D7;
+  --teal-2: #66C0DC;
+
+  --powder-1: #DAF1FE;
+  --powder-2: #C4E5FB;
+  --powder-3: #BBD7F0;
+  --powder-4: #D1EAF7;
+
+  --misty-1: #D8DAE3;
+  --misty-2: #E3E8EF;
+  --misty-3: #C5D9DF;
+  --misty-4: #D4E2E9;
+  --misty-5: #C0C8D9;
+
+  --ice-1: #EDF3FF;
+  --ice-2: #E4ECFC;
+  --ice-3: #D1DDF8;
+  --ice-4: #BFCaE2;
+  --ice-5: #AEBAD2;
+  --ice-6: #8792AE;
+}
+
+/* Page Title */
 .page-title {
-    color: #333;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-  
+  color: var(--professional-blue-7); /* Darker professional blue for title */
+  font-size: 2.5rem; /* Slightly larger font size */
+  margin-bottom: 2.5rem; /* Increased margin for more breathing room */
+  text-align: center;
+  background: linear-gradient(90deg, var(--professional-blue-5), var(--professional-blue-7), var(--professional-blue-8)); /* Professional blue gradient */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Search Card Improvements */
 .search-card {
-  background: #ffffff;
+  background: var(--card-white); /* White background for a clean look */
   border-radius: 16px;
-  padding: 1.75rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
+  padding: 2rem; /* Increased padding */
+  margin-bottom: 2.5rem; /* Increased margin */
+  box-shadow: 0 8px 24px var(--professional-blue-shadow); /* More pronounced shadow */
+  border: 1px solid var(--professional-blue-border); /* Soft blue border */
+  transition: all 0.4s ease-in-out;
 }
 
 .search-card:hover {
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 12px 30px var(--professional-blue-shadow); /* Enhanced shadow on hover */
+  transform: translateY(-3px); /* Subtle lift effect */
 }
 
 /* Title */
 .search-card h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1.25rem;
+  font-size: 1.8rem; /* Larger title font */
+  font-weight: 700;
+  margin-bottom: 1.5rem;
   text-align: center;
-  color: #1e293b;
+  color: var(--professional-blue-text); /* Professional blue text color */
+  background: linear-gradient(90deg, var(--professional-blue-6), var(--professional-blue-7), var(--professional-blue-8)); /* Professional blue gradient */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Search Row */
 .search-row {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  justify-content: center; /* Center items horizontally */
+  gap: 1.25rem; /* Increased gap for better spacing */
+  margin: 0 auto 2rem auto; /* Center horizontally and add bottom margin */
+  max-width: 900px; /* Limit width for better centering */
 }
 
 .elongated-search-input {
   flex: 1;
   border-radius: 12px !important;
-  border: 2px solid #e5e7eb !important;
-  padding: 0.9rem 1rem !important;
-  font-size: 1rem !important;
-  background: #f9fafb !important;
+  border: 2px solid var(--professional-blue-6) !important; /* Darker blue border */
+  padding: 1rem 1.25rem !important;
+  font-size: 1.1rem !important;
+  background: var(--professional-blue-1) !important; /* Light blue background */
   transition: all 0.3s ease !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
+  letter-spacing: 0.02em; /* Slightly increased letter spacing */
 }
 
 .elongated-search-input:focus {
-  border-color: #2563eb !important;
-  background: #ffffff !important;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15) !important;
+  border-color: var(--professional-blue-7) !important; /* RoyalBlue on focus */
+  background: var(--card-white) !important; /* White background on focus */
+  box-shadow: 0 0 0 4px rgba(70, 130, 180, 0.3) !important; /* Soft blue glow on focus */
+  outline: none; /* Remove default outline */
 }
 
 /* Modern Buttons */
@@ -58,24 +134,30 @@
 .search-button {
   border-radius: 10px !important;
   font-weight: 600 !important;
-  padding: 0.85rem 1.25rem !important;
+  padding: 1rem 1.5rem !important; /* Increased padding */
   transition: all 0.3s ease !important;
+  color: var(--professional-blue-toggle-checked-text) !important; /* White text */
+  border: none !important;
+  text-transform: uppercase; /* Uppercase text for professionalism */
+  letter-spacing: 0.05em; /* Increased letter spacing */
 }
 
 .gps-button {
-  background: linear-gradient(135deg, #22c55e, #16a34a) !important;
-  box-shadow: 0 3px 8px rgba(34,197,94,0.25) !important;
+  background: linear-gradient(135deg, var(--professional-blue-gradient-start), var(--professional-blue-gradient-end)) !important;
+  box-shadow: 0 4px 12px var(--professional-blue-shadow) !important;
 }
 
 .search-button {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
-  box-shadow: 0 3px 8px rgba(37,99,235,0.25) !important;
+  background: linear-gradient(135deg, var(--professional-blue-gradient-start), var(--professional-blue-gradient-end)) !important;
+  box-shadow: 0 4px 12px var(--professional-blue-shadow) !important;
 }
 
 .gps-button:hover,
 .search-button:hover {
-  transform: translateY(-2px) scale(1.02) !important;
-  opacity: 0.95 !important;
+  transform: translateY(-3px) scale(1.02) !important;
+  opacity: 0.98 !important;
+  box-shadow: 0 8px 20px var(--professional-blue-shadow) !important;
+  background: linear-gradient(135deg, var(--professional-blue-hover-gradient-start), var(--professional-blue-hover-gradient-end)) !important;
 }
 
 /* Filters Row */
@@ -83,8 +165,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.25rem;
-  margin-top: 1.25rem;
+  gap: 1.5rem; /* Increased gap */
+  margin-top: 1.5rem;
   flex-wrap: wrap;
 }
 
@@ -92,9 +174,10 @@
 .paid-toggle-group {
   display: flex;
   gap: 0.5rem;
-  background: #f1f5f9;
+  background: var(--professional-blue-toggle-bg); /* Lavender background */
   border-radius: 50px;
-  padding: 0.4rem;
+  padding: 0.5rem; /* Increased padding */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
 }
 
 .paid-toggle-group input[type="radio"] {
@@ -102,53 +185,60 @@
 }
 
 .paid-toggle-group label {
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem; /* Increased padding */
   border-radius: 50px;
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 1rem; /* Slightly larger font */
   font-weight: 500;
-  color: #475569;
+  color: var(--professional-blue-text); /* Professional blue text color */
   transition: all 0.3s ease;
 }
 
 .paid-toggle-group input[type="radio"]:checked + label {
-  background: #2563eb;
-  color: #fff;
+  background: var(--professional-blue-toggle-checked-bg); /* Gradient background */
+  color: var(--professional-blue-toggle-checked-text); /* White text */
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow on checked */
 }
 
 /* Review Filter Dropdown */
 .review-filter-group select {
   border-radius: 10px;
-  border: 2px solid #e5e7eb;
-  padding: 0.6rem 0.9rem;
-  font-size: 0.95rem;
+  border: 2px solid var(--professional-blue-dropdown-border); /* Light grey border */
+  padding: 0.7rem 1rem; /* Increased padding */
+  font-size: 1rem; /* Slightly larger font */
   transition: 0.3s ease;
-  background: #fff;
+  background: var(--professional-blue-dropdown-bg); /* GhostWhite background */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
+  color: var(--professional-blue-text); /* Professional blue text color */
 }
 
 .review-filter-group select:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  border-color: var(--professional-blue-input-focus-border); /* CornflowerBlue on focus */
+  box-shadow: 0 0 0 4px rgba(100, 149, 237, 0.3); /* Soft blue glow on focus */
   outline: none;
 }
 
 /* Suggestions Dropdown */
 #suggestions {
-  margin-top: 0.5rem;
+  margin-top: 0.6rem;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px var(--professional-blue-shadow); /* Professional blue shadow */
   overflow: hidden;
+  background: var(--professional-blue-dropdown-bg); /* GhostWhite background */
+  border: 1px solid var(--professional-blue-dropdown-border); /* Light grey border */
 }
 
 #suggestions div {
-  padding: 0.75rem 1rem;
+  padding: 0.8rem 1.2rem; /* Increased padding */
   cursor: pointer;
   transition: background 0.2s ease;
+  color: var(--professional-blue-text); /* Professional blue text color */
 }
 
 #suggestions div:hover {
-  background: #f1f5f9;
+  background: var(--professional-blue-dropdown-hover-bg); /* Lavender on hover */
+  color: var(--professional-blue-toggle-checked-text); /* White text on hover */
 }
 
 /* Mobile */
@@ -169,143 +259,93 @@
   }
 }
 
-  
-  .toilet-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-  
-  .toilet-card {
-    background: white;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .toilet-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-  }
-  
-  .toilet-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 0.5rem;
-  }
-  
-  .toilet-location {
-    color: #666;
-    margin-bottom: 1rem;
-  }
-  
-  .toilet-actions {
-    margin-top: auto;
-  }
-  
-  .view-button {
-    background: #007bff;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    text-decoration: none;
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .view-button:hover {
-    background: #0056b3;
-    color: white;
-    text-decoration: none;
-  }
-
-
-  /* Modern Search Buttons for Index Page */
-.gps-button {
-  background: linear-gradient(135deg, #10b981, #059669) !important;
-  color: white !important;
-  padding: 0.875rem 1.5rem !important;
-  border-radius: 8px !important;
-  border: none !important;
-  font-weight: 500 !important;
-  transition: all 0.3s ease !important;
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2) !important;
+.toilet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Corrected grid-template-columns */
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
-.gps-button:hover {
-  transform: translateY(-1px) !important;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+.toilet-card {
+  background: var(--professional-blue-2); /* Changed to a slightly darker blue shade */
+  border: 1px solid var(--sky-2); /* Changed border to sky blue */
+  border-radius: 8px; /* Corrected border-radius */
+  box-shadow: 0 2px 8px var(--aqua-2); /* Corrected box-shadow */
 }
 
-.search-button {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
-  color: white !important;
-  padding: 0.875rem 1.5rem !important;
-  border-radius: 8px !important;
-  border: none !important;
-  font-weight: 500 !important;
-  transition: all 0.3s ease !important;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2) !important;
+.toilet-image {
+  width: 100%; /* Corrected width */
+  height: 200px; /* Added height for consistency */
+  object-fit: cover; /* Ensures image covers the area */
+  border-radius: 8px 8px 0 0; /* Rounded top corners */
 }
 
-.search-button:hover {
-  transform: translateY(-1px) !important;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+.view-button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 0 0 8px 8px; /* Rounded bottom corners */
+  background: linear-gradient(90deg, var(--sky-3), var(--teal-1)); /* Professional blue gradient */
+  color: var(--card-white);
+  transition: background 0.3s ease;
 }
 
-/* Search Input Styling */
-.search-input {
-  flex: 1 !important;
-  border: 2px solid #e5e7eb !important;
-  border-radius: 8px !important;
-  padding: 0.875rem 1rem !important;
-  font-size: 1rem !important;
-  transition: all 0.3s ease !important;
-  background: #ffffff !important;
-  font-family: 'Google Sans', sans-serif !important;
-}
-
-.search-input:focus {
-  border-color: #2563eb !important;
-  outline: none !important;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
-}
-
-.search-input::placeholder {
-  color: #9ca3af !important;
-  font-weight: 400 !important;
+.view-button:hover {
+  background: linear-gradient(90deg, var(--teal-2), var(--sky-4));
 }
 
 .no-toilets {
-  background: #fff3cd;
-  border: 1px solid #ffeeba;
-  color: #856404;
-  padding: 2rem;
-  border-radius: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5rem;
+  max-width: 800px;
   text-align: center;
-  margin: 2rem auto;
-  max-width: 400px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  background-color: var(--card-white);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.8s ease-out forwards; /* Added professional fadeInUp animation */
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -30%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.no-toilets h2 {
+  font-size: 2.5rem;
+  color: var(--professional-blue-7);
+  margin-bottom: 1.5rem;
+}
+
+.no-toilets p {
+  font-size: 1.2rem;
+  color: var(--misty-7);
+  line-height: 1.6;
+  margin-bottom: 2rem;
 }
 
 .no-toilets .add-link {
   display: inline-block;
-  margin-top: 1rem;
-  color: #007bff;
+  margin-top: 1.5rem;
+  color: var(--professional-blue-7);
   text-decoration: underline;
-  font-weight: bold;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.no-toilets .add-link:hover {
+  color: var(--professional-blue-9);
 }
 
 /* Elongated search bar with buttons to the left */
@@ -315,50 +355,13 @@
   gap: 0.5rem;
   margin-bottom: 1rem;
 }
-.elongated-search-input {
-  flex: 1 1 300px;
-  min-width: 0;
-}
 
 /* Paid/Free/All toggle and review filter row */
 .search-filters-row {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  margin-bottom: 0.5rem;
-  margin-top: 0.5rem;
-  justify-content: flex-start;
+  gap: 1rem;
 }
-
-/* Paid/Free/All radio group styling */
-.paid-toggle-group {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #f1f5f9;
-  border-radius: 8px;
-  padding: 0.3rem 0.8rem;
-}
-.paid-toggle-group input[type="radio"] {
-  accent-color: #2563eb;
-  margin-right: 0.2rem;
-}
-.paid-toggle-group label {
-  margin-right: 0.7rem;
-  font-weight: 500;
-  color: #2563eb;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-/* Review filter group */
-.review-filter-group {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-
 
 /* Mobile-first responsive design for search section */
 @media (max-width: 768px) {

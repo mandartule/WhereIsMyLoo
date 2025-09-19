@@ -15,7 +15,7 @@
     
     /* Background Colors */
     --background: #fafbfc;          /* Very light background */
-    --card-white: #ffffff;
+    --card-white: #40E0D0; /* Changed to teal color */
     --border-soft: #e5e7eb;
     
     /* Text Colors */
@@ -27,6 +27,13 @@
     --shadow-soft: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
     --shadow-medium: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
     --shadow-large: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+  
+    /* Tranquil Colors */
+    --calm-sky: #A3D8F5;
+    --soft-blue: #C5E2F7;
+    --powder-blue: #EAF3F9;
+    --steel-blue: #6A9CC4;
+    --midnight-blue: #1A344A;
   }
   
   /* ========================================
