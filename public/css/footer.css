@@ -1,0 +1,46 @@
+/* ========================================
+   FOOTER COMPONENT STYLING ONLY
+======================================== */
+
+.footer {
+  background-color: #DAF1FE; /* Card white background */
+  color: #000000; /* Black text */
+  padding: 2rem 0;
+  border-top: 1px solid #C0C8D9; /* Soft border */
+  font-size: 0.9rem;
+}
+
+.footer h5 {
+  color: #000000; /* Black for headings */
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.footer .list-unstyled li a {
+  color: #000000; /* Black for links */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer .list-unstyled li a:hover {
+  color: #7FC6D7; /* Soft Teal on hover */
+}
+
+.footer .social-icons a {
+  color: #000000; /* Black for social icons */
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  transition: color 0.3s ease;
+}
+
+.footer .social-icons a:hover {
+  color: #7FC6D7; /* Soft Teal on hover */
+}
+
+.footer .footer-bottom {
+  border-top: 1px solid #C0C8D9; /* Soft border */
+  padding-top: 1rem;
+  margin-top: 2rem;
+  text-align: center;
+  color: #000000; /* Black for copyright text */
+}

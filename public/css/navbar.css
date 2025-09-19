@@ -4,10 +4,10 @@
 
 /* Custom Navbar Styling - FIXED */
 .navbar {
-  background: linear-gradient(135deg, #ffffff, #f8fafc) !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08) !important;
+  background: linear-gradient(135deg, #E2EDEB, #DAF1FE) !important; /* Light gradient from background to card white */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important; /* Subtle shadow */
   padding: 1rem 0 !important;
-  border-bottom: 1px solid #e5e7eb !important;
+  border-bottom: 1px solid #C0C8D9 !important; /* Soft border */
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
@@ -22,14 +22,18 @@ body {
 }
 
 .navbar .navbar-brand {
-  color: #111827 !important;
-  font-weight: 600 !important;
+  color: #000000 !important; /* Black for brand text */
+  font-weight: 700 !important;
   font-size: 1.5rem !important;
   letter-spacing: -0.5px !important;
+  background: none !important; /* Remove gradient for brand text */
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: #000000 !important; /* Ensure black text */
 }
 
 .navbar .navbar-nav .nav-link {
-  color: #6b7280 !important;
+  color: #000000 !important; /* Black for nav links */
   font-weight: 500 !important;
   margin: 0 0.5rem !important;
   padding: 0.5rem 1rem !important;
@@ -38,18 +42,26 @@ body {
 }
 
 .navbar .navbar-nav .nav-link:hover {
-  color: #2563eb !important;
-  background: rgba(37, 99, 235, 0.05) !important;
+  color: #7FC6D7 !important; /* Soft Teal on hover */
+  background: #E0F3F7 !important; /* Lighter background on hover */
 }
 
 .navbar .navbar-text {
-  color: #111827 !important;
-  font-weight: 500 !important;
+  color: #000000 !important; /* Black for navbar text */
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  background: none !important; /* Remove background */
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
 }
 
 .navbar .btn-outline-light {
-  border: 2px solid #e5e7eb !important;
-  color: #6b7280 !important;
+  border: 2px solid #7FC6D7 !important; /* Soft Teal border */
+  color: #7FC6D7 !important; /* Soft Teal text */
   background: transparent !important;
   border-radius: 8px !important;
   font-weight: 500 !important;
@@ -57,60 +69,46 @@ body {
 }
 
 .navbar .btn-outline-light:hover {
-  border-color: #2563eb !important;
-  color: #2563eb !important;
-  background: rgba(37, 99, 235, 0.05) !important;
+  border-color: #66C0DC !important; /* Darker Soft Teal on hover */
+  color: #000000 !important; /* Black text on hover */
+  background: #7FC6D7 !important; /* Soft Teal background on hover */
 }
 
 .navbar .dropdown-menu {
-  border: 1px solid #e5e7eb !important;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06) !important;
+  border: 1px solid #C0C8D9 !important; /* Soft border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06) !important; /* Subtle shadows */
   border-radius: 12px !important;
   padding: 0.5rem !important;
+  background: #DAF1FE !important; /* Card white background */
 }
 
 .navbar .dropdown-item {
   border-radius: 8px !important;
-  color: #6b7280 !important;
+  color: #000000 !important; /* Black for dropdown items */
   font-weight: 500 !important;
   padding: 0.75rem 1rem !important;
 }
 
 .navbar .dropdown-item:hover {
-  background: rgba(37, 99, 235, 0.05) !important;
-  color: #2563eb !important;
+  background: #E0F3F7 !important; /* Lighter background on hover */
+  color: #7FC6D7 !important; /* Soft Teal on hover */
 }
 
 /* Navbar Toggler for Mobile */
 .navbar .navbar-toggler {
-  border: 2px solid #e5e7eb !important;
+  border: 2px solid #7FC6D7 !important; /* Soft Teal border */
   padding: 0.4rem 0.6rem !important;
+  background: #E2EDEB !important; /* Light Aqua background */
 }
 
 .navbar .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2833, 37, 41, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0,0,0,0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important; /* Black icon */
 }
-
-/* Username Display Styling */
-.navbar .navbar-text {
-  color: #111827 !important;
-  font-weight: 600 !important;
-  font-size: 0.95rem !important;
-  background: rgba(37, 99, 235, 0.08) !important;
-  padding: 0.5rem 1rem !important;
-  border-radius: 20px !important;
-  border: 1px solid rgba(37, 99, 235, 0.15) !important;
-  margin: 0 !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 0.5rem !important;
-}
-
 
 /* Logout Button Enhancement */
 .navbar .btn-outline-light.btn-sm {
-  border: 2px solid #e5e7eb !important;
-  color: #6b7280 !important;
+  border: 2px solid #C0C8D9 !important; /* Soft border */
+  color: #000000 !important; /* Black text */
   background: transparent !important;
   border-radius: 20px !important;
   font-weight: 500 !important;
@@ -122,7 +120,7 @@ body {
 .navbar .btn-outline-light.btn-sm:hover {
   border-color: #ef4444 !important;
   color: #ef4444 !important;
-  background: rgba(239, 68, 68, 0.05) !important;
+  background: #FEE2E2 !important;
   transform: translateY(-1px) !important;
 }
 

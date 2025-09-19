@@ -2,189 +2,191 @@
     <!-- Load forms CSS -->
     <link rel="stylesheet" href="/css/forms.css">
 
-    <div class="form-container">
-        <div class="form-header">
-            <span class="form-header-icon">✏️</span>
-            <h1 class="form-title">Edit Toilet</h1>
-            <p class="form-subtitle">Update toilet information to help the community</p>
-        </div>
-
-        <form action="/toilets/<%= toilet._id %>?_method=PUT" method="POST" enctype="multipart/form-data"
-            class="toilet-form">
-
-            <!-- Basic Info Row -->
-            <div class="form-row">
-                <!-- Title -->
-                <div class="form-group">
-                    <label for="title" class="form-label">
-                        <i class="bi bi-type"></i> Toilet Name
-                    </label>
-                    <input type="text" class="form-control" id="title" name="toilet[title]" value="<%= toilet.title %>"
-                        required>
-                </div>
-
-                <!-- Gender Access -->
-                <div class="form-group">
-                    <label for="genderAccess" class="form-label">
-                        <i class="bi bi-people"></i> Gender Access
-                    </label>
-                    <select class="form-select" id="genderAccess" name="toilet[genderAccess]" required>
-                        <option value="">Select Access Type</option>
-                        <option value="Male" <%=toilet.genderAccess==='Male' ? 'selected' : '' %>>Male Only</option>
-                        <option value="Female" <%=toilet.genderAccess==='Female' ? 'selected' : '' %>>Female Only
-                        </option>
-                        <option value="Unisex" <%=toilet.genderAccess==='Unisex' ? 'selected' : '' %>>Unisex</option>
-                    </select>
-                </div>
+    <div class="card-wrapper">
+        <div class="form-container">
+            <div class="form-header">
+                <span class="form-header-icon">✏️</span>
+                <h1 class="form-title">Edit Toilet</h1>
+                <p class="form-subtitle">Update toilet information to help the community</p>
             </div>
 
-            <!-- Location -->
-            <div class="form-group">
-                <label for="location" class="form-label">
-                    <i class="bi bi-geo-alt"></i> Address
-                </label>
-                <div class="input-group-enhanced">
-                    <input type="text" class="form-control" id="location" name="toilet[location]"
-                        value="<%= toilet.location %>" required autocomplete="off">
-                    <button type="button" id="use-current-location" class="btn btn-success">
-                        <i class="bi bi-geo-alt-fill"></i> Use My Location
-                    </button>
-                </div>
-                <!-- Auto-suggestions dropdown -->
-                <div id="location-suggestions" class="suggestions-dropdown" style="display: none;"></div>
-            </div>
+            <form action="/toilets/<%= toilet._id %>?_method=PUT" method="POST" enctype="multipart/form-data"
+                class="toilet-form">
 
-            <!-- Current Images -->
-            <% if (toilet.images && toilet.images.length> 0) { %>
-                <div class="form-group">
-                    <label class="form-label">
-                        <i class="bi bi-images"></i> Current Images
-                    </label>
-                    <div class="image-preview">
-                        <% toilet.images.forEach(function(img, i) { %>
-                            <div class="image-preview-item">
-                                <img src="<%= img.url %>" alt="Toilet image"
-                                    style="width: 150px; height: 150px; object-fit: cover; border-radius: 12px;">
-                                <div class="form-check" style="margin-top: 0.5rem; text-align: center;">
-                                    <input type="checkbox" id="image-<%= i %>" name="deleteImages[]"
-                                        value="<%= img.filename %>" class="form-check-input">
-                                    <label for="image-<%= i %>" class="form-check-label"
-                                        style="margin-left: 0.5rem; color: #ef4444; font-weight: 600;">
-                                        🗑️ Delete
-                                    </label>
-                                </div>
-                            </div>
-                            <% }) %>
-                    </div>
-                    <small class="form-text" style="color: var(--text-secondary); margin-top: 1rem; display: block;">
-                        ⚠️ Check the images you want to delete. This action cannot be undone.
-                    </small>
-                </div>
-                <% } %>
-
-                
-                    <!-- Add New Images -->
-                    <div class="form-group">
-                        <label for="image" class="form-label">
-                            <i class="bi bi-camera"></i> Add New Photos
+                <!-- Basic Info Row -->
+                <div class="form-row">
+                    <!-- Title -->
+                    <div class
+                        <label for="title" class="form-label">
+                            <i class="bi bi-type"></i> Toilet Name
                         </label>
-                        <input class="form-control" type="file" name="image" id="image" multiple accept="image/*">
-                        <small class="form-text">Upload additional photos</small>
+                        <input type="text" class="form-control" id="title" name="toilet[title]" value="<%= toilet.title %>"
+                            required>
                     </div>
 
-                    <!-- Description -->
+                    <!-- Gender Access -->
                     <div class="form-group">
-                        <label for="description" class="form-label">
-                            <i class="bi bi-card-text"></i> Description
+                        <label for="genderAccess" class="form-label">
+                            <i class="bi bi-people"></i> Gender Access
                         </label>
-                        <textarea class="form-control" id="description" name="toilet[description]"
-                            rows="3"><%= toilet.description %></textarea>
-                    </div>
-
-                    <!-- Payment & Price Row -->
-                    <div class="form-row">
-                        <!-- Is Paid -->
-                        <div class="form-group">
-                            <label for="isPaid" class="form-label">
-                                <i class="bi bi-currency-rupee"></i> Is it Paid?
-                            </label>
-                            <select class="form-select" id="isPaid" name="toilet[isPaid]" required>
-                                <option value="">Select</option>
-                                <option value="false" <%=!toilet.isPaid ? 'selected' : '' %>>Free</option>
-                                <option value="true" <%=toilet.isPaid ? 'selected' : '' %>>Paid</option>
-                            </select>
-                        </div>
-
-                        <!-- Price -->
-                        <div class="form-group">
-                            <label for="price" class="form-label">
-                                <i class="bi bi-tag"></i> Price (if paid)
-                            </label>
-                            <input type="number" class="form-control" id="price" name="toilet[price]" min="0"
-                                step="0.01" value="<%= toilet.price %>">
-                        </div>
-                    </div>
-
-                    <!-- Accessibility Row -->
-                    <div class="form-row">
-                        <!-- Wheelchair Accessible -->
-                        <div class="form-group">
-                            <label for="isAccessible" class="form-label">
-                                <i class="bi bi-universal-access"></i> Wheelchair Accessible?
-                            </label>
-                            <select class="form-select" id="isAccessible" name="toilet[isAccessible]" required>
-                                <option value="">Select</option>
-                                <option value="true" <%=toilet.isAccessible ? 'selected' : '' %>>Yes</option>
-                                <option value="false" <%=!toilet.isAccessible ? 'selected' : '' %>>No</option>
-                            </select>
-                        </div>
-
-                        <!-- Sanitary Pad Disposal -->
-                        <div class="form-group">
-                            <label for="hasSanitaryPadDisposal" class="form-label">
-                                <i class="bi bi-trash"></i> Sanitary Pad Disposal?
-                            </label>
-                            <select class="form-select" id="hasSanitaryPadDisposal"
-                                name="toilet[hasSanitaryPadDisposal]" required>
-                                <option value="">Select</option>
-                                <option value="true" <%=toilet.hasSanitaryPadDisposal ? 'selected' : '' %>>Available
-                                </option>
-                                <option value="false" <%=!toilet.hasSanitaryPadDisposal ? 'selected' : '' %>>Not
-                                    Available</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Cleanliness Rating -->
-                    <div class="form-group">
-                        <label for="cleanlinessRating" class="form-label">
-                            <i class="bi bi-star"></i> Cleanliness Rating (1-5)
-                        </label>
-                        <select class="form-select" id="cleanlinessRating" name="toilet[cleanlinessRating]">
-                            <option value="">Rate the cleanliness</option>
-                            <option value="5" <%=toilet.cleanlinessRating===5 ? 'selected' : '' %>>⭐⭐⭐⭐⭐ (5 - Excellent)
+                        <select class="form-select" id="genderAccess" name="toilet[genderAccess]" required>
+                            <option value="">Select Access Type</option>
+                            <option value="Male" <%=toilet.genderAccess==='Male' ? 'selected' : '' %>>Male Only</option>
+                            <option value="Female" <%=toilet.genderAccess==='Female' ? 'selected' : '' %>>Female Only
                             </option>
-                            <option value="4" <%=toilet.cleanlinessRating===4 ? 'selected' : '' %>>⭐⭐⭐⭐ (4 - Good)
-                            </option>
-                            <option value="3" <%=toilet.cleanlinessRating===3 ? 'selected' : '' %>>⭐⭐⭐ (3 - Average)
-                            </option>
-                            <option value="2" <%=toilet.cleanlinessRating===2 ? 'selected' : '' %>>⭐⭐ (2 - Poor)
-                            </option>
-                            <option value="1" <%=toilet.cleanlinessRating===1 ? 'selected' : '' %>>⭐ (1 - Terrible)
-                            </option>
+                            <option value="Unisex" <%=toilet.genderAccess==='Unisex' ? 'selected' : '' %>>Unisex</option>
                         </select>
                     </div>
+                </div>
 
-                    <!-- Action Buttons -->
-                    <div class="form-actions">
-                        <button type="submit" class="form-submit-btn">
-                            <i class="bi bi-check-circle"></i> Update Toilet
+                <!-- Location -->
+                <div class="form-group">
+                    <label for="location" class="form-label">
+                        <i class="bi bi-geo-alt"></i> Address
+                    </label>
+                    <div class="input-group-enhanced">
+                        <input type="text" class="form-control" id="location" name="toilet[location]"
+                            value="<%= toilet.location %>" required autocomplete="off">
+                        <button type="button" id="use-current-location" class="btn btn-success">
+                            <i class="bi bi-geo-alt-fill"></i> Use My Location
                         </button>
-                        <a href="/toilets/<%= toilet._id %>" class="form-cancel-btn">
-                            <i class="bi bi-x-circle"></i> Cancel
-                        </a>
                     </div>
-        </form>
+                    <!-- Auto-suggestions dropdown -->
+                    <div id="location-suggestions" class="suggestions-dropdown" style="display: none;"></div>
+                </div>
+
+                <!-- Current Images -->
+                <% if (toilet.images && toilet.images.length> 0) { %>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="bi bi-images"></i> Current Images
+                        </label>
+                        <div class="image-preview">
+                            <% toilet.images.forEach(function(img, i) { %>
+                                <div class="image-preview-item">
+                                    <img src="<%= img.url %>" alt="Toilet image"
+                                        style="width: 150px; height: 150px; object-fit: cover; border-radius: 12px;">
+                                    <div class="form-check" style="margin-top: 0.5rem; text-align: center;">
+                                        <input type="checkbox" id="image-<%= i %>" name="deleteImages[]"
+                                            value="<%= img.filename %>" class="form-check-input">
+                                        <label for="image-<%= i %>" class="form-check-label"
+                                            style="margin-left: 0.5rem; color: #ef4444; font-weight: 600;">
+                                            🗑️ Delete
+                                        </label>
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
+                        <small class="form-text" style="color: var(--text-secondary); margin-top: 1rem; display: block;">
+                            ⚠️ Check the images you want to delete. This action cannot be undone.
+                        </small>
+                    </div>
+                    <% } %>
+
+                    
+                        <!-- Add New Images -->
+                        <div class="form-group">
+                            <label for="image" class="form-label">
+                                <i class="bi bi-camera"></i> Add New Photos
+                            </label>
+                            <input class="form-control" type="file" name="image" id="image" multiple accept="image/*">
+                            <small class="form-text">Upload additional photos</small>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="description" class="form-label">
+                                <i class="bi bi-card-text"></i> Description
+                            </label>
+                            <textarea class="form-control" id="description" name="toilet[description]"
+                                rows="3"><%= toilet.description %></textarea>
+                        </div>
+
+                        <!-- Payment & Price Row -->
+                        <div class="form-row">
+                            <!-- Is Paid -->
+                            <div class="form-group">
+                                <label for="isPaid" class="form-label">
+                                    <i class="bi bi-currency-rupee"></i> Is it Paid?
+                                </label>
+                                <select class="form-select" id="isPaid" name="toilet[isPaid]" required>
+                                    <option value="">Select</option>
+                                    <option value="false" <%=!toilet.isPaid ? 'selected' : '' %>>Free</option>
+                                    <option value="true" <%=toilet.isPaid ? 'selected' : '' %>>Paid</option>
+                                </select>
+                            </div>
+
+                            <!-- Price -->
+                            <div class="form-group">
+                                <label for="price" class="form-label">
+                                    <i class="bi bi-tag"></i> Price (if paid)
+                                </label>
+                                <input type="number" class="form-control" id="price" name="toilet[price]" min="0"
+                                    step="0.01" value="<%= toilet.price %>">
+                            </div>
+                        </div>
+
+                        <!-- Accessibility Row -->
+                        <div class="form-row">
+                            <!-- Wheelchair Accessible -->
+                            <div class="form-group">
+                                <label for="isAccessible" class="form-label">
+                                    <i class="bi bi-universal-access"></i> Wheelchair Accessible?
+                                </label>
+                                <select class="form-select" id="isAccessible" name="toilet[isAccessible]" required>
+                                    <option value="">Select</option>
+                                    <option value="true" <%=toilet.isAccessible ? 'selected' : '' %>>Yes</option>
+                                    <option value="false" <%=!toilet.isAccessible ? 'selected' : '' %>>No</option>
+                                </select>
+                            </div>
+
+                            <!-- Sanitary Pad Disposal -->
+                            <div class="form-group">
+                                <label for="hasSanitaryPadDisposal" class="form-label">
+                                    <i class="bi bi-trash"></i> Sanitary Pad Disposal?
+                                </label>
+                                <select class="form-select" id="hasSanitaryPadDisposal"
+                                    name="toilet[hasSanitaryPadDisposal]" required>
+                                    <option value="">Select</option>
+                                    <option value="true" <%=toilet.hasSanitaryPadDisposal ? 'selected' : '' %>>Available
+                                    </option>
+                                    <option value="false" <%=!toilet.hasSanitaryPadDisposal ? 'selected' : '' %>>Not
+                                        Available</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Cleanliness Rating -->
+                        <div class="form-group">
+                            <label for="cleanlinessRating" class="form-label">
+                                <i class="bi bi-star"></i> Cleanliness Rating (1-5)
+                            </label>
+                            <select class="form-select" id="cleanlinessRating" name="toilet[cleanlinessRating]">
+                                <option value="">Rate the cleanliness</option>
+                                <option value="5" <%=toilet.cleanlinessRating===5 ? 'selected' : '' %>>⭐⭐⭐⭐⭐ (5 - Excellent)
+                                </option>
+                                <option value="4" <%=toilet.cleanlinessRating===4 ? 'selected' : '' %>>⭐⭐⭐⭐ (4 - Good)
+                                </option>
+                                <option value="3" <%=toilet.cleanlinessRating===3 ? 'selected' : '' %>>⭐⭐⭐ (3 - Average)
+                                </option>
+                                <option value="2" <%=toilet.cleanlinessRating===2 ? 'selected' : '' %>>⭐⭐ (2 - Poor)
+                                </option>
+                                <option value="1" <%=toilet.cleanlinessRating===1 ? 'selected' : '' %>>⭐ (1 - Terrible)
+                                </option>
+                            </select>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="form-actions">
+                            <button type="submit" class="form-submit-btn">
+                                <i class="bi bi-check-circle"></i> Update Toilet
+                            </button>
+                            <a href="/toilets/<%= toilet._id %>" class="form-cancel-btn">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                        </div>
+            </form>
+        </div>
     </div>
 
     <!-- JavaScript -->
@@ -193,3 +195,42 @@
         // Initialize location helper for edit toilet form
         const locationHelper = new LocationHelper('location', 'location-suggestions', 'use-current-location');
     </script>
+
+    <style>
+        /* NEW: Styles for the card wrapper */
+        .card-wrapper {
+            /* Define the square shape and its curvy border */
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            
+            /* Apply the clean, professional styling */
+            background: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            
+            /* Use flexbox to center the form inside the card */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            
+            /* This centers the card on the page */
+            margin: 20px auto;
+        }
+
+        /* Hover effect on the wrapper */
+        .card-wrapper:hover {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05);
+        }
+
+        /* Adjusting the form to fit the card */
+        .toilet-form {
+            /* Ensure the form takes up available space and scrolls if needed */
+            width: 100%;
+            overflow-y: auto;
+            padding: 20px;
+        }
+    </style>

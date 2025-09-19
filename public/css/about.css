@@ -3,7 +3,7 @@
 .about-container {
   max-width: 600px;
   margin: 5rem auto;
-  background-color: #fff;
+  background-color: #83bae9;
   border-radius: 14px; /* slightly rounder */
   padding: 3.5rem 4rem; /* more breathing room */
   box-shadow: 0 10px 30px rgba(37, 99, 235, 0.15); /* subtle stronger shadow */
@@ -40,7 +40,7 @@
 .about-container a.button {
   display: inline-block;
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: white;
+  color: rgb(227, 228, 229);
   padding: 15px 40px;
   border-radius: 30px;
   text-decoration: none;
