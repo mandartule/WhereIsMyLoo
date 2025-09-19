@@ -1,36 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Where is My Loo?</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="/css/about.css"> <!-- External CSS file -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Where is My Loo?</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  <link rel="stylesheet" href="/css/about.css"/>
 </head>
 <body>
-    <!-- filepath: d:\project\WhereIsMyLoo\views\about.ejs -->
-<% layout('layouts/boilerplate') %>
-<link rel="stylesheet" href="/css/about.css">
+  <!-- filepath: d:\project\WhereIsMyLoo\views\about.ejs -->
+  <% layout('layouts/boilerplate') %>
 
-<div class="about-container">
-  <h1>Where Is My Loo?</h1>
-  <p class="tagline">Find nearby toilets quickly and easily!</p>
-  
-  <h3>Need a Toilet?</h3>
-  <p>
-    Our app is a crowd-sourced platform that helps you locate the nearest public restrooms. No more panic moments — just use our map to find the closest toilet instantly.
-  </p>
-  
-  <a href="/find-toilet" class="button">
-    <i class="fas fa-map-marker-alt"></i> Locate Nearest Toilet
-  </a>
-</div>
+  <div class="about-container">
+    <h1>Where Is My Loo?</h1>
+    <p class="tagline">Find nearby toilets quickly and easily!</p>
 
-    
+    <div class="about-cards">
+      <div class="card">
+        <h3><i class="fas fa-exclamation-circle"></i> The Problem</h3>
+        <p>
+          In India, finding a clean and accessible public toilet can be a real challenge.
+          Many struggle not only to locate restrooms, but also to know about their cleanliness,
+          safety, accessibility, and whether they are paid or free.
+        </p>
+      </div>
 
-    <!-- Optional JavaScript -->
-    <script>
-        // Here you could add more interactive JS functionality if needed
-    </script>
+      <div class="card">
+        <h3><i class="fas fa-lightbulb"></i> Our Solution</h3>
+        <p>
+          <strong>Where Is My Loo?</strong> is a crowd-sourced platform designed to solve this everyday problem:
+        </p>
+        <ul>
+          <li>🔎 <strong>Locate</strong> toilets on an interactive map</li>
+          <li>⭐ <strong>Check reviews</strong> for cleanliness and safety</li>
+          <li>💸 <strong>See</strong> if toilets are paid or free</li>
+          <li>♿ <strong>Find accessible</strong> facilities</li>
+          <li>📝 <strong>Contribute</strong> by adding new toilets</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="about-tags">
+      <span class="tag">#PublicHealth</span>
+      <span class="tag">#CleanIndia</span>
+      <span class="tag">#WomenSafety</span>
+      <span class="tag">#Accessibility</span>
+      <span class="tag">#CrowdSourced</span>
+      <span class="tag">#SmartCity</span>
+      <span class="tag">#TravelFriendly</span>
+    </div>
+  </div>
+
+  <script>
+    // Animate cards on scroll
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    cards.forEach(card => observer.observe(card));
+  </script>
 </body>
 </html>
