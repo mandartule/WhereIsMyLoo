@@ -1,8 +1,6 @@
 <% layout('layouts/boilerplate') %>
-
 <!-- Load page-specific CSS -->
 <link rel="stylesheet" href="/css/index.css">
-
 <!-- Search Section -->
 <div class="search-card">
   <h3><i class="bi bi-geo-alt"></i> Find toilets near you</h3>
@@ -49,7 +47,6 @@
       </div>
     </div>
     
-
     <!-- Auto-suggestions dropdown -->
     <div id="suggestions" style="display: none; background: white; border: 1px solid #ccc; border-radius: 4px; margin-top: 0.5rem;">
     </div>
@@ -59,16 +56,46 @@
 <!-- Results -->
 <div class="toilet-grid">
   <% if (toilets.length === 0) { %>
-    <div class="no-toilets">
-      <p>
-      🚫 No toilets found.<br>
-      <a href="/toilets/new" class="add-link">Add the first one!</a>
+    <div class="no-toilets-found">
+      <div class="no-toilets-icon">
+        🚽
+      </div>
+      <h3 class="no-toilets-title">No Toilets Found</h3>
+      <p class="no-toilets-message">
+        <% if (location) { %>
+          We couldn't find any toilets in "<strong><%= location %></strong>".
+        <% } else { %>
+          No toilets match your current filters.
+        <% } %>
       </p>
+      <div class="no-toilets-actions">
+        <a href="/toilets/new" class="btn-add-first">
+          <i class="bi bi-plus-circle"></i>
+          Be the First to Add a Toilet
+        </a>
+        <% if (location || paid || minRating) { %>
+          <a href="/toilets" class="btn-clear-filters">
+            <i class="bi bi-x-circle"></i>
+            Clear All Filters
+          </a>
+        <% } %>
+      </div>
+      
+      <div class="no-toilets-suggestions">
+        <h4>Try these suggestions:</h4>
+        <ul>
+          <li>🔍 Search for a different location</li>
+          <li>🎛️ Remove some filters</li>
+          <li>📍 Use "Find Near Me" to search nearby</li>
+          <li>➕ Add the first toilet in this area</li>
+        </ul>
+      </div>
     </div>
   <% } else { %>
+    <!-- ✅ THIS WAS MISSING - The actual toilet cards loop -->
     <% toilets.forEach(toilet => { %>
       <div class="toilet-card">
-        <img src="<%= toilet.images.length ? toilet.images[0].url : 'https://placehold.co/600x400' %>" 
+        <img src="<%= toilet.images && toilet.images.length ? toilet.images[0].url : 'https://placehold.co/600x400' %>" 
              class="toilet-image" alt="<%= toilet.title %>">
         
         <div class="toilet-card-content">
@@ -80,19 +107,25 @@
           
           <% if (toilet.distance) { %>
             <p class="toilet-distance">
-              <i class="bi bi-pin-map"></i> <%= toilet.distance %> km away
+              <i class="bi bi-pin-map"></i> <%= toilet.distance %>km away
             </p>
           <% } %>
           
           <div class="toilet-features">
             <span class="feature-badge <%= toilet.isPaid ? 'paid' : 'free' %>">
-              <%= toilet.isPaid ? `₹${toilet.price}` : 'Free' %>
+              <%= toilet.isPaid ? `₹${toilet.price || 0}` : 'Free' %>
             </span>
             <span class="feature-badge"><%= toilet.genderAccess %></span>
             <% if (toilet.isAccessible) { %>
               <span class="feature-badge">♿ Accessible</span>
             <% } %>
           </div>
+          
+          <% if (toilet.cleanlinessRating) { %>
+            <div class="toilet-rating">
+              <%= '⭐'.repeat(toilet.cleanlinessRating) %> (<%= toilet.cleanlinessRating %>/5)
+            </div>
+          <% } %>
           
           <a href="/toilets/<%= toilet._id %>" class="view-button">
             View Details
@@ -115,4 +148,17 @@
       document.getElementById('location-form').submit();
     }
   };
+  
+  // Handle clear filters button
+  document.addEventListener('DOMContentLoaded', function() {
+    const clearFiltersBtn = document.querySelector('.btn-clear-filters');
+    
+    if (clearFiltersBtn) {
+      clearFiltersBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Simply redirect to /toilets with no parameters to show all toilets
+        window.location.href = '/toilets';
+      });
+    }
+  });
 </script>

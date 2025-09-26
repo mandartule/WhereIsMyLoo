@@ -6,71 +6,101 @@ const { Types } = require('mongoose');
 const { isLoggedIn, isAuthor } = require('../middleware');
 const axios = require('axios');
 const multer = require('multer')
-const { storage , cloudinary} = require('../cloudinary')
+const { storage, cloudinary } = require('../cloudinary')
 const upload = multer({ storage })
 
-// GET all toilets
+// Update your toilets.js GET route to pass location info to template
 router.get('/', async (req, res) => {
   const { paid, minRating, location } = req.query;
   let filter = {};
 
+  // Apply paid filter
   if (paid === "true") filter.isPaid = true;
   if (paid === "false") filter.isPaid = false;
 
+  // Apply rating filter
   if (minRating && !isNaN(minRating)) {
     filter.cleanlinessRating = { $gte: parseInt(minRating) };
   }
 
   let toilets = await Toilet.find(filter);
+  let searchedCity = null;
 
-  // If location search is provided, calculate distances and sort
-  if (location) {
+  // IMPROVED location search
+  if (location && location.trim() !== '') {
     try {
-      // Enhanced geocoding with better place types
-      const geocodeUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(location)}.json?country=IN&types=poi,place,address,neighborhood&proximity=79.0882,21.1458&access_token=${process.env.MAPBOX_TOKEN}`;
+      // More flexible geocoding - removed restrictive types
+      const geocodeUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(location)}.json?country=IN&proximity=79.0882,21.1458&limit=1&access_token=${process.env.MAPBOX_TOKEN}`;
+      
       const geoResponse = await axios.get(geocodeUrl);
-
+      
       if (geoResponse.data.features && geoResponse.data.features.length > 0) {
-        const searchCoords = geoResponse.data.features[0].center; // [lng, lat]
+        const cityCenter = geoResponse.data.features[0].center; // [lng, lat]
+        const cityName = geoResponse.data.features[0].place_name;
+        
+        // Extract just city name (before comma)
+        searchedCity = cityName.split(',')[0];
+        
+        // Calculate distances and filter by proximity (100km radius - increased)
+        toilets = toilets.filter(toilet => {
+          if (toilet.geometry && toilet.geometry.coordinates) {
+            const distance = calculateDistance(
+              cityCenter[1], cityCenter[0], // lat, lng of city
+              toilet.geometry.coordinates[1], toilet.geometry.coordinates[0] // lat, lng of toilet
+            );
+            toilet.distance = Math.round(distance * 100) / 100; // Round to 2 decimal places
+            return distance <= 100; // Increased from 50km to 100km
+          }
+          return false;
+        }).sort((a, b) => a.distance - b.distance);
 
-        // Calculate distance for each toilet and add distance field
-        toilets = toilets.map(toilet => {
-          const distance = calculateDistance(
-            searchCoords[1], searchCoords[0], // search lat, lng
-            toilet.geometry.coordinates[1], toilet.geometry.coordinates[0] // toilet lat, lng
-          );
-          return {
-            ...toilet.toObject(),
-            distance: Math.round(distance * 10) / 10 // Round to 1 decimal
-          };
-        });
-
-        // Filter toilets within 1km radius
-        toilets = toilets.filter(toilet => toilet.distance <= 100.0);
-
-        // Sort by distance (closest first)
-        toilets.sort((a, b) => a.distance - b.distance);
+        // Set flash messages based on results
+        if (toilets.length > 0) {
+          req.flash('success', `Found ${toilets.length} toilet${toilets.length > 1 ? 's' : ''} in ${searchedCity}`);
+        } else {
+          req.flash('error', `No toilets found within 100km of ${searchedCity}. Try a broader search or add the first toilet in this area.`);
+        }
+      } else {
+        req.flash('error', 'Location not found. Please try a different search term.');
       }
-    } catch (err) {
-      console.error('Error geocoding location:', err);
-      req.flash('error', 'Could not find the specified location');
+    } catch (error) {
+      console.error('Geocoding error:', error);
+      req.flash('error', 'Could not search for that location. Please try again.');
     }
   }
 
-  res.render('toilets/index', { toilets, paid, minRating, location });
+  // Don't show flash messages for normal browsing
+  let successMessage = null;
+  let errorMessage = null;
+  
+  if (location) {
+    successMessage = req.flash('success');
+    errorMessage = req.flash('error');
+  }
+
+  res.render('toilets/index', { 
+    toilets, 
+    paid, 
+    minRating, 
+    location,
+    searchedCity,
+    success: successMessage,
+    error: errorMessage
+  });
 });
 
-// helper function for calculating distance (Haversine formula)
+
+// Distance calculation helper function
 function calculateDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371; // Radius of the Earth in km
+  const R = 6371; // Earth's radius in kilometers
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
     Math.sin(dLon / 2) * Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const distance = R * c; // Distance in km
-  return distance;
+  return R * c;
 }
 
 
@@ -135,7 +165,10 @@ router.get('/:id', async (req, res) => {
     req.flash('error', 'Toilet not found');
     return res.redirect('/toilets');
   }
-  res.render('toilets/show', { toilet });
+  res.render('toilets/show', {
+    toilet,
+    searchedCity: null
+  });
 });
 
 
@@ -188,12 +221,12 @@ router.put('/:id', isLoggedIn, isAuthor, upload.array('image'), async (req, res)
       // Ensure deleteImages is always an array
       const deleteImages = Array.isArray(req.body.deleteImages) ? req.body.deleteImages : [req.body.deleteImages];
       for (let filename of deleteImages) {
-        await cloudinary.uploader.destroy(filename); 
+        await cloudinary.uploader.destroy(filename);
       }
       toilet.images = toilet.images.filter(img => !deleteImages.includes(img.filename));
     }
 
-    
+
     // Add new images
     if (req.files && req.files.length > 0) {
       const images = req.files.map(f => ({ url: f.path, filename: f.filename }));
