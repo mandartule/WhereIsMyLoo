@@ -131,6 +131,58 @@
   transform: scale(1.1);
 }
 
+/* Team Section */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  justify-items: center;
+  margin-top: 2rem;
+}
+
+.team-member {
+  background: linear-gradient(135deg, #ffffff, #f3f7ff);
+  border-radius: 14px;
+  padding: 1.5rem;
+  width: 180px;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.12);
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.team-member:hover {
+  transform: translateY(-6px);
+}
+
+.team-member img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  border: 3px solid #2563eb;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.12);
+  display: inline-block;
+}
+
+.team-member h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.team-member a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.98rem;
+}
+
+.team-member a:hover {
+  text-decoration: underline;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .about-container {
@@ -140,6 +192,16 @@
     font-size: 2.4rem;
   }
   .about-cards {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 900px) {
+  .team-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .team-grid {
     grid-template-columns: 1fr;
   }
 }
