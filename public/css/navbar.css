@@ -22,10 +22,54 @@ body {
 }
 
 .navbar .navbar-brand {
+  display: flex !important;
+  align-items: center !important;
   color: #111827 !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   font-size: 1.5rem !important;
   letter-spacing: -0.5px !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease !important;
+  /* Remove the gradient text since we're adding a logo */
+  background: none !important;
+  -webkit-text-fill-color: #111827 !important;
+  background-clip: unset !important;
+}
+
+/* Logo styling */
+.navbar-brand img {
+  height: 50px !important; /* Increased from 40px */
+  width: auto !important;
+  margin-right: 0.75rem !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+.navbar-brand:hover img {
+  transform: scale(1.05) !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .navbar-brand img {
+    height: 40px !important; /* Smaller on mobile */
+  }
+  
+  .navbar-brand {
+    font-size: 1.25rem !important;
+  }
+}
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .navbar-brand img {
+    height: 32px !important;
+  }
+  
+  .navbar-brand {
+    font-size: 1.25rem !important;
+  }
 }
 
 .navbar .navbar-nav .nav-link {
@@ -107,10 +151,10 @@ body {
 }
 
 
-/* Logout Button Enhancement */
+/* Update Logout Button to Red Theme */
 .navbar .btn-outline-light.btn-sm {
-  border: 2px solid #e5e7eb !important;
-  color: #6b7280 !important;
+  border: 2px solid #ef4444 !important; /* Changed from #e5e7eb to red */
+  color: #ef4444 !important; /* Changed from #6b7280 to red */
   background: transparent !important;
   border-radius: 20px !important;
   font-weight: 500 !important;
@@ -120,10 +164,29 @@ body {
 }
 
 .navbar .btn-outline-light.btn-sm:hover {
-  border-color: #ef4444 !important;
-  color: #ef4444 !important;
-  background: rgba(239, 68, 68, 0.05) !important;
+  border-color: #dc2626 !important; /* Darker red on hover */
+  color: #ffffff !important; /* White text on hover */
+  background: #ef4444 !important; /* Red background on hover */
   transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3) !important; /* Added red shadow */
+}
+
+/* Responsive - Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+  .navbar .btn-outline-light.btn-sm {
+    padding: 0.4rem 0.8rem !important; /* Slightly smaller on mobile */
+    font-size: 0.8rem !important;
+    border-width: 1.5px !important; /* Thinner border on mobile */
+  }
+}
+
+/* Responsive - Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  .navbar .btn-outline-light.btn-sm {
+    padding: 0.35rem 0.7rem !important; /* Even smaller on small screens */
+    font-size: 0.75rem !important;
+    border-radius: 15px !important; /* Smaller border radius */
+  }
 }
 
 /* Reduce gap between username and logout button */
@@ -138,4 +201,127 @@ body {
 
 .navbar .nav-item {
   margin-left: 0.25rem !important; /* Reduce left margin on nav items */
+}
+
+
+/* Enhanced UI Improvements for WhereIsMyLoo */
+
+/* 1. NAVBAR ENHANCEMENTS */
+.navbar-brand {
+  font-weight: 700 !important;
+  background: linear-gradient(135deg, #2563eb, #10b981) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.navbar .nav-link {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.navbar .nav-link::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 2px !important;
+  background: #2563eb !important;
+  transition: left 0.3s ease !important;
+}
+
+.navbar .nav-link:hover::after {
+  left: 0 !important;
+}
+
+/* 2. ENHANCED SEARCH SECTION */
+.search-card {
+  background: linear-gradient(135deg, #ffffff, #f8fafc) !important;
+  border: none !important;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.search-card::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05), transparent) !important;
+  transition: left 2s ease !important;
+}
+
+.search-card:hover::before {
+  left: 100% !important;
+}
+
+/* 3. FLOATING SEARCH INPUT */
+.elongated-search-input {
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1) !important;
+  border: 2px solid transparent !important;
+  background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #2563eb, #10b981) border-box !important;
+}
+
+/* 4. GLASSMORPHISM CARDS */
+.toilet-card {
+  backdrop-filter: blur(10px) !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  position: relative !important;
+}
+
+.toilet-card::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 4px !important;
+  background: linear-gradient(90deg, #2563eb, #10b981, #f59e0b, #ef4444) !important;
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+}
+
+.toilet-card:hover::before {
+  opacity: 1 !important;
+}
+
+/* 5. ANIMATED ICONS */
+@keyframes pulse-icon {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.feature-icon {
+  animation: pulse-icon 3s ease-in-out infinite !important;
+}
+
+/* 6. ENHANCED BUTTONS */
+.gps-button, .search-button {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+}
+
+.gps-button::before, .search-button::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  transition: width 0.3s ease, height 0.3s ease !important;
+  z-index: -1 !important;
+}
+
+.gps-button:hover::before, .search-button:hover::before {
+  width: 200% !important;
+  height: 200% !important;
 }

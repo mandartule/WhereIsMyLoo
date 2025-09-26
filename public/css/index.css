@@ -1,23 +1,23 @@
 /* Toilets Index Page Styling */
 .page-title {
-    color: #333;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-  
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
 /* Search Card Improvements */
 .search-card {
   background: #ffffff;
   border-radius: 16px;
   padding: 1.75rem;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
 
 .search-card:hover {
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 /* Title */
@@ -64,12 +64,12 @@
 
 .gps-button {
   background: linear-gradient(135deg, #22c55e, #16a34a) !important;
-  box-shadow: 0 3px 8px rgba(34,197,94,0.25) !important;
+  box-shadow: 0 3px 8px rgba(34, 197, 94, 0.25) !important;
 }
 
 .search-button {
   background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
-  box-shadow: 0 3px 8px rgba(37,99,235,0.25) !important;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25) !important;
 }
 
 .gps-button:hover,
@@ -111,7 +111,7 @@
   transition: all 0.3s ease;
 }
 
-.paid-toggle-group input[type="radio"]:checked + label {
+.paid-toggle-group input[type="radio"]:checked+label {
   background: #2563eb;
   color: #fff;
   font-weight: 600;
@@ -137,7 +137,7 @@
 #suggestions {
   margin-top: 0.5rem;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
 }
 
@@ -169,66 +169,66 @@
   }
 }
 
-  
-  .toilet-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-  
-  .toilet-card {
-    background: white;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .toilet-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-  }
-  
-  .toilet-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 0.5rem;
-  }
-  
-  .toilet-location {
-    color: #666;
-    margin-bottom: 1rem;
-  }
-  
-  .toilet-actions {
-    margin-top: auto;
-  }
-  
-  .view-button {
-    background: #007bff;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    text-decoration: none;
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .view-button:hover {
-    background: #0056b3;
-    color: white;
-    text-decoration: none;
-  }
+
+.toilet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.toilet-card {
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.toilet-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.toilet-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.toilet-location {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.toilet-actions {
+  margin-top: auto;
+}
+
+.view-button {
+  background: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.view-button:hover {
+  background: #0056b3;
+  color: white;
+  text-decoration: none;
+}
 
 
-  /* Modern Search Buttons for Index Page */
+/* Modern Search Buttons for Index Page */
 .gps-button {
   background: linear-gradient(135deg, #10b981, #059669) !important;
   color: white !important;
@@ -293,7 +293,7 @@
   text-align: center;
   margin: 2rem auto;
   max-width: 400px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -315,6 +315,7 @@
   gap: 0.5rem;
   margin-bottom: 1rem;
 }
+
 .elongated-search-input {
   flex: 1 1 300px;
   min-width: 0;
@@ -339,10 +340,12 @@
   border-radius: 8px;
   padding: 0.3rem 0.8rem;
 }
+
 .paid-toggle-group input[type="radio"] {
   accent-color: #2563eb;
   margin-right: 0.2rem;
 }
+
 .paid-toggle-group label {
   margin-right: 0.7rem;
   font-weight: 500;
@@ -366,25 +369,25 @@
     padding: 1rem !important;
     margin: 1rem !important;
   }
-  
+
   .search-card h3 {
     font-size: 1.25rem !important;
     margin-bottom: 1rem !important;
   }
-  
+
   /* Stack search elements vertically on mobile */
   .search-row {
     flex-direction: column !important;
     gap: 1rem !important;
     margin-bottom: 1.5rem !important;
   }
-  
+
   .elongated-search-input {
     width: 100% !important;
     flex: none !important;
     order: 1;
   }
-  
+
   /* Button row for mobile */
   .mobile-button-row {
     display: flex !important;
@@ -392,7 +395,7 @@
     width: 100% !important;
     order: 2;
   }
-  
+
   .gps-button,
   .search-button {
     flex: 1 !important;
@@ -401,24 +404,24 @@
     font-size: 0.9rem !important;
     white-space: nowrap !important;
   }
-  
+
   /* Stack filters vertically on mobile */
   .search-filters-row {
     flex-direction: column !important;
     gap: 1rem !important;
     align-items: stretch !important;
   }
-  
+
   .paid-toggle-group {
     justify-content: center !important;
     padding: 0.75rem !important;
     width: 100% !important;
   }
-  
+
   .review-filter-group {
     width: 100% !important;
   }
-  
+
   .review-filter-group select {
     width: 100% !important;
     min-width: auto !important;
@@ -430,14 +433,48 @@
     margin: 0.5rem !important;
     padding: 0.75rem !important;
   }
-  
+
   .gps-button,
   .search-button {
     font-size: 0.85rem !important;
     padding: 0.65rem 0.75rem !important;
   }
-  
+
   .paid-toggle-group label {
     font-size: 0.9rem !important;
+  }
+
+  /* Add to your index.css file - fix search section */
+
+  /* ENHANCED SEARCH SECTION - Add to index.css */
+  .search-card {
+    background: linear-gradient(135deg, #ffffff, #f8fafc) !important;
+    border: none !important;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 16px !important;
+  }
+
+  .search-card::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05), transparent) !important;
+    transition: left 2s ease !important;
+  }
+
+  .search-card:hover::before {
+    left: 100% !important;
+  }
+
+  /* FLOATING SEARCH INPUT */
+  .elongated-search-input {
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1) !important;
+    border: 2px solid transparent !important;
+    background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #2563eb, #10b981) border-box !important;
   }
 }
